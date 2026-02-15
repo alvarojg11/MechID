@@ -11,8 +11,8 @@ st.set_page_config(
     layout="centered"
 )
 st.markdown("""
-<h1 style='text-align:center; color:#1f6f4a; font-weight:800; margin-bottom:0.2rem;'>
-MechID
+<h1 style='text-align:center; font-size:3rem; letter-spacing:-0.02em; margin-bottom:0.2rem;'>
+<span style='font-weight:800; color:var(--foreground);'>Mech</span><span style='font-weight:600; color:#0f1a13cc;'>ID</span>
 </h1>
 <h3 style='text-align:center; color:#2f8059; margin-top:0;'>
 Mechanism-Based Interpretation of Antibiograms
@@ -2268,8 +2268,8 @@ if group == "Gram-negatives":
     if mechs:
         for m in mechs:
             st.markdown(f"""
-            <div style="border-left:4px solid #c62828; padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:#ffebee;">
-            {badge("Mechanism", bg="#c62828")} {m}
+            <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+            {badge("Mechanism", bg="var(--primary)")} {m}
              </div>
             """, unsafe_allow_html=True)
 
@@ -2279,16 +2279,16 @@ if group == "Gram-negatives":
     if banners:
         for b in banners:
             st.markdown(f"""
-            <div style="border-left:4px solid #f9a825; padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:#fffde7;">
-            {badge("Caution", bg="#f9a825", fg="#000000")} {b}
+            <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+            {badge("Caution", bg="var(--muted)", fg="#ffffff")} {b}
             </div>
             """, unsafe_allow_html=True)
 
     if greens:
         for g in greens:
             st.markdown(f"""
-            <div style="border-left:4px solid #2e7d32; padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:#e8f5e9;">
-            {badge("Favorable", bg="#2e7d32")} {g}
+            <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+            {badge("Favorable", bg="var(--primary)")} {g}
             </div>
             """, unsafe_allow_html=True)
 
@@ -2306,8 +2306,8 @@ if group == "Gram-negatives":
     if gnotes:
         for note in gnotes:
             st.markdown(f"""
-            <div style="border-left:4px solid #00838f; padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:#e0f7fa;">
-            {badge("Therapy", bg="#00838f")} {note}
+            <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+            {badge("Therapy", bg="var(--primary)")} {note}
             </div>
             """, unsafe_allow_html=True)
 
@@ -2396,8 +2396,8 @@ if group == "Enterococcus":
     if mechs_e:
         for m in mechs_e:
             st.markdown(f"""
-            <div style="border-left:4px solid #c62828; padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:#ffebee;">
-                {badge("Mechanism", bg="#c62828")} {m}
+            <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+                {badge("Mechanism", bg="var(--primary)")} {m}
             </div>
             """, unsafe_allow_html=True)
     else:
@@ -2405,15 +2405,15 @@ if group == "Enterococcus":
 
     for b in banners_e:
         st.markdown(f"""
-        <div style="border-left:4px solid #f9a825; padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:#fffde7;">
-            {badge("Caution", bg="#f9a825", fg="#000000")} {b}
+        <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+            {badge("Caution", bg="var(--muted)", fg="#ffffff")} {b}
         </div>
         """, unsafe_allow_html=True)
 
     for g in greens_e:
         st.markdown(f"""
-        <div style="border-left:4px solid #2e7d32; padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:#e8f5e9;">
-            {badge("Favorable", bg="#2e7d32")} {g}
+        <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+            {badge("Favorable", bg="var(--primary)")} {g}
         </div>
         """, unsafe_allow_html=True)
 
@@ -2430,8 +2430,8 @@ if group == "Enterococcus":
     if gnotes_e:
         for note in gnotes_e:
             st.markdown(f"""
-            <div style="border-left:4px solid #00838f; padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:#e0f7fa;">
-                {badge("Therapy", bg="#00838f")} {note}
+            <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+                {badge("Therapy", bg="var(--primary)")} {note}
             </div>
             """, unsafe_allow_html=True)
     else:
@@ -2554,8 +2554,8 @@ if group == "Staphylococci":
     if gnotes_st:
         for note in gnotes_st:
             st.markdown(f"""
-            <div style="border-left:4px solid #00838f; padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:#e0f7fa;">
-            {badge("Therapy", bg="#00838f")} {note}
+            <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+            {badge("Therapy", bg="var(--primary)")} {note}
             </div>
             """, unsafe_allow_html=True)
     else:
@@ -2657,8 +2657,8 @@ if group == "Streptococcus":
         if gnotes_s:
             for note in gnotes_s:
                 st.markdown(f"""
-                <div style="border-left:4px solid #00838f; padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:#e0f7fa;">
-                {badge("Therapy", bg="#00838f")} {note}
+                <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+                {badge("Therapy", bg="var(--primary)")} {note}
                 </div>
                 """, unsafe_allow_html=True)
 
@@ -2742,8 +2742,8 @@ if group == "Streptococcus":
         if gnotes_b:
             for note in gnotes_b:
                 st.markdown(f"""
-                <div style="border-left:4px solid #00838f; padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:#e0f7fa;">
-                {badge("Therapy", bg="#00838f")} {note}
+                <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+                {badge("Therapy", bg="var(--primary)")} {note}
                 </div>
                 """, unsafe_allow_html=True)
 
@@ -2818,8 +2818,8 @@ if group == "Streptococcus":
         if gnotes_v:
             for note in gnotes_v:
                 st.markdown(f"""
-                <div style="border-left:4px solid #00838f; padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:#e0f7fa;">
-                {badge("Therapy", bg="#00838f")} {note}
+                <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+                {badge("Therapy", bg="var(--primary)")} {note}
                 </div>
                 """, unsafe_allow_html=True)
 
