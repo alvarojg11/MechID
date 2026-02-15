@@ -1,9 +1,3 @@
- (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
-diff --git a/app_gnr.py b/app_gnr.py
-index e50ad737be04e868cc3ea4c9805f5b0d0078b4a3..3f001f27d4f685e94052a5c4a1fbbeea0caaf24c 100644
---- a/app_gnr.py
-+++ b/app_gnr.py
-@@ -1,102 +1,121 @@
  import streamlit as st
  import pandas as pd
  from collections import defaultdict
