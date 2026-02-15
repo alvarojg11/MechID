@@ -11,56 +11,20 @@ st.set_page_config(
     layout="centered"
 )
 st.markdown("""
-<h1 style='text-align:center; color:#8e24aa; font-weight:800; margin-bottom:0.2rem;'>
 <h1 style='text-align:center; color:#1f6f4a; font-weight:800; margin-bottom:0.2rem;'>
 MechID
 </h1>
-<h3 style='text-align:center; color:#6a1b9a; margin-top:0;'>
 <h3 style='text-align:center; color:#155239; margin-top:0;'>
 Mechanism-Based Interpretation of Antibiograms
 </h3>
-<p style='text-align:center; color:#607d8b; font-size:0.9rem;'>
 <p style='text-align:center; color:#3f5649; font-size:0.9rem;'>
 From MIC patterns to likely resistance mechanisms and practical therapy notes.<br>
 Heuristic output — always confirm with your microbiology lab, ID consult, and IDSA/CLSI guidance.
 </p>
 """, unsafe_allow_html=True)
 
-# Theme toggle (use toggle if your Streamlit has it, otherwise checkbox)
-try:
-    dark_mode = st.toggle("🌗 Dark mode", value=False)
-except AttributeError:
-    dark_mode = st.checkbox("🌗 Dark mode", value=False)
-
-
-# Define light + dark backgrounds
-LIGHT_BG = "#f5f7fa"   # soft warm gray
-DARK_BG  = "#111827"   # near-black, like Tailwind gray-900
-LIGHT_TEXT = "#111827"
-DARK_TEXT  = "#e5e7eb"
-
-bg_color   = DARK_BG if dark_mode else LIGHT_BG
-text_color = DARK_TEXT if dark_mode else LIGHT_TEXT
-
-st.markdown(f"""
 IDHUB_THEME_CSS = """
 <style>
-    /* App background */
-    .stApp {{
-        background-color: {bg_color};
-        color: {text_color};
-    }}
-
-    /* Make default text respect our color (most markdown, captions, etc.) */
-    .stMarkdown, .stText, .stCaption, .stMetric {{
-        color: {text_color};
-    }}
-
-    /* Optional: tweak sidebar to match */
-    section[data-testid="stSidebar"] {{
-        background-color: {bg_color};
-        color: {text_color};
-    }}
     :root {
         --background: #e7f1ea;
         --foreground: #0f1a13;
@@ -113,7 +77,6 @@ IDHUB_THEME_CSS = """
         border: 1px solid var(--primary) !important;
     }
 </style>
-""", unsafe_allow_html=True)
 """
 
 st.markdown(IDHUB_THEME_CSS, unsafe_allow_html=True)
@@ -128,12 +91,10 @@ def fancy_divider():
         border:0;
         height:2px;
         margin:1.5rem 0 1rem 0;
-        background: linear-gradient(to right, #8e24aa, #6a1b9a, #26a69a);
         background: linear-gradient(to right, #1f6f4a, #155239, #4d8f6f);
     ">
     """, unsafe_allow_html=True)
 
-def badge(text, bg="#8e24aa", fg="#ffffff"):
 def badge(text, bg="#1f6f4a", fg="#ffffff"):
     html = f"""
     <span style="
@@ -186,7 +147,6 @@ def run_mechanisms_and_therapy_for(org, final_results):
 st.markdown("""
 <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
     background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
@@ -205,7 +165,6 @@ if group == "Gram-negatives":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
     background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
@@ -222,7 +181,6 @@ if group == "Gram-negatives":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
     background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
@@ -275,7 +233,6 @@ if group == "Gram-negatives":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
     background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
@@ -316,7 +273,6 @@ if group == "Gram-negatives":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
     background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
@@ -349,7 +305,6 @@ if group == "Enterococcus":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
     background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
@@ -380,7 +335,6 @@ if group == "Enterococcus":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
     background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
@@ -407,7 +361,6 @@ if group == "Enterococcus":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
     background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
@@ -444,7 +397,6 @@ if group == "Enterococcus":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
     background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
@@ -478,7 +430,6 @@ if group == "Staphylococci":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
     background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
@@ -511,7 +462,6 @@ if group == "Staphylococci":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
     background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
@@ -536,7 +486,6 @@ if group == "Staphylococci":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
     background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
@@ -565,7 +514,6 @@ if group == "Staphylococci":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
     background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
@@ -607,7 +555,6 @@ if group == "Streptococcus":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
     background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
@@ -632,7 +579,6 @@ if group == "Streptococcus":
         st.markdown("""
         <h2 style='text-align:center;
         font-weight:800;
-        background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
         background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;'>
@@ -656,7 +602,6 @@ if group == "Streptococcus":
         st.markdown("""
         <h2 style='text-align:center;
         font-weight:800;
-        background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
         background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;'>
@@ -679,7 +624,6 @@ if group == "Streptococcus":
         st.markdown("""
         <h2 style='text-align:center;
         font-weight:800;
-        background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
         background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;'>
@@ -720,7 +664,6 @@ if group == "Streptococcus":
         st.markdown("""
         <h2 style='text-align:center;
         font-weight:800;
-        background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
         background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;'>
@@ -744,7 +687,6 @@ if group == "Streptococcus":
         st.markdown("""
         <h2 style='text-align:center;
         font-weight:800;
-        background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
         background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;'>
@@ -767,7 +709,6 @@ if group == "Streptococcus":
         st.markdown("""
         <h2 style='text-align:center;
         font-weight:800;
-        background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
         background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;'>
@@ -799,7 +740,6 @@ if group == "Streptococcus":
         st.markdown("""
         <h2 style='text-align:center;
         font-weight:800;
-        background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
         background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;'>
@@ -823,7 +763,6 @@ if group == "Streptococcus":
         st.markdown("""
         <h2 style='text-align:center;
         font-weight:800;
-        background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
         background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;'>
@@ -846,7 +785,6 @@ if group == "Streptococcus":
         st.markdown("""
         <h2 style='text-align:center;
         font-weight:800;
-        background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
         background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;'>
