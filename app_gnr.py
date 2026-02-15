@@ -23,21 +23,15 @@ st.set_page_config(
 )
 13
 st.markdown("""
-14
 <h1 style='text-align:center; color:#1f6f4a; font-weight:800; margin-bottom:0.2rem;'>
-15
 MechID
 16
 </h1>
-17
 <h3 style='text-align:center; color:#155239; margin-top:0;'>
-18
 Mechanism-Based Interpretation of Antibiograms
 19
 </h3>
-20
 <p style='text-align:center; color:#3f5649; font-size:0.9rem;'>
-21
 From MIC patterns to likely resistance mechanisms and practical therapy notes.<br>
 22
 Heuristic output — always confirm with your microbiology lab, ID consult, and IDSA/CLSI guidance.
@@ -47,121 +41,63 @@ Heuristic output — always confirm with your microbiology lab, ID consult, and 
 """, unsafe_allow_html=True)
 25
 
-26
 IDHUB_THEME_CSS = """
-27
 <style>
-28
     :root {
-29
         --background: #e7f1ea;
-30
         --foreground: #0f1a13;
-31
         --card: #f7fbf8;
-32
         --card2: #ffffff;
-33
         --border: #cfe0d4;
-34
         --muted: #3f5649;
-35
         --primary: #1f6f4a;
-36
     }
-37
 
-38
     [data-theme="dark"], [data-theme="light"], .stApp {
-39
         color-scheme: light !important;
-40
         --background: #e7f1ea;
-41
         --foreground: #0f1a13;
-42
         --card: #f7fbf8;
-43
         --card2: #ffffff;
-44
         --border: #cfe0d4;
-45
         --muted: #3f5649;
-46
         --primary: #1f6f4a;
-47
     }
-48
 
-49
     .stApp {
-50
         background: radial-gradient(1200px 800px at 20% 0%, #f1faf4 0%, var(--background) 55%);
-51
         color: var(--foreground);
-52
         font-family: Arial, Helvetica, sans-serif;
-53
     }
-54
 
-55
     .stMarkdown, .stText, .stCaption, .stMetric, label, p, li, span {
-56
         color: var(--foreground);
-57
     }
-58
 
-59
     section[data-testid="stSidebar"] {
-60
         background: var(--card);
-61
         color: var(--foreground);
-62
         border-right: 1px solid var(--border);
-63
     }
-64
 
-65
     div[data-baseweb="select"] > div,
-66
     .stTextInput input,
-67
     .stNumberInput input,
-68
     .stTextArea textarea {
-69
         background: var(--card2) !important;
-70
         color: var(--foreground) !important;
-71
         border: 1px solid var(--border) !important;
-72
     }
-73
 
-74
     .stButton button {
-75
         background: var(--primary) !important;
-76
         color: #ffffff !important;
-77
         border: 1px solid var(--primary) !important;
-78
     }
-79
 </style>
-80
 """
-81
 
-82
 st.markdown(IDHUB_THEME_CSS, unsafe_allow_html=True)
-83
 
 84
 
@@ -183,9 +119,7 @@ def fancy_divider():
         height:2px;
 93
         margin:1.5rem 0 1rem 0;
-94
         background: linear-gradient(to right, #1f6f4a, #155239, #4d8f6f);
-95
     ">
 96
     """, unsafe_allow_html=True)
@@ -211,9 +145,7 @@ def render_section_header(title):
     )
 107
 
-108
 def badge(text, bg="#1f6f4a", fg="#ffffff"):
-109
     html = f"""
 110
     <span style="
@@ -314,9 +246,15 @@ def run_mechanisms_and_therapy_for(org, final_results):
 # UI: Title + group selector
 2183
 # ======================
-2184
-render_section_header("Select Pathogen Group")
-2185
+st.markdown("""
+<h2 style='text-align:center;
+    font-weight:800;
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;'>
+Select Pathogen Group
+</h2>
+""", unsafe_allow_html=True)
 st.caption("Enter results only for antibiotics **actually tested** for the chosen organism. Non-tested agents are hidden.")
 2186
 
@@ -334,9 +272,15 @@ group = st.selectbox("Pathogen group", group_options, index=0, key="pathogen_gro
 # ======================
 2193
 if group == "Gram-negatives":
-2194
-    render_section_header("Gram Negatives")
-2195
+    st.markdown("""
+    <h2 style='text-align:center;
+    font-weight:800;
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;'>
+    Gram Negatives
+    </h2>
+    """, unsafe_allow_html=True)
 
 2196
     organisms = sorted(GNR_CANON)
@@ -350,9 +294,15 @@ if group == "Gram-negatives":
     rules = RULES.get(organism, {"intrinsic_resistance": [], "cascade": []})
 2201
 
-2202
-    render_section_header("Susceptibility Inputs")
-2203
+    st.markdown("""
+    <h2 style='text-align:center;
+    font-weight:800;
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;'>
+    Susceptibility Inputs
+    </h2>
+    """, unsafe_allow_html=True)
     st.caption("Leave blank for untested/unknown.")
 2204
 
@@ -448,9 +398,15 @@ if group == "Gram-negatives":
     # ===== Mechanisms + Therapy via registry =====
 2250
     fancy_divider()
-2251
-    render_section_header("Mechanism of Resistance")
-2252
+    st.markdown("""
+    <h2 style='text-align:center;
+    font-weight:800;
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;'>
+    Mechanism of Resistance
+    </h2>
+    """, unsafe_allow_html=True)
     mechs, banners, greens, gnotes = run_mechanisms_and_therapy_for(organism, final)
 2253
 
@@ -512,9 +468,15 @@ if group == "Gram-negatives":
 
 2282
     fancy_divider()
-2283
-    render_section_header("Therapy Guidance")
-2284
+    st.markdown("""
+    <h2 style='text-align:center;
+    font-weight:800;
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;'>
+    Therapy Guidance
+    </h2>
+    """, unsafe_allow_html=True)
     if gnotes:
 2285
         for note in gnotes:
@@ -560,9 +522,15 @@ if group == "Gram-negatives":
 # ======================
 2306
 if group == "Enterococcus":
-2307
-    render_section_header("Enterococcus")
-2308
+    st.markdown("""
+    <h2 style='text-align:center;
+    font-weight:800;
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;'>
+    Enterococcus
+    </h2>
+    """, unsafe_allow_html=True)
     ENTERO_ORGS = ["Enterococcus faecalis", "Enterococcus faecium"]
 2309
     organism_e = st.selectbox("Organism (Enterococcus)", ENTERO_ORGS, key="enterococcus_org")
@@ -604,9 +572,15 @@ if group == "Enterococcus":
         intrinsic_e["Penicillin"] = True
 2328
 
-2329
-    render_section_header("Susceptibility Inputs")
-2330
+    st.markdown("""
+    <h2 style='text-align:center;
+    font-weight:800;
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;'>
+    Susceptibility Inputs
+    </h2>
+    """, unsafe_allow_html=True)
     st.caption("Leave blank for untested/unknown.")
 2331
     user_e, final_e = _collect_panel_inputs(PANEL_E, intrinsic_e, keyprefix="E_ab")
@@ -640,9 +614,15 @@ if group == "Enterococcus":
     # ===== Mechanisms + Therapy via registry =====
 2346
     fancy_divider()
-2347
-    render_section_header("Mechanism of Resistance")
-2348
+    st.markdown("""
+    <h2 style='text-align:center;
+    font-weight:800;
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;'>
+    Mechanism of Resistance
+    </h2>
+    """, unsafe_allow_html=True)
     mechs_e, banners_e, greens_e, gnotes_e = run_mechanisms_and_therapy_for(organism_e, final_e)
 2349
 
@@ -696,9 +676,15 @@ if group == "Enterococcus":
 
 2374
     fancy_divider()
-2375
-    render_section_header("Therapy Guidance")
-2376
+    st.markdown("""
+    <h2 style='text-align:center;
+    font-weight:800;
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;'>
+    Therapy Guidance
+    </h2>
+    """, unsafe_allow_html=True)
     if gnotes_e:
 2377
         for note in gnotes_e:
@@ -746,9 +732,15 @@ if group == "Enterococcus":
 # ======================
 2399
 if group == "Staphylococci":
-2400
-    render_section_header("Staphylococci")
-2401
+    st.markdown("""
+    <h2 style='text-align:center;
+    font-weight:800;
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;'>
+    Staphylococci
+    </h2>
+    """, unsafe_allow_html=True)
 
 2402
     STAPH_ORGS = [
@@ -794,9 +786,15 @@ if group == "Staphylococci":
 
 2423
     # Inputs
-2424
-    render_section_header("Susceptibility Inputs")
-2425
+    st.markdown("""
+    <h2 style='text-align:center;
+    font-weight:800;
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;'>
+    Susceptibility Inputs
+    </h2>
+    """, unsafe_allow_html=True)
     st.caption("Leave blank for untested/unknown.")
 2426
     user_st, final_st = _collect_panel_inputs(PANEL_ST, intrinsic_st, keyprefix="STAPH_ab")
@@ -826,9 +824,15 @@ if group == "Staphylococci":
     # Mechanisms / banners / greens via registry
 2439
     fancy_divider()
-2440
-    render_section_header("Mechanism of Resistance")
-2441
+    st.markdown("""
+    <h2 style='text-align:center;
+    font-weight:800;
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;'>
+    Mechanism of Resistance
+    </h2>
+    """, unsafe_allow_html=True)
     # ---- Mechanisms & guidance via registry ----
 2442
     mechs_st, banners_st, greens_st = [], [], []
@@ -866,9 +870,15 @@ if group == "Staphylococci":
     # Therapy guidance
 2459
     fancy_divider()
-2460
-    render_section_header("Therapy Guidance")
-2461
+    st.markdown("""
+    <h2 style='text-align:center;
+    font-weight:800;
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;'>
+    Therapy Guidance
+    </h2>
+    """, unsafe_allow_html=True)
 
 2462
     tx_fn = TX_REGISTRY.get(organism_st)
@@ -932,9 +942,15 @@ if group == "Staphylococci":
 # ======================
 2492
 if group == "Streptococcus":
-2493
-    render_section_header("Streptococcus")
-2494
+    st.markdown("""
+    <h2 style='text-align:center;
+    font-weight:800;
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;'>
+    Streptococcus
+    </h2>
+    """, unsafe_allow_html=True)
     STREP_GROUP = st.selectbox(
 2495
         "Strep group",
@@ -964,9 +980,15 @@ if group == "Streptococcus":
         intrinsic_spn = {ab: False for ab in PANEL_SPN}
 2508
 
-2509
-        render_section_header("Susceptibility Inputs")
-2510
+        st.markdown("""
+        <h2 style='text-align:center;
+        font-weight:800;
+        background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;'>
+        Susceptibility Inputs
+        </h2>
+        """, unsafe_allow_html=True)
         st.caption("Leave blank for untested/unknown.")
 2511
         user_s, final_s = _collect_panel_inputs(PANEL_SPN, intrinsic_spn, keyprefix="SPN_ab")
@@ -994,9 +1016,15 @@ if group == "Streptococcus":
         # ===== Mechanisms + Therapy via registry =====
 2523
         fancy_divider()
-2524
-        render_section_header("Mechanism of Resistance")
-2525
+        st.markdown("""
+        <h2 style='text-align:center;
+        font-weight:800;
+        background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;'>
+        Mechanism of Resistance
+        </h2>
+        """, unsafe_allow_html=True)
         mechs_s, banners_s, greens_s, gnotes_s = run_mechanisms_and_therapy_for("Streptococcus pneumoniae", final_s)
 2526
 
@@ -1022,9 +1050,15 @@ if group == "Streptococcus":
 
 2537
         fancy_divider()
-2538
-        render_section_header("Therapy Guidance")
-2539
+        st.markdown("""
+        <h2 style='text-align:center;
+        font-weight:800;
+        background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;'>
+        Therapy Guidance
+        </h2>
+        """, unsafe_allow_html=True)
         if gnotes_s:
 2540
             for note in gnotes_s:
@@ -1086,9 +1120,15 @@ if group == "Streptococcus":
         intrinsic_bhs = {ab: False for ab in PANEL_BHS}
 2569
 
-2570
-        render_section_header("Susceptibility Inputs")
-2571
+        st.markdown("""
+        <h2 style='text-align:center;
+        font-weight:800;
+        background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;'>
+        Susceptibility Inputs
+        </h2>
+        """, unsafe_allow_html=True)
         st.caption("Leave blank for untested/unknown.")
 2572
         user_b, final_b = _collect_panel_inputs(PANEL_BHS, intrinsic_bhs, keyprefix="BHS_ab")
@@ -1116,9 +1156,15 @@ if group == "Streptococcus":
         # ===== Mechanisms + Therapy via registry =====
 2584
         fancy_divider()
-2585
-        render_section_header("Mechanism of Resistance")
-2586
+        st.markdown("""
+        <h2 style='text-align:center;
+        font-weight:800;
+        background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;'>
+        Mechanism of Resistance
+        </h2>
+        """, unsafe_allow_html=True)
         mechs_b, banners_b, greens_b, gnotes_b = run_mechanisms_and_therapy_for("β-hemolytic Streptococcus (GAS/GBS)", final_b)
 2587
 
@@ -1144,9 +1190,15 @@ if group == "Streptococcus":
 
 2598
         fancy_divider()
-2599
-        render_section_header("Therapy Guidance")
-2600
+        st.markdown("""
+        <h2 style='text-align:center;
+        font-weight:800;
+        background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;'>
+        Therapy Guidance
+        </h2>
+        """, unsafe_allow_html=True)
         if gnotes_b:
 2601
             for note in gnotes_b:
@@ -1190,9 +1242,15 @@ if group == "Streptococcus":
         intrinsic_vgs = {ab: False for ab in PANEL_VGS}
 2621
 
-2622
-        render_section_header("Susceptibility Inputs")
-2623
+        st.markdown("""
+        <h2 style='text-align:center;
+        font-weight:800;
+        background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;'>
+        Susceptibility Inputs
+        </h2>
+        """, unsafe_allow_html=True)
         st.caption("Leave blank for untested/unknown.")
 2624
         user_v, final_v = _collect_panel_inputs(PANEL_VGS, intrinsic_vgs, keyprefix="VGS_ab")
@@ -1220,9 +1278,15 @@ if group == "Streptococcus":
         # ===== Mechanisms + Therapy via registry =====
 2636
         fancy_divider()
-2637
-        render_section_header("Mechanism of Resistance")
-2638
+        st.markdown("""
+        <h2 style='text-align:center;
+        font-weight:800;
+        background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;'>
+        Mechanism of Resistance
+        </h2>
+        """, unsafe_allow_html=True)
         mechs_v, banners_v, greens_v, gnotes_v = run_mechanisms_and_therapy_for("Viridans group streptococci (VGS)", final_v)
 2639
 
@@ -1248,9 +1312,15 @@ if group == "Streptococcus":
 
 2650
         fancy_divider()
-2651
-        render_section_header("Therapy Guidance")
-2652
+        st.markdown("""
+        <h2 style='text-align:center;
+        font-weight:800;
+        background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;'>
+        Therapy Guidance
+        </h2>
+        """, unsafe_allow_html=True)
         if gnotes_v:
 2653
             for note in gnotes_v:
