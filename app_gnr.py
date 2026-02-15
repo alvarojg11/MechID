@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from collections import defaultdict
+from textwrap import dedent
 
 # ======================
 # Page setup
@@ -43,7 +44,7 @@ bg_color   = DARK_BG if dark_mode else LIGHT_BG
 text_color = DARK_TEXT if dark_mode else LIGHT_TEXT
 
 st.markdown(f"""
-st.markdown("""
+IDHUB_THEME_CSS = dedent('''
 <style>
     /* App background */
     .stApp {{
@@ -114,6 +115,9 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
+''')
+
+st.markdown(IDHUB_THEME_CSS, unsafe_allow_html=True)
 
 
 # ======================
@@ -157,7 +161,7 @@ MECH_REF_MAP = {
         "IDSA Guidance for ESBL-producing Enterobacterales (latest).",
         "Paterson DL, Bonomo RA. Extended-Spectrum β-Lactamases: a clinical update. Clin Microbiol Rev."
     ],
-@@ -2131,85 +2150,85 @@ TX_REGISTRY = {
+@@ -2131,85 +2153,85 @@ TX_REGISTRY = {
     if "therapy" in cfg
 }
 
@@ -246,7 +250,7 @@ if group == "Gram-negatives":
         st.info("**Intrinsic resistance to:** " + ", ".join(intrinsic))
 
     # Apply cascade rules
-@@ -2222,603 +2241,603 @@ if group == "Gram-negatives":
+@@ -2222,603 +2244,603 @@ if group == "Gram-negatives":
         final[k] = v
     for ab in intrinsic:
         final[ab] = "Resistant"
