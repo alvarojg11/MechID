@@ -11,54 +11,75 @@ st.set_page_config(
     layout="centered"
 )
 st.markdown("""
-<h1 style='text-align:center; color:#8e24aa; font-weight:800; margin-bottom:0.2rem;'>
+<h1 style='text-align:center; color:#1f6f4a; font-weight:800; margin-bottom:0.2rem;'>
 MechID
 </h1>
-<h3 style='text-align:center; color:#6a1b9a; margin-top:0;'>
+<h3 style='text-align:center; color:#155239; margin-top:0;'>
 Mechanism-Based Interpretation of Antibiograms
 </h3>
-<p style='text-align:center; color:#607d8b; font-size:0.9rem;'>
+<p style='text-align:center; color:#3f5649; font-size:0.9rem;'>
 From MIC patterns to likely resistance mechanisms and practical therapy notes.<br>
 Heuristic output — always confirm with your microbiology lab, ID consult, and IDSA/CLSI guidance.
 </p>
 """, unsafe_allow_html=True)
 
-# Theme toggle (use toggle if your Streamlit has it, otherwise checkbox)
-try:
-    dark_mode = st.toggle("🌗 Dark mode", value=False)
-except AttributeError:
-    dark_mode = st.checkbox("🌗 Dark mode", value=False)
-
-
-# Define light + dark backgrounds
-LIGHT_BG = "#f5f7fa"   # soft warm gray
-DARK_BG  = "#111827"   # near-black, like Tailwind gray-900
-LIGHT_TEXT = "#111827"
-DARK_TEXT  = "#e5e7eb"
-
-bg_color   = DARK_BG if dark_mode else LIGHT_BG
-text_color = DARK_TEXT if dark_mode else LIGHT_TEXT
-
-st.markdown(f"""
+IDHUB_THEME_CSS = """
 <style>
-    /* App background */
-    .stApp {{
-        background-color: {bg_color};
-        color: {text_color};
-    }}
+    :root {
+        --background: #e7f1ea;
+        --foreground: #0f1a13;
+        --card: #f7fbf8;
+        --card2: #ffffff;
+        --border: #cfe0d4;
+        --muted: #3f5649;
+        --primary: #1f6f4a;
+    }
 
-    /* Make default text respect our color (most markdown, captions, etc.) */
-    .stMarkdown, .stText, .stCaption, .stMetric {{
-        color: {text_color};
-    }}
+    [data-theme="dark"], [data-theme="light"], .stApp {
+        color-scheme: light !important;
+        --background: #e7f1ea;
+        --foreground: #0f1a13;
+        --card: #f7fbf8;
+        --card2: #ffffff;
+        --border: #cfe0d4;
+        --muted: #3f5649;
+        --primary: #1f6f4a;
+    }
 
-    /* Optional: tweak sidebar to match */
-    section[data-testid="stSidebar"] {{
-        background-color: {bg_color};
-        color: {text_color};
-    }}
+    .stApp {
+        background: radial-gradient(1200px 800px at 20% 0%, #f1faf4 0%, var(--background) 55%);
+        color: var(--foreground);
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .stMarkdown, .stText, .stCaption, .stMetric, label, p, li, span {
+        color: var(--foreground);
+    }
+
+    section[data-testid="stSidebar"] {
+        background: var(--card);
+        color: var(--foreground);
+        border-right: 1px solid var(--border);
+    }
+
+    div[data-baseweb="select"] > div,
+    .stTextInput input,
+    .stNumberInput input,
+    .stTextArea textarea {
+        background: var(--card2) !important;
+        color: var(--foreground) !important;
+        border: 1px solid var(--border) !important;
+    }
+
+    .stButton button {
+        background: var(--primary) !important;
+        color: #ffffff !important;
+        border: 1px solid var(--primary) !important;
+    }
 </style>
-""", unsafe_allow_html=True)
+"""
+
+st.markdown(IDHUB_THEME_CSS, unsafe_allow_html=True)
 
 
 # ======================
@@ -70,11 +91,11 @@ def fancy_divider():
         border:0;
         height:2px;
         margin:1.5rem 0 1rem 0;
-        background: linear-gradient(to right, #8e24aa, #6a1b9a, #26a69a);
+        background: linear-gradient(to right, #1f6f4a, #155239, #4d8f6f);
     ">
     """, unsafe_allow_html=True)
 
-def badge(text, bg="#8e24aa", fg="#ffffff"):
+def badge(text, bg="#1f6f4a", fg="#ffffff"):
     html = f"""
     <span style="
         display:inline-block;
@@ -2153,7 +2174,7 @@ def run_mechanisms_and_therapy_for(org, final_results):
 st.markdown("""
 <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
 Select Pathogen Group
@@ -2171,7 +2192,7 @@ if group == "Gram-negatives":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
     Gram Negatives
@@ -2187,7 +2208,7 @@ if group == "Gram-negatives":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
     Susceptibility Inputs
@@ -2244,7 +2265,7 @@ if group == "Gram-negatives":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
     Mechanism of Resistance
@@ -2284,7 +2305,7 @@ if group == "Gram-negatives":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
     Therapy Guidance
@@ -2316,7 +2337,7 @@ if group == "Enterococcus":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
     Enterococcus
@@ -2346,7 +2367,7 @@ if group == "Enterococcus":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
     Susceptibility Inputs
@@ -2372,7 +2393,7 @@ if group == "Enterococcus":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
     Mechanism of Resistance
@@ -2408,7 +2429,7 @@ if group == "Enterococcus":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
     Therapy Guidance
@@ -2441,7 +2462,7 @@ if group == "Staphylococci":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
     Staphylococci
@@ -2473,7 +2494,7 @@ if group == "Staphylococci":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
     Susceptibility Inputs
@@ -2497,7 +2518,7 @@ if group == "Staphylococci":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
     Mechanism of Resistance
@@ -2525,7 +2546,7 @@ if group == "Staphylococci":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
     Therapy Guidance
@@ -2566,7 +2587,7 @@ if group == "Streptococcus":
     st.markdown("""
     <h2 style='text-align:center;
     font-weight:800;
-    background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+    background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;'>
     Streptococcus
@@ -2590,7 +2611,7 @@ if group == "Streptococcus":
         st.markdown("""
         <h2 style='text-align:center;
         font-weight:800;
-        background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+        background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;'>
         Susceptibility Inputs
@@ -2613,7 +2634,7 @@ if group == "Streptococcus":
         st.markdown("""
         <h2 style='text-align:center;
         font-weight:800;
-        background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+        background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;'>
         Mechanism of Resistance
@@ -2635,7 +2656,7 @@ if group == "Streptococcus":
         st.markdown("""
         <h2 style='text-align:center;
         font-weight:800;
-        background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+        background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;'>
         Therapy Guidance
@@ -2675,7 +2696,7 @@ if group == "Streptococcus":
         st.markdown("""
         <h2 style='text-align:center;
         font-weight:800;
-        background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+        background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;'>
         Susceptibility Inputs
@@ -2698,7 +2719,7 @@ if group == "Streptococcus":
         st.markdown("""
         <h2 style='text-align:center;
         font-weight:800;
-        background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+        background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;'>
         Mechanism of Resistance
@@ -2720,7 +2741,7 @@ if group == "Streptococcus":
         st.markdown("""
         <h2 style='text-align:center;
         font-weight:800;
-        background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+        background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;'>
         Therapy Guidance
@@ -2751,7 +2772,7 @@ if group == "Streptococcus":
         st.markdown("""
         <h2 style='text-align:center;
         font-weight:800;
-        background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+        background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;'>
         Susceptibility Inputs
@@ -2774,7 +2795,7 @@ if group == "Streptococcus":
         st.markdown("""
         <h2 style='text-align:center;
         font-weight:800;
-        background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+        background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;'>
         Mechanism of Resistance
@@ -2796,7 +2817,7 @@ if group == "Streptococcus":
         st.markdown("""
         <h2 style='text-align:center;
         font-weight:800;
-        background: -webkit-linear-gradient(45deg, #8e24aa, #6a1b9a, #26a69a);
+        background: -webkit-linear-gradient(45deg, #1f6f4a, #155239, #4d8f6f);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;'>
         Therapy Guidance
