@@ -18,7 +18,7 @@ st.set_page_config(
 10
     page_icon="🧫",
 11
-    layout="centered"
+    layout="centered",
 12
 )
 13
