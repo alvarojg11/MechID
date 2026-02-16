@@ -159,6 +159,10 @@ REF_CITATIONS = {
     "moubareck_bifidobacteria_2005": "Moubareck C, Gavini F, Vaugien L, Butel MJ, Doucet-Populaire F. Antimicrobial susceptibility of bifidobacteria. J Antimicrob Chemother. 2005;55(1):38-44. doi:10.1093/jac/dkh495.",
     "chow_metronidazole_1975": "Chow AW, Patten V, Guze LB. Susceptibility of Anaerobic Bacteria to Metronidazole: Relative Resistance of Non-Spore-Forming Gram-Positive Bacilli. J Infect Dis. 1975;131(2):182-185. doi:10.1093/infdis/131.2.182.",
     "stevens_ssti_2014": "Stevens DL, Bisno AL, Chambers HF, Dellinger EP, Goldstein EJC, Gorbach SL, Hirschmann JV, Kaplan SL, Montoya JG, Wade JC. Practice Guidelines for the Diagnosis and Management of Skin and Soft Tissue Infections: 2014 Update by the Infectious Diseases Society of America. Clin Infect Dis. 2014;59(2):e10-e52. doi:10.1093/cid/ciu296.",
+    "who_tb_module4_2025": "World Health Organization. WHO consolidated guidelines on tuberculosis: module 4: treatment and care. Geneva: WHO; 2025. Available from: https://www.who.int/publications/i/item/9789240107243.",
+    "who_tb_report_2025": "World Health Organization. Global tuberculosis report 2025: section 2.2 and 2.4 (definitions and DR-TB treatment categories). Geneva: WHO; 2025. Available from: https://www.who.int/teams/global-programme-on-tuberculosis-and-lung-health/tb-reports/global-tuberculosis-report-2025/tb-diagnosis-and-treatment.",
+    "who_tbksp_key_2025": "World Health Organization. TB Knowledge Sharing Platform: Key considerations in DR-TB treatment (Module 4 treatment and care). Updated 2025. Available from: https://tbksp.who.int/en/node/3032.",
+    "who_tbksp_dst_2025": "World Health Organization. TB Knowledge Sharing Platform: Algorithm 2 DST for second-line drugs in MDR/RR-TB (Module 3 diagnosis). Updated 2025. Available from: https://tbksp.who.int/en/node/3148.",
     "nahid_tb_2016": "Nahid P, Dorman SE, Alipanah N, et al. Official American Thoracic Society/Centers for Disease Control and Prevention/Infectious Diseases Society of America Clinical Practice Guidelines: Treatment of Drug-Susceptible Tuberculosis. Clin Infect Dis. 2016;63(7):e147-e195. doi:10.1093/cid/ciw376.",
     "miotto_tb_mut_2017": "Miotto P, Tessema B, Tagliani E, et al. A standardised method for interpreting the association between mutations and phenotypic drug resistance in Mycobacterium tuberculosis. Eur Respir J. 2017;50(6):1701354. doi:10.1183/13993003.01354-2017.",
     "daley_ntm_2020": "Daley CL, Iaccarino JM, Lange C, et al. Treatment of Nontuberculous Mycobacterial Pulmonary Disease: An Official ATS/ERS/ESCMID/IDSA Clinical Practice Guideline. Clin Infect Dis. 2020;71(4):e1-e36. doi:10.1093/cid/ciaa1125.",
@@ -190,9 +194,10 @@ MECH_REF_MAP = {
     "anaerobe_cfia": ["kato_cfia_2003", "jha_bfrag_2023"],
     "anaerobe_metronidazole": ["jha_bfrag_2023", "steininger_actinomyces_2016", "zhang_cutibacterium_2019", "moubareck_bifidobacteria_2005", "chow_metronidazole_1975"],
     "anaerobe_clostridium_therapy": ["stevens_ssti_2014"],
-    "myco_tb_guidance": ["nahid_tb_2016", "miotto_tb_mut_2017"],
+    "myco_tb_guidance": ["who_tb_module4_2025", "who_tb_report_2025", "miotto_tb_mut_2017"],
     "myco_ntm_guidance": ["daley_ntm_2020"],
     "myco_abscessus_macrolide": ["nash_erm41_2009", "daley_ntm_2020"],
+    "myco_who_regimen_ops": ["who_tbksp_key_2025", "who_tbksp_dst_2025"],
 }
 
 def _collect_mech_ref_keys(org: str, mechs: list, banners: list) -> list:
@@ -265,12 +270,24 @@ def _collect_mech_ref_keys(org: str, mechs: list, banners: list) -> list:
         add_key("anaerobe_clostridium_therapy")
     if "mycobacterium tuberculosis complex" in org_l:
         add_key("myco_tb_guidance")
-    if any(x in org_l for x in ["mycobacterium avium complex", "mycobacterium kansasii", "mycobacterium abscessus", "rapid-growing ntm"]):
+    if any(x in org_l for x in [
+        "mycobacterium avium complex",
+        "mycobacterium kansasii",
+        "mycobacterium abscessus",
+        "mycobacterium fortuitum",
+        "mycobacterium chelonae",
+        "mycobacterium xenopi",
+        "mycobacterium marinum",
+        "mycobacterium szulgai",
+        "mycobacterium simiae",
+    ]):
         add_key("myco_ntm_guidance")
     if any(x in texts for x in ["rpob", "katg", "inha", "pnca", "embb", "rrs", "rrl", "gyra", "gyrb"]):
         add_key("myco_tb_guidance")
     if "erm(41)" in texts or "inducible macrolide" in texts or "mycobacterium abscessus" in org_l:
         add_key("myco_abscessus_macrolide")
+    if any(x in texts for x in ["bpalm", "bpal", "bdllfxc", "bdlc", "rr-tb", "mdr-tb", "pre-xdr", "xdr-tb", "9-month all-oral", "shorter regimen"]):
+        add_key("myco_who_regimen_ops")
 
     refs, seen = [], set()
     for k in keys:
@@ -2415,7 +2432,12 @@ MYCO_NTM_ORGS = [
     "Mycobacterium avium complex (MAC)",
     "Mycobacterium kansasii",
     "Mycobacterium abscessus complex",
-    "Rapid-growing NTM (e.g., M. fortuitum group)",
+    "Mycobacterium fortuitum",
+    "Mycobacterium chelonae",
+    "Mycobacterium xenopi",
+    "Mycobacterium marinum",
+    "Mycobacterium szulgai",
+    "Mycobacterium simiae",
 ]
 
 MYCO_NTM_PANEL = {
@@ -2443,7 +2465,7 @@ MYCO_NTM_PANEL = {
         "Linezolid",
         "Clofazimine",
     ],
-    "Rapid-growing NTM (e.g., M. fortuitum group)": [
+    "Mycobacterium fortuitum": [
         "Clarithromycin/Azithromycin",
         "Amikacin",
         "Moxifloxacin",
@@ -2451,14 +2473,92 @@ MYCO_NTM_PANEL = {
         "Trimethoprim/Sulfamethoxazole",
         "Doxycycline",
     ],
+    "Mycobacterium chelonae": [
+        "Clarithromycin/Azithromycin",
+        "Amikacin",
+        "Linezolid",
+        "Moxifloxacin",
+        "Doxycycline",
+        "Trimethoprim/Sulfamethoxazole",
+    ],
+    "Mycobacterium xenopi": [
+        "Rifampin",
+        "Ethambutol",
+        "Clarithromycin/Azithromycin",
+        "Moxifloxacin",
+        "Amikacin",
+        "Linezolid",
+    ],
+    "Mycobacterium marinum": [
+        "Rifampin",
+        "Ethambutol",
+        "Clarithromycin/Azithromycin",
+        "Moxifloxacin",
+        "Doxycycline",
+        "Trimethoprim/Sulfamethoxazole",
+    ],
+    "Mycobacterium szulgai": [
+        "Rifampin",
+        "Ethambutol",
+        "Isoniazid",
+        "Clarithromycin/Azithromycin",
+        "Moxifloxacin",
+        "Amikacin",
+    ],
+    "Mycobacterium simiae": [
+        "Clarithromycin/Azithromycin",
+        "Moxifloxacin",
+        "Amikacin",
+        "Linezolid",
+        "Trimethoprim/Sulfamethoxazole",
+        "Rifampin",
+    ],
 }
 
 def myco_intrinsic_map(panel):
     return {ab: False for ab in panel}
 
 
+def _mtbc_flags(R):
+    rif = _get(R, "Rifampin")
+    inh = _get(R, "Isoniazid")
+    fq = _get(R, "Fluoroquinolone (Levofloxacin/Moxifloxacin)")
+    bdq = _get(R, "Bedaquiline")
+    lzd = _get(R, "Linezolid")
+    rpob = _get(R, "rpoB mutation")
+    katg = _get(R, "katG mutation")
+    inha = _get(R, "inhA promoter mutation")
+    gyr = _get(R, "gyrA/gyrB mutation")
+
+    rif_res = (rif == "Resistant") or (rpob == "Detected")
+    inh_res = (inh == "Resistant") or (katg == "Detected") or (inha == "Detected")
+    fq_res = (fq == "Resistant") or (gyr == "Detected")
+    bdq_res = (bdq == "Resistant")
+    lzd_res = (lzd == "Resistant")
+
+    xdr = rif_res and fq_res and (bdq_res or lzd_res)
+    pre_xdr = rif_res and fq_res and not xdr
+    mdr = rif_res and inh_res and not pre_xdr and not xdr
+    rr = rif_res and not inh_res and not pre_xdr and not xdr
+    hr = (not rif_res) and inh_res
+
+    return {
+        "rif_res": rif_res,
+        "inh_res": inh_res,
+        "fq_res": fq_res,
+        "bdq_res": bdq_res,
+        "lzd_res": lzd_res,
+        "xdr": xdr,
+        "pre_xdr": pre_xdr,
+        "mdr": mdr,
+        "rr": rr,
+        "hr": hr,
+    }
+
+
 def mech_mtbc(R):
     mechs, banners, greens = [], [], []
+    flags = _mtbc_flags(R)
 
     rif = _get(R, "Rifampin")
     inh = _get(R, "Isoniazid")
@@ -2495,18 +2595,31 @@ def mech_mtbc(R):
     if gyr == "Detected" and fq == "Susceptible":
         banners.append("gyrA/gyrB mutation detected with fluoroquinolone susceptibility: possible emerging resistance/heteroresistance.")
 
-    if rif == "Resistant":
+    if flags["xdr"]:
+        banners.append("WHO phenotype: **XDR-TB** (RR/MDR + fluoroquinolone resistance + resistance to bedaquiline or linezolid).")
+    elif flags["pre_xdr"]:
+        banners.append("WHO phenotype: **pre-XDR-TB** (RR/MDR with additional fluoroquinolone resistance).")
+    elif flags["mdr"]:
+        banners.append("WHO phenotype: **MDR-TB** (rifampin-resistant + isoniazid-resistant).")
+    elif flags["rr"]:
+        banners.append("WHO phenotype: **RR-TB** (rifampin-resistant, with INH resistance not demonstrated).")
+    elif flags["hr"]:
+        banners.append("WHO phenotype: **Hr-TB** (isoniazid-resistant, rifampin-susceptible).")
+    elif rif == "Susceptible" and inh == "Susceptible":
+        greens.append("WHO phenotype: drug-susceptible TB pattern (at least for rifampin and isoniazid).")
+
+    if flags["rif_res"]:
         mechs.append("Rifampin resistance: usually rpoB mutations (RRDR), and this should trigger rapid molecular confirmation.")
-    if inh == "Resistant":
+    if flags["inh_res"]:
         mechs.append("Isoniazid resistance: commonly katG loss-of-activation and/or inhA promoter mutations.")
-    if rif == "Resistant" and inh == "Resistant":
+    if flags["mdr"]:
         banners.append("Rifampin + Isoniazid resistance phenotype is consistent with MDR-TB risk.")
-    elif rif == "Resistant":
+    elif flags["rr"]:
         banners.append("Rifampin resistance should be managed as RR/MDR-risk until full molecular and phenotypic DST is available.")
 
-    if fq == "Resistant":
+    if flags["fq_res"]:
         mechs.append("Fluoroquinolone resistance: typically gyrA/gyrB target mutations.")
-        if rif == "Resistant":
+        if flags["rif_res"]:
             banners.append("RR/MDR phenotype with fluoroquinolone resistance suggests pre-XDR risk and requires expert regimen design.")
 
     if bdq == "Resistant":
@@ -2529,6 +2642,7 @@ def mech_mtbc(R):
 
 def tx_mtbc(R):
     out = []
+    flags = _mtbc_flags(R)
 
     rif = _get(R, "Rifampin")
     inh = _get(R, "Isoniazid")
@@ -2539,10 +2653,44 @@ def tx_mtbc(R):
     katg = _get(R, "katG mutation")
     inha = _get(R, "inhA promoter mutation")
     gyr = _get(R, "gyrA/gyrB mutation")
+    age_band = _get(R, "Age band")
+    pregnant = _get(R, "Pregnant or breastfeeding")
+    severe = _get(R, "CNS/osteoarticular/disseminated disease")
+    prior_core = _get(R, "Prior >1 month exposure to Bdq/Pa/Lzd/Dlm")
+    companion_9m = _get(R, "Companion 9-month drugs likely active")
+    prior_short = _get(R, "Prior >1 month exposure to FQ/Cfz/second-line companion drugs")
+
+    bpalm_eligible = (
+        age_band == ">=14 years"
+        and pregnant == "No"
+        and severe == "No"
+        and prior_core != "Yes"
+        and not flags["bdq_res"]
+        and not flags["lzd_res"]
+    )
+    bdllfxc_eligible = (
+        prior_core != "Yes"
+        and not flags["bdq_res"]
+        and not flags["lzd_res"]
+    )
+    nine_month_eligible = (
+        (flags["rr"] or flags["mdr"])
+        and not flags["fq_res"]
+        and not flags["bdq_res"]
+        and companion_9m == "Yes"
+        and severe == "No"
+        and prior_short != "Yes"
+    )
+
+    def _status_line(name: str, eligible: bool, unmet: list):
+        status = "Eligible" if eligible else "Not currently eligible"
+        if unmet:
+            return f"**WHO Regimen Card: {name}** — **{status}**. Unmet guardrails: " + "; ".join(unmet) + "."
+        return f"**WHO Regimen Card: {name}** — **{status}**."
 
     if rif == "Susceptible" and inh == "Susceptible":
         out.append("Drug-susceptible pattern: use standard first-line TB regimen per TB program guidance (RIPE-style induction then continuation).")
-    if inh == "Resistant" and rif == "Susceptible":
+    if flags["hr"]:
         out.append("Isoniazid-resistant / Rifampin-susceptible TB: use an Hr-TB regimen (typically rifampin-ethambutol-pyrazinamide plus fluoroquinolone) per local/national protocol.")
     if rif is None and rpob == "Detected":
         out.append("rpoB mutation detected without phenotypic rifampin result: manage as probable RR-TB risk while confirmatory testing is finalized.")
@@ -2550,12 +2698,75 @@ def tx_mtbc(R):
         out.append("katG/inhA mutation detected without phenotypic INH result: manage as likely INH-resistant until full DST confirms.")
     if inha == "Detected" and katg != "Detected":
         out.append("inhA-only signal can represent lower-level INH resistance; regimen selection should be expert-guided and genotype-aware.")
-    if rif == "Resistant":
-        out.append("Rifampin-resistant pattern: treat as RR/MDR-risk TB, obtain full rapid molecular DST, and involve TB/ID/public-health experts early.")
-        if fq == "Susceptible":
-            out.append("If fluoroquinolone remains susceptible, this may support all-oral MDR regimen construction with other active agents.")
-        elif fq == "Resistant":
-            out.append("RR/MDR with fluoroquinolone resistance: highly resistant pattern; urgent individualized regimen design is needed.")
+    if flags["rr"] or flags["mdr"] or flags["pre_xdr"] or flags["xdr"]:
+        out.append("Rifampin-resistant phenotype detected: align treatment with current WHO DR-TB guidance and involve TB/ID/public-health experts early.")
+
+    if flags["rr"] or flags["mdr"]:
+        unmet_bpalm = []
+        if age_band != ">=14 years":
+            unmet_bpalm.append("age >=14 years not confirmed")
+        if pregnant != "No":
+            unmet_bpalm.append("pregnancy/breastfeeding exclusion not cleared")
+        if severe != "No":
+            unmet_bpalm.append("severe CNS/osteo/disseminated disease exclusion not cleared")
+        if prior_core == "Yes":
+            unmet_bpalm.append("prior >1 month Bdq/Pa/Lzd/Dlm exposure")
+        if flags["bdq_res"] or flags["lzd_res"]:
+            unmet_bpalm.append("Bdq or Lzd resistance present")
+
+        out.append(_status_line("BPaLM (6 months)", bpalm_eligible, unmet_bpalm))
+
+        unmet_bdllfxc = []
+        if prior_core == "Yes":
+            unmet_bdllfxc.append("prior >1 month Bdq/Pa/Lzd/Dlm exposure")
+        if flags["bdq_res"] or flags["lzd_res"]:
+            unmet_bdllfxc.append("Bdq or Lzd resistance present")
+        if flags["fq_res"]:
+            unmet_bdllfxc.append("fluoroquinolone resistance present")
+        out.append(
+            _status_line("BDLLfxC-derived 6-month regimen (program-adapted)", bdllfxc_eligible and not flags["fq_res"], unmet_bdllfxc)
+        )
+
+        if not flags["fq_res"]:
+            unmet_9m = []
+            if flags["bdq_res"]:
+                unmet_9m.append("bedaquiline resistance present")
+            if companion_9m != "Yes":
+                unmet_9m.append("activity of companion 9-month drugs not confirmed")
+            if severe != "No":
+                unmet_9m.append("severe CNS/osteo/disseminated disease exclusion not cleared")
+            if prior_short == "Yes":
+                unmet_9m.append("prior >1 month FQ/Cfz/second-line companion exposure")
+
+            out.append(_status_line("9-month all-oral Bdq-Lfx shorter regimen", nine_month_eligible, unmet_9m))
+            out.append(
+                "**WHO Regimen Card: 9-month all-oral Bdq-Mfx shorter-regimen variant (program dependent)** — "
+                "use only if moxifloxacin-specific susceptibility is confirmed and the same core guardrails are satisfied."
+            )
+
+    if flags["pre_xdr"]:
+        unmet_bpal = []
+        if age_band != ">=14 years":
+            unmet_bpal.append("age >=14 years not confirmed")
+        if pregnant != "No":
+            unmet_bpal.append("pregnancy/breastfeeding exclusion not cleared")
+        if severe != "No":
+            unmet_bpal.append("severe CNS/osteo/disseminated disease exclusion not cleared")
+        if prior_core == "Yes":
+            unmet_bpal.append("prior >1 month Bdq/Pa/Lzd/Dlm exposure")
+        if flags["bdq_res"] or flags["lzd_res"]:
+            unmet_bpal.append("Bdq or Lzd resistance present")
+        out.append(_status_line("BPaL (6 months; for pre-XDR with FQ resistance)", bpalm_eligible, unmet_bpal))
+
+        unmet_bdlc = []
+        if prior_core == "Yes":
+            unmet_bdlc.append("prior >1 month Bdq/Pa/Lzd/Dlm exposure")
+        if flags["bdq_res"] or flags["lzd_res"]:
+            unmet_bdlc.append("Bdq or Lzd resistance present")
+        out.append(_status_line("BDLC-type 6-month alternative (program-adapted)", bdllfxc_eligible, unmet_bdlc))
+        out.append("WHO 9-month regimens are generally not used when fluoroquinolone resistance is present.")
+    if flags["xdr"]:
+        out.append("**XDR-TB**: use an individualized, expert-designed regimen based on full DST and prior drug exposure; longer treatment courses are usually required.")
     if fq is None and gyr == "Detected":
         out.append("gyrA/gyrB mutation detected without phenotypic fluoroquinolone result: avoid relying on fluoroquinolones until resolved.")
 
@@ -2579,6 +2790,8 @@ def mech_ntm(org: str, R: dict):
     abs_subsp = _get(R, "M. abscessus subspecies")
     abs_erm41 = _get(R, "erm(41) status")
     abs_mac_ext = _get(R, "Extended-incubation macrolide")
+    mar_depth = _get(R, "M. marinum infection depth")
+    mar_imm = _get(R, "M. marinum host immunosuppression")
 
     if mac == "Resistant":
         if org == "Mycobacterium abscessus complex":
@@ -2618,6 +2831,44 @@ def mech_ntm(org: str, R: dict):
             mechs.append("Rifampin resistance in M. kansasii usually reflects rpoB changes and predicts more complex therapy.")
         elif rif == "Susceptible":
             greens.append("Rifampin susceptibility supports standard rifampin-based M. kansasii therapy.")
+    elif org == "Mycobacterium fortuitum":
+        if mac == "Resistant":
+            mechs.append("Macrolide resistance in M. fortuitum is common and may reflect erm-mediated inducible resistance; do not assume macrolide activity.")
+        if moxi == "Susceptible":
+            greens.append("Moxifloxacin susceptibility can provide an oral active option for M. fortuitum.")
+    elif org == "Mycobacterium chelonae":
+        if mac == "Susceptible":
+            greens.append("Macrolide susceptibility is usually important for M. chelonae regimen construction.")
+        elif mac == "Resistant":
+            mechs.append("Macrolide resistance in M. chelonae substantially narrows active oral options.")
+    elif org == "Mycobacterium xenopi":
+        if rif == "Resistant":
+            mechs.append("Rifampin resistance in M. xenopi reduces standard backbone options and usually requires broader multidrug design.")
+        elif rif == "Susceptible":
+            greens.append("Rifampin susceptibility supports rifampin-containing multidrug therapy for M. xenopi.")
+    elif org == "Mycobacterium marinum":
+        if rif == "Resistant":
+            mechs.append("Rifampin resistance in M. marinum is less common and reduces standard oral backbone options.")
+        elif rif == "Susceptible":
+            greens.append("Rifampin susceptibility supports common dual-drug M. marinum regimens.")
+        if mac == "Resistant":
+            mechs.append("Macrolide resistance in M. marinum narrows oral companion options.")
+        if mar_depth in {"Deep structure (tenosynovitis/arthritis/osteomyelitis)", "Disseminated disease"}:
+            banners.append("Deep/disseminated M. marinum disease is a high-burden phenotype and usually requires prolonged multidrug therapy with source-control planning.")
+        if mar_imm == "Yes":
+            banners.append("Immunosuppressed host status increases risk of invasive/prolonged M. marinum disease and should lower the threshold for aggressive therapy.")
+    elif org == "Mycobacterium szulgai":
+        if rif == "Susceptible":
+            greens.append("Rifampin susceptibility supports standard multidrug M. szulgai treatment approaches.")
+        elif rif == "Resistant":
+            mechs.append("Rifampin resistance in M. szulgai predicts more complex regimen construction.")
+    elif org == "Mycobacterium simiae":
+        if rif == "Resistant":
+            mechs.append("Rifampin resistance is common in M. simiae and often limits rifamycin utility.")
+        if mac == "Resistant":
+            mechs.append("Macrolide resistance in M. simiae further narrows already-limited active options.")
+        elif mac == "Susceptible":
+            greens.append("Macrolide susceptibility can provide a key anchor drug for M. simiae regimens.")
 
     if moxi == "Resistant":
         mechs.append("Fluoroquinolone resistance: usually gyrA/gyrB target changes.")
@@ -2631,9 +2882,15 @@ def tx_ntm(org: str, R: dict):
     mac = _get(R, "Clarithromycin/Azithromycin")
     amk = _get(R, "Amikacin")
     rif = _get(R, "Rifampin")
+    doxy = _get(R, "Doxycycline")
+    tmpsmx = _get(R, "Trimethoprim/Sulfamethoxazole")
+    moxi = _get(R, "Moxifloxacin")
     abs_subsp = _get(R, "M. abscessus subspecies")
     abs_erm41 = _get(R, "erm(41) status")
     abs_mac_ext = _get(R, "Extended-incubation macrolide")
+    mar_depth = _get(R, "M. marinum infection depth")
+    mar_imm = _get(R, "M. marinum host immunosuppression")
+    mar_sc = _get(R, "M. marinum source control")
 
     if org == "Mycobacterium avium complex (MAC)":
         if mac == "Susceptible":
@@ -2665,8 +2922,47 @@ def tx_ntm(org: str, R: dict):
             out.append("M. abscessus complex with macrolide resistance: use non-macrolide multidrug backbone; prolonged therapy and specialist oversight are essential.")
         if amk == "Susceptible":
             out.append("Amikacin susceptible result can support intensive-phase therapy in severe M. abscessus disease.")
+    elif org == "Mycobacterium fortuitum":
+        out.append("M. fortuitum: use at least two active agents based on species-level AST; oral options often include fluoroquinolone, doxycycline, or TMP-SMX when susceptible.")
+        if mac == "Resistant":
+            out.append("Avoid relying on macrolides in M. fortuitum when resistance/inducible resistance is present.")
+    elif org == "Mycobacterium chelonae":
+        if mac == "Susceptible":
+            out.append("M. chelonae: macrolide-based regimen is commonly used, with companion drug(s) selected by site/severity and AST.")
+        else:
+            out.append("M. chelonae without macrolide activity requires alternative multidrug regimen and expert review.")
+    elif org == "Mycobacterium xenopi":
+        if rif == "Susceptible":
+            out.append("M. xenopi: rifampin + ethambutol backbone with an additional active drug (often moxifloxacin or macrolide) when susceptible.")
+        else:
+            out.append("M. xenopi with rifampin resistance: use alternative multidrug regimen guided by AST and specialist input.")
+    elif org == "Mycobacterium marinum":
+        if mar_depth == "Superficial skin/soft tissue" and mar_imm != "Yes":
+            out.append("M. marinum superficial disease: use two active oral agents when possible (often rifampin-based if susceptible), with duration guided by clinical response.")
+        elif mar_depth in {"Deep structure (tenosynovitis/arthritis/osteomyelitis)", "Disseminated disease"} or mar_imm == "Yes":
+            out.append("M. marinum deep/disseminated or immunosuppressed profile: use a more aggressive multidrug approach (at least two confirmed active agents) and plan prolonged therapy.")
+            if amk == "Susceptible":
+                out.append("Amikacin susceptibility can support an intensive phase in severe/deep M. marinum disease.")
+        else:
+            out.append("M. marinum: use at least two active agents and tailor duration to disease depth and host factors.")
+
+        if rif == "Resistant":
+            out.append("M. marinum with rifampin resistance: build an alternative regimen from other confirmed active agents (e.g., macrolide, fluoroquinolone, doxycycline, TMP-SMX when susceptible).")
+        if mar_sc == "No":
+            out.append("Deep M. marinum with no source control achieved: reassess for surgical debridement/source-control options.")
+        elif mar_sc == "Yes":
+            out.append("Source control achieved: continue AST-guided multidrug therapy until sustained clinical improvement.")
+    elif org == "Mycobacterium szulgai":
+        if rif == "Susceptible":
+            out.append("M. szulgai: rifampin + ethambutol backbone with an additional active companion drug is commonly used when susceptible.")
+        else:
+            out.append("M. szulgai with rifampin resistance: use AST-guided multidrug regimen and specialist input.")
+    elif org == "Mycobacterium simiae":
+        out.append("M. simiae: no single standardized regimen; use at least two to three active drugs guided by species-level AST and expert consultation.")
+        if rif == "Resistant":
+            out.append("If rifampin is resistant, avoid rifamycin reliance and prioritize other confirmed-active agents.")
     else:
-        out.append("Rapid-growing NTM: treat only if clinically significant disease is established; use at least two active agents based on species-level AST.")
+        out.append("NTM treatment should remain species-level and AST-guided; involve a mycobacterial specialist for complex disease.")
 
     out.append("NTM treatment should be species-specific, site-specific, and coordinated with mycobacterial reference lab interpretation.")
     return _dedup_list(out)
@@ -2810,9 +3106,29 @@ ORGANISM_REGISTRY = {
         "mechanisms": lambda R: mech_ntm("Mycobacterium abscessus complex", R),
         "therapy": lambda R: tx_ntm("Mycobacterium abscessus complex", R)
     },
-    "Rapid-growing NTM (e.g., M. fortuitum group)": {
-        "mechanisms": lambda R: mech_ntm("Rapid-growing NTM (e.g., M. fortuitum group)", R),
-        "therapy": lambda R: tx_ntm("Rapid-growing NTM (e.g., M. fortuitum group)", R)
+    "Mycobacterium fortuitum": {
+        "mechanisms": lambda R: mech_ntm("Mycobacterium fortuitum", R),
+        "therapy": lambda R: tx_ntm("Mycobacterium fortuitum", R)
+    },
+    "Mycobacterium chelonae": {
+        "mechanisms": lambda R: mech_ntm("Mycobacterium chelonae", R),
+        "therapy": lambda R: tx_ntm("Mycobacterium chelonae", R)
+    },
+    "Mycobacterium xenopi": {
+        "mechanisms": lambda R: mech_ntm("Mycobacterium xenopi", R),
+        "therapy": lambda R: tx_ntm("Mycobacterium xenopi", R)
+    },
+    "Mycobacterium marinum": {
+        "mechanisms": lambda R: mech_ntm("Mycobacterium marinum", R),
+        "therapy": lambda R: tx_ntm("Mycobacterium marinum", R)
+    },
+    "Mycobacterium szulgai": {
+        "mechanisms": lambda R: mech_ntm("Mycobacterium szulgai", R),
+        "therapy": lambda R: tx_ntm("Mycobacterium szulgai", R)
+    },
+    "Mycobacterium simiae": {
+        "mechanisms": lambda R: mech_ntm("Mycobacterium simiae", R),
+        "therapy": lambda R: tx_ntm("Mycobacterium simiae", R)
     },
 
     #Staphylococcus
@@ -3383,6 +3699,47 @@ if group == "Mycobacteria":
                 final_m[marker] = value
                 extra_rows_m.append({"Antibiotic": marker, "Result": value, "Source": "Molecular"})
 
+        st.markdown("**Optional WHO regimen context**")
+        age_val = st.selectbox("Age band", ["", ">=14 years", "<14 years", "Unknown"], index=0, key="MYCO_MTBC_ctx_age")
+        preg_val = st.selectbox("Pregnant or breastfeeding", ["", "No", "Yes", "Unknown"], index=0, key="MYCO_MTBC_ctx_preg")
+        severe_val = st.selectbox(
+            "CNS/osteoarticular/disseminated disease",
+            ["", "No", "Yes", "Unknown"],
+            index=0,
+            key="MYCO_MTBC_ctx_severe",
+        )
+        prior_val = st.selectbox(
+            "Prior >1 month exposure to Bdq/Pa/Lzd/Dlm",
+            ["", "No", "Yes", "Unknown"],
+            index=0,
+            key="MYCO_MTBC_ctx_prior",
+        )
+        companion_9m_val = st.selectbox(
+            "Companion 9-month drugs likely active",
+            ["", "Yes", "No", "Unknown"],
+            index=0,
+            key="MYCO_MTBC_ctx_companion9m",
+            help="Companion drugs include clofazimine and other regimen drugs selected by your TB program.",
+        )
+        prior_short_val = st.selectbox(
+            "Prior >1 month exposure to FQ/Cfz/second-line companion drugs",
+            ["", "No", "Yes", "Unknown"],
+            index=0,
+            key="MYCO_MTBC_ctx_priorshort",
+        )
+
+        for marker, value in [
+            ("Age band", age_val),
+            ("Pregnant or breastfeeding", preg_val),
+            ("CNS/osteoarticular/disseminated disease", severe_val),
+            ("Prior >1 month exposure to Bdq/Pa/Lzd/Dlm", prior_val),
+            ("Companion 9-month drugs likely active", companion_9m_val),
+            ("Prior >1 month exposure to FQ/Cfz/second-line companion drugs", prior_short_val),
+        ]:
+            if value:
+                final_m[marker] = value
+                extra_rows_m.append({"Antibiotic": marker, "Result": value, "Source": "Clinical context"})
+
     if myco_group == "Non-tuberculous mycobacteria (NTM)" and organism_m == "Mycobacterium abscessus complex":
         st.markdown("**M. abscessus subspecies / inducible-macrolide context (optional)**")
         abs_subsp = st.selectbox(
@@ -3412,6 +3769,37 @@ if group == "Mycobacteria":
             if value:
                 final_m[marker] = value
                 extra_rows_m.append({"Antibiotic": marker, "Result": value, "Source": "Molecular"})
+
+    if myco_group == "Non-tuberculous mycobacteria (NTM)" and organism_m == "Mycobacterium marinum":
+        st.markdown("**M. marinum clinical context (optional)**")
+        mar_depth = st.selectbox(
+            "M. marinum infection depth",
+            ["", "Superficial skin/soft tissue", "Deep structure (tenosynovitis/arthritis/osteomyelitis)", "Disseminated disease", "Unknown"],
+            index=0,
+            key="MYCO_MAR_depth",
+        )
+        mar_imm = st.selectbox(
+            "M. marinum host immunosuppression",
+            ["", "No", "Yes", "Unknown"],
+            index=0,
+            key="MYCO_MAR_immunosuppression",
+        )
+        mar_sc = st.selectbox(
+            "M. marinum source control",
+            ["", "Yes", "No", "Unknown"],
+            index=0,
+            key="MYCO_MAR_source_control",
+            help="Use 'Yes' if debridement/source control is complete or clearly feasible.",
+        )
+
+        for marker, value in [
+            ("M. marinum infection depth", mar_depth),
+            ("M. marinum host immunosuppression", mar_imm),
+            ("M. marinum source control", mar_sc),
+        ]:
+            if value:
+                final_m[marker] = value
+                extra_rows_m.append({"Antibiotic": marker, "Result": value, "Source": "Clinical context"})
 
     st.subheader("Consolidated results")
     rows_m = []
