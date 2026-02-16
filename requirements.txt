@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 streamlit
 Pillow
-=======
 pandas
 Pillow
 streamlit
->>>>>>> 293279a (initial commit)
+
