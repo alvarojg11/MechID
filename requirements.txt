@@ -1,6 +1,3 @@
-streamlit
-Pillow
 pandas
 Pillow
 streamlit
-

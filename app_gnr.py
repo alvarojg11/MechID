@@ -104,96 +104,6 @@ def badge(text, bg="#1f6f4a", fg="#ffffff"):
     """
     return html
 
-<<<<<<< HEAD
-
-# ======================
-# Reference mapping (auto-detected from mechanism text)
-# ======================
-MECH_REF_MAP = {
-    "esbl": [
-        "IDSA Guidance for ESBL-producing Enterobacterales (latest).",
-        "Paterson DL, Bonomo RA. Extended-Spectrum β-Lactamases: a clinical update. Clin Microbiol Rev."
-    ],
-    "ampc": [
-        "Harris PN et al. AmpC β-lactamases in Enterobacterales—clinical guidance.",
-        "CLSI M100 (current edition): AmpC comments and reporting guidance."
-    ],
-    "cre": [
-        "IDSA Guidance for CRE and carbapenemase testing (mCIM/eCIM, molecular).",
-        "CLSI M100 (current edition): Carbapenemase detection and reporting."
-    ],
-    "porin_oprd": [
-        "Livermore DM. Mechanisms of carbapenem resistance in Pseudomonas (OprD loss).",
-        "Poole K. Pseudomonas aeruginosa: porins and intrinsic resistance."
-    ],
-    "pseudomonas_efflux": [
-        "Poole K. Efflux-mediated resistance in Pseudomonas (MexAB-OprM, MexXY-OprM).",
-        "CLSI M100 notes on anti-pseudomonal agent testing nuances."
-    ],
-    "aminoglycoside_mod": [
-        "Ramirez MS, Tolmasky ME. Aminoglycoside modifying enzymes. Drug Resist Updates."
-    ],
-    "fq_qrdr": [
-        "Hooper DC, Jacoby GA. Mechanisms of fluoroquinolone resistance (QRDR)."
-    ],
-    "tmpsmx_folate": [
-        "Sköld O. Sulfonamide and trimethoprim resistance (dfrA, sul genes)."
-    ],
-    "staph_mrsa": [
-        "IDSA MRSA guidelines (latest): mecA/mecC (PBP2a) and therapy.",
-        "CLSI M100: Oxacillin/cefoxitin testing for Staphylococcus."
-    ],
-    "staph_dtest": [
-        "CLSI M100: Inducible clindamycin resistance (D-test) for staphylococci."
-    ],
-    "vre": [
-        "IDSA VRE guidance: VanA/VanB (D-Ala-D-Lac).",
-        "CLSI M100: Enterococcus glycopeptide resistance reporting."
-    ],
-    "serr_sme": [
-        "Queenan AM et al. SME carbapenemases in Serratia marcescens."
-    ],
-}
-
-def _collect_mech_ref_keys(org: str, mechs: list, banners: list) -> list:
-    """Map mechanism/banners text to reference keys and return a deduped list of refs."""
-    keys = set()
-    texts = " ".join((mechs or []) + (banners or [])).lower()
-
-    if "esbl" in texts or "extended-spectrum" in texts:
-        keys.add("esbl")
-    if "ampc" in texts:
-        keys.add("ampc")
-    if "carbapenemase" in texts or "carbapenem-resistant" in texts or "cre" in texts:
-        keys.add("cre")
-    if org == "Pseudomonas aeruginosa" and ("oprd" in texts or "porin" in texts):
-        keys.add("porin_oprd")
-    if org == "Pseudomonas aeruginosa" and "efflux" in texts:
-        keys.add("pseudomonas_efflux")
-    if "aminoglycoside" in texts and ("enzyme" in texts or "modifying" in texts):
-        keys.add("aminoglycoside_mod")
-    if "fluoroquinolone" in texts or "qrdr" in texts or ("gyr" in texts and "par" in texts):
-        keys.add("fq_qrdr")
-    if "tmp-smx" in texts or "trimethoprim" in texts or "sulfamethoxazole" in texts or "dfr" in texts or "sul1" in texts or "sul2" in texts:
-        keys.add("tmpsmx_folate")
-    if "mrsa" in texts or "meca" in texts or "mecc" in texts or "pbp2a" in texts:
-        keys.add("staph_mrsa")
-    if "d-test" in texts or "d test" in texts or ("erythromycin" in texts and "clindamycin" in texts):
-        keys.add("staph_dtest")
-    if org.startswith("Enterococcus") and ("vancomycin" in texts and ("vana" in texts or "vanb" in texts or "vre" in texts)):
-        keys.add("vre")
-    if org == "Serratia marcescens" and ("sme" in texts or ("serratia" in texts and "carbapenemase" in texts)):
-        keys.add("serr_sme")
-
-    refs = []
-    for k in keys:
-        refs.extend(MECH_REF_MAP.get(k, []))
-    out, seen = [], set()
-    for r in refs:
-        if r not in seen:
-            out.append(r); seen.add(r)
-    return out
-=======
 def section_header(text):
     st.markdown(
         f"""
@@ -330,7 +240,6 @@ def _collect_mech_ref_keys(org: str, mechs: list, banners: list) -> list:
                 refs.append(citation)
                 seen.add(citation)
     return refs
->>>>>>> 293279a (initial commit)
 
 # ======================
 # Shared helpers
@@ -685,20 +594,6 @@ def apply_cascade(org_rules, inputs):
     return inferred
 
 # ======================
-<<<<<<< HEAD
-# References (rendered at bottom of the app)
-# ======================
-REFERENCES = [
-    "IDSA Guidance for Gram-negative Bacteria (latest applicable version).",
-    "CLSI M100 Performance Standards for Antimicrobial Susceptibility Testing.",
-    "Harris PN et al. AmpC β-lactamases—clinical implications.",
-    "Livermore DM. Mechanisms of resistance in Pseudomonas aeruginosa.",
-    "EUCAST/IDSA guidance documents on ESBL/CRE.",
-]
-
-# ======================
-=======
->>>>>>> 293279a (initial commit)
 # Small shared helpers
 # ======================
 CARBAPENEMS = {"Imipenem","Meropenem","Doripenem"}
@@ -725,8 +620,6 @@ ENTEROBACTERALES = {
 }
 CLIN_AMPC = {"Klebsiella aerogenes","Citrobacter freundii complex","Enterobacter cloacae complex"}
 
-<<<<<<< HEAD
-=======
 def _has_carbapenem_resistance(R):
     return any(_get(R, ab) == "Resistant" for ab in ["Ertapenem", "Imipenem", "Meropenem", "Doripenem"])
 
@@ -810,7 +703,6 @@ def render_cre_carbapenemase_module(organism, final_results):
         "Heuristic output: verify against current IDSA AMR guidance, local susceptibility data, and microbiology/ID consultation."
     )
 
->>>>>>> 293279a (initial commit)
 # ======================
 # Per-organism MECHANISMS
 # ======================
@@ -828,21 +720,6 @@ def mech_ecoli(R):
     if carp_R:
         mechs.append("Carbapenem resistance (screen for carbapenemase; confirm by phenotypic/molecular tests).")
     elif third_R:
-<<<<<<< HEAD
-        mechs.append("ESBL pattern (3rd-generation cephalosporin resistance).")
-
-    # Cefazolin R + CTX S with Amp R → TEM/SHV pattern (not ESBL)
-    if not carp_R and cefazolin_R and ctx_S and amp_R and (caz not in {"Resistant", "Intermediate"}):
-        banners.append("β-lactam pattern **Amp R + Cefazolin R + Ceftriaxone S** → **broad-spectrum β-lactamase (TEM-1/SHV)**, not ESBL.")
-
-    # Uncommon: Cefepime R with CTX S
-    if not carp_R and cefepime_R and ctx_S:
-        mechs.append("Uncommon: **Cefepime R** with **Ceftriaxone S** — consider ESBL variant/porin–efflux/testing factors.")
-
-    # Ertapenem R with IMP/MEM S
-    if _get(R, "Ertapenem") == "Resistant" and (_get(R, "Imipenem") == "Susceptible" or _get(R, "Meropenem") == "Susceptible"):
-        banners.append("**Ertapenem R** with **Imipenem/Meropenem S** → often ESBL or AmpC + porin loss.")
-=======
         mechs.append("ESBL pattern (third-generation cephalosporin resistance).")
 
     # Cefazolin Resistant + Ceftriaxone Susceptible with Ampicillin Resistant → TEM/SHV pattern (not ESBL)
@@ -856,57 +733,35 @@ def mech_ecoli(R):
     # Ertapenem Resistant with Imipenem/Meropenem Susceptible
     if _get(R, "Ertapenem") == "Resistant" and (_get(R, "Imipenem") == "Susceptible" or _get(R, "Meropenem") == "Susceptible"):
         banners.append("**Ertapenem Resistant** with **Imipenem/Meropenem Susceptible** → often ESBL or AmpC + porin loss.")
->>>>>>> 293279a (initial commit)
 
     # ---- Fluoroquinolones ----
     cip = _get(R, "Ciprofloxacin")
     lev = _get(R, "Levofloxacin")
 
-<<<<<<< HEAD
-    # Generic FQ resistance mechanism when either FQ is R
-=======
     # Generic fluoroquinolone resistance mechanism when either fluoroquinolone is Resistant
->>>>>>> 293279a (initial commit)
     if cip == "Resistant" or lev == "Resistant":
         mechs.append(
             "Fluoroquinolone resistance: typically **QRDR mutations** in **gyrA/parC** ± **efflux upregulation** "
             "(AcrAB–TolC / OqxAB) and sometimes **plasmid-mediated qnr / AAC(6')-Ib-cr**."
         )
 
-<<<<<<< HEAD
-    # Special discordance — Ciprofloxacin R / Levofloxacin S
-    if cip == "Resistant" and lev == "Susceptible":
-        mechs.append(
-            "Fluoroquinolone discordance: **Ciprofloxacin R** with **Levofloxacin S** — suggests **low-level, non–target-mediated resistance** "
-            "such as **PMQR** (e.g., **qnr** target protection or **AAC(6')-Ib-cr** acetylation) and/or **efflux upregulation (AcrAB–TolC / OqxAB)** "
-            "± porin changes. These mechanisms can **step up to high-level FQ resistance during therapy**."
-=======
     # Special discordance — Ciprofloxacin Resistant / Levofloxacin Susceptible
     if cip == "Resistant" and lev == "Susceptible":
         mechs.append(
             "Fluoroquinolone discordance: **Ciprofloxacin Resistant** with **Levofloxacin Susceptible** — suggests **low-level, non–target-mediated resistance** "
             "such as **PMQR** (e.g., **qnr** target protection or **AAC(6')-Ib-cr** acetylation) and/or **efflux upregulation (AcrAB–TolC / OqxAB)** "
             "± porin changes. These mechanisms can **step up to high-level fluoroquinolone resistance during therapy**."
->>>>>>> 293279a (initial commit)
         )
         banners.append(
             "Caution using **levofloxacin** despite apparent susceptibility — PMQR/efflux phenotypes carry a **higher risk of on-therapy failure** "
             "via stepwise QRDR mutations."
         )
 
-<<<<<<< HEAD
-    # TMP-SMX resistance mechanism
-    tmpsmx = _get(R, "Trimethoprim/Sulfamethoxazole")
-    if tmpsmx == "Resistant":
-        mechs.append(
-            "TMP-SMX resistance: **dfrA** (trimethoprim-resistant DHFR), **sul1/sul2** (sulfonamide-resistant DHPS), "
-=======
     # Trimethoprim/Sulfamethoxazole resistance mechanism
     tmpsmx = _get(R, "Trimethoprim/Sulfamethoxazole")
     if tmpsmx == "Resistant":
         mechs.append(
             "Trimethoprim/Sulfamethoxazole resistance: **dfrA** (trimethoprim-resistant DHFR), **sul1/sul2** (sulfonamide-resistant DHPS), "
->>>>>>> 293279a (initial commit)
             "often on **class 1 integrons**; efflux and target mutation can contribute."
         )
 
@@ -916,79 +771,39 @@ def mech_ecoli(R):
 def tx_ecoli(R):
     out = []
 
-<<<<<<< HEAD
-    # FQ R but BL S → use BL
-    if _any_S(R, ["Piperacillin/Tazobactam", "Ceftriaxone", "Cefepime", "Aztreonam",
-                  "Imipenem", "Meropenem", "Ertapenem"]) and \
-       _any_R(R, ["Ciprofloxacin", "Levofloxacin", "Moxifloxacin"]):
-        out.append("**Fluoroquinolone R but β-lactam S** → prefer a **β-lactam** that is susceptible.")
-=======
     # Fluoroquinolone Resistant but beta-lactam Susceptible → use beta-lactam
     if _any_S(R, ["Piperacillin/Tazobactam", "Ceftriaxone", "Cefepime", "Aztreonam",
                   "Imipenem", "Meropenem", "Ertapenem"]) and \
        _any_R(R, ["Ciprofloxacin", "Levofloxacin", "Moxifloxacin"]):
         out.append("**Fluoroquinolone Resistant but beta-lactam Susceptible** → prefer a **β-lactam** that is susceptible.")
->>>>>>> 293279a (initial commit)
 
     # ESBL
     if _any_R(R, THIRD_GENS) and not _any_R(R, CARBAPENEMS):
         out.append("**ESBL pattern** → use a **carbapenem** for serious infections.")
 
-<<<<<<< HEAD
-    # Ertapenem R / others S
-    if _get(R, "Ertapenem") == "Resistant" and (_get(R, "Imipenem") == "Susceptible" or _get(R, "Meropenem") == "Susceptible"):
-        out.append("**Ertapenem R / IMI or MEM S** → consider **extended-infusion meropenem**.")
-=======
     # Ertapenem Resistant / others Susceptible
     if _get(R, "Ertapenem") == "Resistant" and (_get(R, "Imipenem") == "Susceptible" or _get(R, "Meropenem") == "Susceptible"):
         out.append("**Ertapenem Resistant / Imipenem or Meropenem Susceptible** → consider **extended-infusion meropenem**.")
->>>>>>> 293279a (initial commit)
 
     # CRE signal
     if _get(R, "Meropenem") == "Resistant" and _get(R, "Ertapenem") == "Resistant":
         out.append("**CRE phenotype** → isolate should be tested for **carbapenemase**.\n")
 
-<<<<<<< HEAD
-    # TEM/SHV broad BL pattern
-=======
     # TEM/SHV broad beta-lactam pattern
->>>>>>> 293279a (initial commit)
     if (_get(R, "Cefazolin") == "Resistant") and (_get(R, "Ceftriaxone") == "Susceptible") and \
        (_get(R, "Ampicillin") in {"Resistant", "Intermediate"}) and (_get(R, "Ceftazidime") not in {"Resistant", "Intermediate"}):
         out.append("**TEM-1/SHV pattern** → **Ceftriaxone is preferred** when susceptible; Piperacillin/Tazobactam often active; amoxicillin clavulanate may also be considered for non-severe *E. coli*.")
 
-<<<<<<< HEAD
-    # Special FQ discordance message (CIP R / LEV S)
-=======
     # Special fluoroquinolone discordance message (Ciprofloxacin Resistant / Levofloxacin Susceptible)
->>>>>>> 293279a (initial commit)
     cip = _get(R, "Ciprofloxacin")
     lev = _get(R, "Levofloxacin")
     if cip == "Resistant" and lev == "Susceptible":
         out.append(
-<<<<<<< HEAD
-            "**Ciprofloxacin R / Levofloxacin S** → if an FQ is considered, **levofloxacin** may be used based on susceptibility, "
-=======
             "**Ciprofloxacin Resistant / Levofloxacin Susceptible** → if a fluoroquinolone is considered, **levofloxacin** may be used based on susceptibility, "
->>>>>>> 293279a (initial commit)
             "but **failure risk is higher** with **PMQR/efflux** phenotypes. Prefer a confirmed-active **β-lactam** (or other class) "
             "for **severe/invasive** infections; reserve levofloxacin for **low-risk sites** with close follow-up."
         )
 
-<<<<<<< HEAD
-    # Generic: avoid FQs when all tested FQs are R
-    if _any_R(R, ["Ciprofloxacin", "Levofloxacin", "Moxifloxacin"]) and \
-       not _any_S(R, ["Ciprofloxacin", "Levofloxacin", "Moxifloxacin"]):
-        out.append(
-            "**All tested fluoroquinolones are resistant** → avoid FQs; choose a non-FQ agent that is susceptible."
-        )
-
-    # TMP-SMX susceptible → oral step-down option
-    tmpsmx = _get(R, "Trimethoprim/Sulfamethoxazole")
-    if tmpsmx == "Susceptible":
-        out.append(
-            "**TMP-SMX susceptible** → reasonable **oral step-down** option in selected scenarios "
-=======
     # Generic: avoid fluoroquinolones when all tested fluoroquinolones are Resistant
     if _any_R(R, ["Ciprofloxacin", "Levofloxacin", "Moxifloxacin"]) and \
        not _any_S(R, ["Ciprofloxacin", "Levofloxacin", "Moxifloxacin"]):
@@ -1001,7 +816,6 @@ def tx_ecoli(R):
     if tmpsmx == "Susceptible":
         out.append(
             "**Trimethoprim/Sulfamethoxazole susceptible** → reasonable **oral step-down** option in selected scenarios "
->>>>>>> 293279a (initial commit)
             "(e.g., **uncomplicated cystitis/pyelonephritis** once clinically improved, source control achieved, and GI absorption assured). "
             "Avoid as sole therapy in **severe sepsis or uncontrolled bacteremia**."
         )
@@ -1035,20 +849,12 @@ def mech_serratia(R):
     if cefox in {"Intermediate","Resistant"}:
         banners.append(
             "**Cefoxitin non-susceptible** supports an **AmpC** signal (common in *Serratia*). "
-<<<<<<< HEAD
-            "Interpret 3rd-gen cephalosporins carefully in serious infections."
-=======
             "Interpret third-generation cephalosporins carefully in serious infections."
->>>>>>> 293279a (initial commit)
         )
 
     # ---- ESBL pattern (not the main baseline issue for Serratia, but can happen) ----
     if third_R and not carp_R:
-<<<<<<< HEAD
-        mechs.append("3rd-generation cephalosporin resistance pattern — consider **ESBL** and/or **AmpC derepression**; confirm per lab policy.")
-=======
         mechs.append("third-generation cephalosporin resistance pattern — consider **ESBL** and/or **AmpC derepression**; confirm per lab policy.")
->>>>>>> 293279a (initial commit)
 
     # ---- Carbapenem resistance: include SME/chromosomal possibility + preserved cephalosporins ----
     if carp_R:
@@ -1057,17 +863,10 @@ def mech_serratia(R):
             "This can be due to **chromosomal SME-type carbapenemase**, or acquired enzymes (e.g., **KPC**) depending on epidemiology."
         )
 
-<<<<<<< HEAD
-        # Key phenotype you asked for: carbapenem R but some cephalosporins still S
-        if ctx_S or fep_S or caz_S:
-            banners.append(
-                "Carbapenem R with **some cephalosporins still susceptible** can occur in *Serratia* "
-=======
         # Key phenotype you asked for: carbapenem Resistant but some cephalosporins still Susceptible
         if ctx_S or fep_S or caz_S:
             banners.append(
                 "Carbapenem Resistant with **some cephalosporins still susceptible** can occur in *Serratia* "
->>>>>>> 293279a (initial commit)
                 "(e.g., **SME-type chromosomal carbapenemase** phenotypes). "
                 "**Do not assume all cephalosporins are inactive** — treat according to **specific reported susceptibilities** and confirm mechanism."
             )
@@ -1080,17 +879,10 @@ def mech_serratia(R):
             "(still use clinical judgment for severe/high-inoculum infections)."
         )
 
-<<<<<<< HEAD
-    # ---- Ertapenem R with IMI/MEM S pattern (less common in Serratia than Enterobacterales generally, but keep if you like) ----
-    if ept == "Resistant" and (imi == "Susceptible" or mero == "Susceptible"):
-        banners.append(
-            "**Ertapenem R** with **Imipenem/Meropenem S** → can reflect **β-lactamase + permeability changes**; "
-=======
     # ---- Ertapenem Resistant with Imipenem/Meropenem Susceptible pattern (less common in Serratia than Enterobacterales generally, but keep if you like) ----
     if ept == "Resistant" and (imi == "Susceptible" or mero == "Susceptible"):
         banners.append(
             "**Ertapenem Resistant** with **Imipenem/Meropenem Susceptible** → can reflect **β-lactamase + permeability changes**; "
->>>>>>> 293279a (initial commit)
             "confirm and select therapy by **tested carbapenem MICs/site**."
         )
 
@@ -1106,29 +898,11 @@ def mech_serratia(R):
 
     if cip == "Resistant" and lev == "Susceptible":
         mechs.append(
-<<<<<<< HEAD
-            "FQ discordance (**Ciprofloxacin R / Levofloxacin S**) suggests **low-level non-target mechanisms** "
-=======
             "Fluoroquinolone discordance (**Ciprofloxacin Resistant / Levofloxacin Susceptible**) suggests **low-level non-target mechanisms** "
->>>>>>> 293279a (initial commit)
             "(e.g., **PMQR** such as **qnr** or **AAC(6')-Ib-cr**) and/or **efflux**. "
             "These can **step up during therapy** with additional QRDR mutations."
         )
         banners.append(
-<<<<<<< HEAD
-            "Use **levofloxacin** cautiously despite S — higher risk of **on-therapy failure** with PMQR/efflux phenotypes, "
-            "especially for invasive disease."
-        )
-
-    # ---- TMP-SMX ----
-    tmpsmx = _get(R, "Trimethoprim/Sulfamethoxazole")
-    if tmpsmx == "Resistant":
-        mechs.append(
-            "TMP-SMX resistance: **dfrA** (DHFR) and/or **sul1/sul2** (DHPS), often on **class 1 integrons**."
-        )
-    elif tmpsmx == "Susceptible":
-        greens.append("TMP-SMX is **susceptible** — may be an oral option depending on site/severity.")
-=======
             "Use **levofloxacin** cautiously despite Susceptible — higher risk of **on-therapy failure** with PMQR/efflux phenotypes, "
             "especially for invasive disease."
         )
@@ -1141,7 +915,6 @@ def mech_serratia(R):
         )
     elif tmpsmx == "Susceptible":
         greens.append("Trimethoprim/Sulfamethoxazole is **susceptible** — may be an oral option depending on site/severity.")
->>>>>>> 293279a (initial commit)
 
     return _dedup_list(mechs), _dedup_list(banners), _dedup_list(greens)
 
@@ -1164,16 +937,6 @@ def tx_serratia(R):
     carp_R  = any(x == "Resistant" for x in [imi, mero, ept] if x is not None)
     any_ceph_S = any(x == "Susceptible" for x in [ctx, fep, caz] if x is not None)
 
-<<<<<<< HEAD
-    # Prefer β-lactam when FQ resistant and BL susceptible
-    if _any_S(R, ["Ceftriaxone","Cefepime","Ceftazidime","Piperacillin/Tazobactam","Aztreonam","Imipenem","Meropenem","Ertapenem"]) and \
-       _any_R(R, ["Ciprofloxacin","Levofloxacin","Moxifloxacin"]):
-        out.append("**Fluoroquinolone R but β-lactam S** → prefer a **β-lactam** that is susceptible.")
-
-    # ESBL / 3rd-gen resistance without carbapenem resistance
-    if _any_R(R, THIRD_GENS) and not carp_R:
-        out.append("3rd-gen cephalosporin resistance → for serious infections, choose a **reliably active agent** (often **cefepime** if susceptible/MIC appropriate or a **carbapenem** depending on local guidance).")
-=======
     # Prefer β-lactam when fluoroquinolone resistant and beta-lactam susceptible
     if _any_S(R, ["Ceftriaxone","Cefepime","Ceftazidime","Piperacillin/Tazobactam","Aztreonam","Imipenem","Meropenem","Ertapenem"]) and \
        _any_R(R, ["Ciprofloxacin","Levofloxacin","Moxifloxacin"]):
@@ -1182,7 +945,6 @@ def tx_serratia(R):
     # ESBL / third-generation resistance without carbapenem resistance
     if _any_R(R, THIRD_GENS) and not carp_R:
         out.append("third-generation cephalosporin resistance → for serious infections, choose a **reliably active agent** (often **cefepime** if susceptible/MIC appropriate or a **carbapenem** depending on local guidance).")
->>>>>>> 293279a (initial commit)
 
     # Carbapenem resistance but cephalosporins still susceptible (SME-like phenotype)
     if carp_R and any_ceph_S:
@@ -1191,33 +953,12 @@ def tx_serratia(R):
         if fep == "Susceptible": choices.append("**cefepime**")
         if caz == "Susceptible": choices.append("**ceftazidime**")
         out.append(
-<<<<<<< HEAD
-            "**Carbapenem R with cephalosporin S** can occur in *Serratia* (e.g., **SME-type chromosomal carbapenemase** phenotypes). "
-=======
             "**Carbapenem Resistant with cephalosporin Susceptible** can occur in *Serratia* (e.g., **SME-type chromosomal carbapenemase** phenotypes). "
->>>>>>> 293279a (initial commit)
             f"Use a susceptible cephalosporin: {', '.join(choices)} (dose by site/MIC/severity) and confirm mechanism with lab/ID."
         )
     elif carp_R:
         out.append("**Carbapenem resistance present** → prioritize confirmed actives; request **carbapenemase workup** and involve **ID** for invasive disease.")
 
-<<<<<<< HEAD
-    # Ertapenem R / IMI or MEM S
-    if ept == "Resistant" and (imi == "Susceptible" or mero == "Susceptible"):
-        out.append("**Ertapenem R / IMI or MEM S** → select based on **tested MICs**; consider **optimized meropenem dosing** when appropriate.")
-
-    # FQ discordance: CIP R / LEV S
-    if cip == "Resistant" and lev == "Susceptible":
-        out.append(
-            "**Ciprofloxacin R / Levofloxacin S** → levofloxacin *may* be used for selected **low-risk** scenarios if no better oral options, "
-            "but **failure risk is higher** (PMQR/efflux). Prefer a confirmed-active **β-lactam** for **severe/invasive** infections."
-        )
-
-    # TMP-SMX oral step-down
-    if tmpsmx == "Susceptible":
-        out.append(
-            "**TMP-SMX susceptible** → possible **oral step-down** in selected cases once improving and source controlled "
-=======
     # Ertapenem Resistant / Imipenem or Meropenem Susceptible
     if ept == "Resistant" and (imi == "Susceptible" or mero == "Susceptible"):
         out.append("**Ertapenem Resistant / Imipenem or Meropenem Susceptible** → select based on **tested MICs**; consider **optimized meropenem dosing** when appropriate.")
@@ -1233,7 +974,6 @@ def tx_serratia(R):
     if tmpsmx == "Susceptible":
         out.append(
             "**Trimethoprim/Sulfamethoxazole susceptible** → possible **oral step-down** in selected cases once improving and source controlled "
->>>>>>> 293279a (initial commit)
             "(site/severity dependent; avoid as sole therapy for uncontrolled bacteremia/severe sepsis)."
         )
 
@@ -1242,13 +982,8 @@ def tx_serratia(R):
 def mech_k_aerogenes(R):
     """
     Klebsiella aerogenes (formerly Enterobacter aerogenes)
-<<<<<<< HEAD
-    - Chromosomal AmpC: inducible/derepressible → avoid 3rd-gen cephalosporins/P-T for serious infections
-    - Can acquire ESBL + porin loss → ertapenem-R with MEM/IMI-S
-=======
     - Chromosomal AmpC: inducible/derepressible → avoid third-generation cephalosporins/Piperacillin/Tazobactam for serious infections
     - Can acquire ESBL + porin loss → ertapenem-R with Meropenem/Imipenem-S
->>>>>>> 293279a (initial commit)
     - Can be CRE/carbapenemase (KPC/NDM/etc) but also non-carbapenemase mechanisms
     """
     mechs, banners, greens = [], [], []
@@ -1277,11 +1012,7 @@ def mech_k_aerogenes(R):
     # (Don’t label as "detected" unless you want; it's intrinsic biology.)
     mechs.append(
         "Intrinsic **chromosomal AmpC β-lactamase** (inducible/derepressible) — risk of on-therapy resistance with "
-<<<<<<< HEAD
-        "**3rd-gen cephalosporins** and sometimes **piperacillin–tazobactam** in serious infections."
-=======
         "**third-generation cephalosporins** and sometimes **Piperacillin/Tazobactam** in serious infections."
->>>>>>> 293279a (initial commit)
     )
 
     # Phenotypic AmpC signals (supportive)
@@ -1297,33 +1028,19 @@ def mech_k_aerogenes(R):
             "**AmpC/ESBL + porin loss**; confirm with phenotypic/molecular testing."
         )
 
-<<<<<<< HEAD
-    # “Ertapenem R / IMI or MEM S” often porin loss + AmpC/ESBL (non-carbapenemase CRE mechanism)
-    if ept == "Resistant" and (imi == "Susceptible" or mero == "Susceptible"):
-        banners.append(
-            "**Ertapenem R** with **Imipenem/Meropenem S** → commonly **AmpC/ESBL + porin loss** (non-carbapenemase) phenotype."
-=======
     # “Ertapenem Resistant / Imipenem or Meropenem Susceptible” often porin loss + AmpC/ESBL (non-carbapenemase CRE mechanism)
     if ept == "Resistant" and (imi == "Susceptible" or mero == "Susceptible"):
         banners.append(
             "**Ertapenem Resistant** with **Imipenem/Meropenem Susceptible** → commonly **AmpC/ESBL + porin loss** (non-carbapenemase) phenotype."
->>>>>>> 293279a (initial commit)
         )
 
     # ----------------------------
     # ESBL overlay (possible, but AmpC organism complicates interpretation)
     # ----------------------------
-<<<<<<< HEAD
-    # If 3rd-gens are R (or CAZ R) and no carbapenem-R, call out ESBL possibility *in addition* to AmpC.
-    if (third_R or caz == "Resistant") and not carp_R:
-        mechs.append(
-            "β-lactam pattern with **3rd-gen cephalosporin resistance** could reflect **AmpC derepression** and/or **acquired ESBL**; "
-=======
     # If third-generation cephalosporins are Resistant (or Ceftazidime Resistant) and no carbapenem resistance, call out ESBL possibility *in addition* to AmpC.
     if (third_R or caz == "Resistant") and not carp_R:
         mechs.append(
             "β-lactam pattern with **third-generation cephalosporin resistance** could reflect **AmpC derepression** and/or **acquired ESBL**; "
->>>>>>> 293279a (initial commit)
             "confirm per lab policy (ESBL testing may be less informative in AmpC organisms)."
         )
 
@@ -1346,11 +1063,7 @@ def mech_k_aerogenes(R):
 
     if cip == "Resistant" and lev == "Susceptible":
         mechs.append(
-<<<<<<< HEAD
-            "Fluoroquinolone discordance (**Ciprofloxacin R / Levofloxacin S**) suggests **low-level non–target-mediated resistance** "
-=======
             "Fluoroquinolone discordance (**Ciprofloxacin Resistant / Levofloxacin Susceptible**) suggests **low-level non–target-mediated resistance** "
->>>>>>> 293279a (initial commit)
             "(e.g., **PMQR** such as **qnr** or **AAC(6')-Ib-cr**) and/or **efflux**. These can **evolve to high-level resistance on therapy**."
         )
         banners.append(
@@ -1358,19 +1071,11 @@ def mech_k_aerogenes(R):
         )
 
     # ----------------------------
-<<<<<<< HEAD
-    # TMP-SMX
-    # ----------------------------
-    if tmpsmx == "Resistant":
-        mechs.append(
-            "TMP-SMX resistance: **dfrA** (trimethoprim-resistant DHFR) and/or **sul1/sul2** (sulfonamide-resistant DHPS), "
-=======
     # Trimethoprim/Sulfamethoxazole
     # ----------------------------
     if tmpsmx == "Resistant":
         mechs.append(
             "Trimethoprim/Sulfamethoxazole resistance: **dfrA** (trimethoprim-resistant DHFR) and/or **sul1/sul2** (sulfonamide-resistant DHPS), "
->>>>>>> 293279a (initial commit)
             "often carried on **class 1 integrons**."
         )
 
@@ -1389,23 +1094,6 @@ def tx_k_aerogenes(R):
 
     # ---- Baseline AmpC guidance (always present) ----
     if fep == "Susceptible":
-<<<<<<< HEAD
-        out.append("**AmpC inducer** → **Cefepime (MIC ≤4) preferred**; avoid 3rd-gens/P-T for serious infections.")
-    elif fep in {"Intermediate","Resistant"}:
-        out.append("AmpC with cefepime not S → **Carbapenem** preferred for serious infections.")
-
-    # ---- Fluoroquinolones ----
-
-    # If β-lactams are S but FQs are R → don’t chase the FQ
-    if _any_S(R, ["Cefepime","Piperacillin/Tazobactam","Imipenem","Meropenem"]) and \
-       _any_R(R, ["Ciprofloxacin","Levofloxacin"]):
-        out.append("**Fluoroquinolone R but β-lactam S** → prefer a **β-lactam** that is susceptible (avoid FQs).")
-
-    # Special discordance: CIP R / LEV S
-    if cip == "Resistant" and lev == "Susceptible":
-        out.append(
-            "**Ciprofloxacin R / Levofloxacin S** → if an FQ is considered, **levofloxacin** may be used based on susceptibility, "
-=======
         out.append("**AmpC inducer** → **Cefepime (MIC ≤4) preferred**; avoid third-generation cephalosporins/Piperacillin/Tazobactam for serious infections.")
     elif fep in {"Intermediate","Resistant"}:
         out.append("AmpC with cefepime not Susceptible → **Carbapenem** preferred for serious infections.")
@@ -1421,22 +1109,10 @@ def tx_k_aerogenes(R):
     if cip == "Resistant" and lev == "Susceptible":
         out.append(
             "**Ciprofloxacin Resistant / Levofloxacin Susceptible** → if a fluoroquinolone is considered, **levofloxacin** may be used based on susceptibility, "
->>>>>>> 293279a (initial commit)
             "but **failure risk is higher** with **PMQR/efflux** phenotypes. Prefer a confirmed-active **β-lactam** "
             "for **severe/invasive** infections; reserve levofloxacin for **low-risk sites** with close follow-up."
         )
 
-<<<<<<< HEAD
-    # If all tested FQs are R → explicitly tell them to avoid FQs
-    if _any_R(R, ["Ciprofloxacin","Levofloxacin"]) and \
-       not _any_S(R, ["Ciprofloxacin","Levofloxacin"]):
-        out.append("**All tested fluoroquinolones are resistant** → avoid FQs; use a non-FQ agent that is susceptible.")
-
-    # ---- TMP-SMX: oral step-down ----
-    if tmpsmx == "Susceptible":
-        out.append(
-            "**TMP-SMX susceptible** → reasonable **oral step-down** option for selected cases "
-=======
     # If all tested fluoroquinolones are Resistant → explicitly tell them to avoid fluoroquinolones
     if _any_R(R, ["Ciprofloxacin","Levofloxacin"]) and \
        not _any_S(R, ["Ciprofloxacin","Levofloxacin"]):
@@ -1446,7 +1122,6 @@ def tx_k_aerogenes(R):
     if tmpsmx == "Susceptible":
         out.append(
             "**Trimethoprim/Sulfamethoxazole susceptible** → reasonable **oral step-down** option for selected cases "
->>>>>>> 293279a (initial commit)
             "(e.g., **uncomplicated UTI** or low-risk bloodstream infections once clinically improved, source controlled, and GI absorption assured). "
             "Avoid as sole therapy in **severe sepsis or uncontrolled bacteremia**."
         )
@@ -1501,19 +1176,6 @@ def mech_pseudomonas(R):
     if carb_R:
         mechs.append("Carbapenem resistance: **carbapenemase (VIM/IMP/NDM/OXA)** vs **OprD loss ± AmpC/efflux**; confirm.")
     if bl_R and not carb_R:
-<<<<<<< HEAD
-        mechs.append("Broad β-lactam R without carbapenem R → **AmpC overproduction ± efflux**.")
-    if carb_R and bl_S:
-        mechs.append("Carbapenem R with other β-lactams S → **OprD porin loss** (non-carbapenemase) likely.")
-
-    # Specific β-lactam banners
-    if piptazo == "Resistant":
-        banners.append("**Piperacillin/Tazobactam R** → consider **AmpC derepression** and/or **efflux**.")
-    if fep == "Resistant":
-        banners.append("**Cefepime R** → consider **MexXY-OprM efflux** and/or **AmpC**.")
-    if caz == "Resistant":
-        banners.append("**Ceftazidime R** → consider **AmpC**, **ESBLs (VEB/PER/GES/TEM/SHV)**, and/or **efflux**.")
-=======
         mechs.append("Broad beta-lactam Resistant without carbapenem Resistant → **AmpC overproduction ± efflux**.")
     if carb_R and bl_S:
         mechs.append("Carbapenem Resistant with other beta-lactams Susceptible → **OprD porin loss** (non-carbapenemase) likely.")
@@ -1525,7 +1187,6 @@ def mech_pseudomonas(R):
         banners.append("**Cefepime Resistant** → consider **MexXY-OprM efflux** and/or **AmpC**.")
     if caz == "Resistant":
         banners.append("**Ceftazidime Resistant** → consider **AmpC**, **ESBLs (VEB/PER/GES/TEM/SHV)**, and/or **efflux**.")
->>>>>>> 293279a (initial commit)
 
     # ----------------------------
     # Fluoroquinolones (mechanisms)
@@ -1539,11 +1200,7 @@ def mech_pseudomonas(R):
     # Key discordance teaching point
     if (cipro == "Resistant") and (levo == "Susceptible"):
         banners.append(
-<<<<<<< HEAD
-            "**FQ discordance: Ciprofloxacin R / Levofloxacin S** → most consistent with **efflux/stepwise resistance**. "
-=======
             "**fluoroquinolone discordance: Ciprofloxacin Resistant / Levofloxacin Susceptible** → most consistent with **efflux/stepwise resistance**. "
->>>>>>> 293279a (initial commit)
             "Even if levo tests susceptible, there is a **high risk of on-therapy resistance and clinical failure**, especially in invasive infections."
         )
 
@@ -1551,17 +1208,10 @@ def mech_pseudomonas(R):
     # Aminoglycosides (mechanisms)
     # ----------------------------
     if ag_R:
-<<<<<<< HEAD
-        # Common pattern: gent/tobra R, amik S
-        if (genta == "Resistant" or tobra == "Resistant") and (amik == "Susceptible"):
-            mechs.append(
-                "Aminoglycoside resistance pattern (**Gent/Tobra R, Amik S**) → consistent with **aminoglycoside-modifying enzymes (AMEs)**; "
-=======
         # Common pattern: Gentamicin/Tobramycin Resistant, amikacin Susceptible
         if (genta == "Resistant" or tobra == "Resistant") and (amik == "Susceptible"):
             mechs.append(
                 "Aminoglycoside resistance pattern (**Gentamicin/Tobramycin Resistant, Amikacin Susceptible**) → consistent with **aminoglycoside-modifying enzymes (AMEs)**; "
->>>>>>> 293279a (initial commit)
                 "**amikacin** may retain activity."
             )
         else:
@@ -1569,15 +1219,9 @@ def mech_pseudomonas(R):
                 "Aminoglycoside resistance: **AMEs** and/or **efflux**; less commonly **16S rRNA methylases** (broad high-level resistance)."
             )
 
-<<<<<<< HEAD
-    # If all AG are resistant, add a stronger banner
-    if (genta in {"Resistant","Intermediate"} and tobra in {"Resistant","Intermediate"} and amik in {"Resistant","Intermediate"}):
-        banners.append("**All aminoglycosides non-susceptible** → consistent with multiple AMEs/efflux or rarely **16S rRNA methylase**; avoid AG reliance.")
-=======
     # If all aminoglycoside are resistant, add a stronger banner
     if (genta in {"Resistant","Intermediate"} and tobra in {"Resistant","Intermediate"} and amik in {"Resistant","Intermediate"}):
         banners.append("**All aminoglycosides non-susceptible** → consistent with multiple AMEs/efflux or rarely **16S rRNA methylase**; avoid aminoglycoside reliance.")
->>>>>>> 293279a (initial commit)
 
     return _dedup_list(mechs), _dedup_list(banners), _dedup_list(greens)
 
@@ -1609,15 +1253,6 @@ def tx_pseudomonas(R):
     ag_any_R = any(x == "Resistant" for x in [genta, tobra, amik] if x is not None)
 
     # ----------------------------
-<<<<<<< HEAD
-    # If FQ R but β-lactam S → prefer β-lactam
-    # ----------------------------
-    if any_bl_S and fq_any_R:
-        out.append("**Fluoroquinolone R but β-lactam S** → prefer a **susceptible anti-pseudomonal β-lactam** (avoid relying on FQs).")
-
-    # ----------------------------
-    # Special OprD pattern: carbapenem R but other β-lactams S
-=======
     # If fluoroquinolone Resistant but β-lactam Susceptible → prefer β-lactam
     # ----------------------------
     if any_bl_S and fq_any_R:
@@ -1625,18 +1260,13 @@ def tx_pseudomonas(R):
 
     # ----------------------------
     # Special OprD pattern: carbapenem Resistant but other β-lactams Susceptible
->>>>>>> 293279a (initial commit)
     # ----------------------------
     if carb_R and any_bl_S:
         choices = []
         if fep == "Susceptible":
             choices.append("**cefepime**")
         if piptazo == "Susceptible":
-<<<<<<< HEAD
-            choices.append("**piperacillin–tazobactam**")
-=======
             choices.append("**Piperacillin/Tazobactam**")
->>>>>>> 293279a (initial commit)
         if caz == "Susceptible":
             choices.append("**ceftazidime**")
         if aztre == "Susceptible":
@@ -1644,28 +1274,13 @@ def tx_pseudomonas(R):
 
         if choices:
             out.append(
-<<<<<<< HEAD
-                "**Carbapenem R with other β-lactams S** → pattern consistent with **OprD porin loss (non-carbapenemase)**. "
-=======
                 "**Carbapenem Resistant with other beta-lactams Susceptible** → pattern consistent with **OprD porin loss (non-carbapenemase)**. "
->>>>>>> 293279a (initial commit)
                 f"Use a susceptible β-lactam: {', '.join(choices)} (site/MIC/severity dependent)."
             )
     else:
         # Carbapenem-R path only when no other β-lactam is susceptible
         if carb_R and not any_bl_S:
             out.append(
-<<<<<<< HEAD
-                "**Carbapenem R present** → prioritize confirmed actives; consider **ceftolozane–tazobactam** or "
-                "**ceftazidime–avibactam** if tested susceptible; consider ID input for severe infections."
-            )
-        else:
-            # No carbapenem R → phenotype-based suggestions
-            if fep == "Susceptible" and piptazo == "Resistant":
-                out.append("**Cefepime S / P-T R** → choose **cefepime** (phenotype compatible with **AmpC derepression**).")
-            if fep == "Resistant" and piptazo == "Susceptible":
-                out.append("**Cefepime R / P-T S** → choose **piperacillin–tazobactam** (compatible with **MexXY-OprM efflux**).")
-=======
                 "**Carbapenem Resistant present** → prioritize confirmed actives; consider **Ceftolozane/Tazobactam** or "
                 "**Ceftazidime/Avibactam** if tested susceptible; consider ID input for severe infections."
             )
@@ -1675,29 +1290,12 @@ def tx_pseudomonas(R):
                 out.append("**Cefepime Susceptible / Piperacillin/Tazobactam Resistant** → choose **cefepime** (phenotype compatible with **AmpC derepression**).")
             if fep == "Resistant" and piptazo == "Susceptible":
                 out.append("**Cefepime Resistant / Piperacillin/Tazobactam Susceptible** → choose **Piperacillin/Tazobactam** (compatible with **MexXY-OprM efflux**).")
->>>>>>> 293279a (initial commit)
 
     # ----------------------------
     # Ceftazidime refinement
     # ----------------------------
     if caz == "Resistant":
         if fep == "Susceptible":
-<<<<<<< HEAD
-            out.append("**CAZ R / FEP S** → prefer **cefepime** (AmpC-compatible pattern).")
-        elif piptazo == "Susceptible":
-            out.append("**CAZ R / P-T S** → prefer **piperacillin–tazobactam**; confirm susceptibility.")
-        elif (fep == "Resistant") and (piptazo == "Resistant"):
-            out.append("**CAZ, FEP, and P-T all R** → consider **ceftolozane–tazobactam** if tested susceptible; evaluate combinations for severe infections.")
-        else:
-            out.append("**Ceftazidime R** → choose among confirmed susceptible β-lactams; consider novel agents if none.")
-
-    # ----------------------------
-    # Fluoroquinolone discordance therapy note (Cipro R / Levo S)
-    # ----------------------------
-    if (cipro == "Resistant") and (levo == "Susceptible"):
-        out.append(
-            "**Cipro R / Levo S** → **levofloxacin may appear usable**, but discordance suggests **efflux/stepwise resistance** with **high failure risk**, "
-=======
             out.append("**Ceftazidime Resistant / Cefepime Susceptible** → prefer **cefepime** (AmpC-compatible pattern).")
         elif piptazo == "Susceptible":
             out.append("**Ceftazidime Resistant / Piperacillin/Tazobactam Susceptible** → prefer **Piperacillin/Tazobactam**; confirm susceptibility.")
@@ -1712,7 +1310,6 @@ def tx_pseudomonas(R):
     if (cipro == "Resistant") and (levo == "Susceptible"):
         out.append(
             "**Ciprofloxacin Resistant / Levofloxacin Susceptible** → **levofloxacin may appear usable**, but discordance suggests **efflux/stepwise resistance** with **high failure risk**, "
->>>>>>> 293279a (initial commit)
             "especially for bacteremia, pneumonia, CNS, or deep-seated infection. If used at all, reserve for **limited/low-inoculum situations** and "
             "ensure close clinical monitoring."
         )
@@ -1721,24 +1318,14 @@ def tx_pseudomonas(R):
     # Aminoglycosides therapy notes
     # ----------------------------
     if ag_any_S:
-<<<<<<< HEAD
-        # Prefer amikacin if it’s the only S agent
-        if (amik == "Susceptible") and (genta in {None,"Resistant","Intermediate"}) and (tobra in {None,"Resistant","Intermediate"}):
-            out.append("**Aminoglycosides**: **amikacin susceptible** while gent/tobra not S → **amikacin** may be the best AG option (often as adjunct depending on site).")
-=======
         # Prefer amikacin if it is the only Susceptible agent
         if (amik == "Susceptible") and (genta in {None,"Resistant","Intermediate"}) and (tobra in {None,"Resistant","Intermediate"}):
             out.append("**Aminoglycosides**: **amikacin susceptible** while Gentamicin/Tobramycin not Susceptible → **amikacin** may be the best aminoglycoside option (often as adjunct depending on site).")
->>>>>>> 293279a (initial commit)
         else:
             out.append("**Aminoglycosides**: if one is susceptible, it can be considered (often **adjunctive** in severe infections depending on site/toxicity).")
 
     if ag_any_R and not ag_any_S:
-<<<<<<< HEAD
-        out.append("**Aminoglycosides non-susceptible** → avoid relying on AG therapy; consider alternative active classes/novel agents when available.")
-=======
         out.append("**Aminoglycosides non-susceptible** → avoid relying on aminoglycoside therapy; consider alternative active classes/novel agents when available.")
->>>>>>> 293279a (initial commit)
 
     return _dedup_list(out)
 
@@ -1750,19 +1337,11 @@ def mech_achromobacter(R):
     tmpsmx = _get(R, "Trimethoprim/Sulfamethoxazole")
     if tmpsmx == "Resistant":
         mechs.append(
-<<<<<<< HEAD
-            "TMP-SMX resistance: usually **folate-pathway target changes** (e.g., **dfrA** for trimethoprim, **sul1/sul2** for sulfonamides) "
-            "and/or **efflux**."
-        )
-    elif tmpsmx == "Susceptible":
-        greens.append("TMP-SMX is **susceptible** — often a key active option for **Achromobacter** (site/severity dependent).")
-=======
             "Trimethoprim/Sulfamethoxazole resistance: usually **folate-pathway target changes** (e.g., **dfrA** for trimethoprim, **sul1/sul2** for sulfonamides) "
             "and/or **efflux**."
         )
     elif tmpsmx == "Susceptible":
         greens.append("Trimethoprim/Sulfamethoxazole is **susceptible** — often a key active option for **Achromobacter** (site/severity dependent).")
->>>>>>> 293279a (initial commit)
 
     return _dedup_list(mechs), _dedup_list(banners), _dedup_list(greens)
 
@@ -1773,20 +1352,12 @@ def tx_achromobacter(R):
     tmpsmx = _get(R, "Trimethoprim/Sulfamethoxazole")
     if tmpsmx == "Susceptible":
         out.append(
-<<<<<<< HEAD
-            "**TMP-SMX susceptible** → consider **TMP-SMX** as a primary option (including **oral step-down** when clinically appropriate: "
-=======
             "**Trimethoprim/Sulfamethoxazole susceptible** → consider **Trimethoprim/Sulfamethoxazole** as a primary option (including **oral step-down** when clinically appropriate: "
->>>>>>> 293279a (initial commit)
             "source controlled, stable patient, adequate absorption, and a non–high-inoculum site)."
         )
     elif tmpsmx == "Resistant":
         out.append(
-<<<<<<< HEAD
-            "**TMP-SMX resistant** → do **not** rely on TMP-SMX; select among other confirmed susceptible agents."
-=======
             "**Trimethoprim/Sulfamethoxazole resistant** → do **not** rely on Trimethoprim/Sulfamethoxazole; select among other confirmed susceptible agents."
->>>>>>> 293279a (initial commit)
         )
 
     return _dedup_list(out)
@@ -1832,22 +1403,14 @@ def mech_acinetobacter(R):
 
     # ---- Broad cephalosporin/penicillin resistance (AmpC/ESBL/efflux/porin)
     # Acinetobacter commonly has chromosomal AmpC and can overexpress it (e.g., via IS elements).
-<<<<<<< HEAD
-    # We keep this as a general mechanism line when there is broad BL resistance.
-=======
     # We keep this as a general mechanism line when there is broad beta-lactam resistance.
->>>>>>> 293279a (initial commit)
     if bl_any_R:
         mechs.append(
             "β-lactam resistance is often driven by **β-lactamases** (including **AmpC** and sometimes **ESBLs**) "
             "plus **efflux** and **outer-membrane/porin (OMP) permeability** changes."
         )
 
-<<<<<<< HEAD
-    # Efflux emphasis if multi-class phenotype (BL + FQ and/or AG resistance)
-=======
     # Efflux emphasis if multi-class phenotype (beta-lactam + fluoroquinolone and/or aminoglycoside resistance)
->>>>>>> 293279a (initial commit)
     fq_R = _any_R(R, ["Ciprofloxacin","Levofloxacin"])
     ag_R = _any_R(R, ["Gentamicin","Tobramycin","Amikacin"])
     if bl_any_R and (fq_R or ag_R):
@@ -1855,17 +1418,10 @@ def mech_acinetobacter(R):
             "Multidrug phenotype suggests contribution from **RND efflux pumps (e.g., AdeABC)** in addition to enzyme-mediated resistance."
         )
 
-<<<<<<< HEAD
-    # Porin/OMP emphasis if carbapenem-R but some other BL remain S (permeability + enzyme interplay)
-    if carb_R and bl_any_S:
-        banners.append(
-            "Carbapenem R with some other β-lactams S can reflect **permeability/OMP (porin) changes** plus variable β-lactamase expression."
-=======
     # Porin/OMP emphasis if carbapenem-resistant but some other beta-lactam remain Susceptible (permeability + enzyme interplay)
     if carb_R and bl_any_S:
         banners.append(
             "Carbapenem Resistant with some other beta-lactams Susceptible can reflect **permeability/OMP (porin) changes** plus variable β-lactamase expression."
->>>>>>> 293279a (initial commit)
         )
 
     # ---- Sulbactam (intrinsic anti-Acinetobacter activity via PBPs)
@@ -1886,11 +1442,7 @@ def mech_acinetobacter(R):
         )
         # Optional, gentle nuance
         if amik == "Susceptible" and (genta == "Resistant" or tobra == "Resistant"):
-<<<<<<< HEAD
-            banners.append("Aminoglycoside pattern: **amikacin may retain activity** despite gent/tobra resistance (agent-specific).")
-=======
             banners.append("Aminoglycoside pattern: **amikacin may retain activity** despite Gentamicin/Tobramycin resistance (agent-specific).")
->>>>>>> 293279a (initial commit)
 
     # ---- Fluoroquinolones
     if fq_R:
@@ -1952,21 +1504,12 @@ def tx_acinetobacter(R):
     elif sulb == "Resistant":
         out.append("**Ampicillin/sulbactam resistant** → avoid relying on sulbactam as an active agent unless other testing supports it.")
 
-<<<<<<< HEAD
-    # FQ + AG stewardship guidance
-    if fq_R:
-        out.append("**Fluoroquinolone resistant** → avoid FQs unless a specific agent is tested susceptible and clinically appropriate.")
-    if ag_R:
-        if amik == "Susceptible" and (genta == "Resistant" or tobra == "Resistant"):
-            out.append("Aminoglycosides: **amikacin susceptible** while gent/tobra resistant → amikacin may be the preferred AG (agent-specific).")
-=======
     # fluoroquinolone + aminoglycoside stewardship guidance
     if fq_R:
         out.append("**Fluoroquinolone resistant** → avoid fluoroquinolones unless a specific agent is tested susceptible and clinically appropriate.")
     if ag_R:
         if amik == "Susceptible" and (genta == "Resistant" or tobra == "Resistant"):
             out.append("Aminoglycosides: **amikacin susceptible** while Gentamicin/Tobramycin resistant → amikacin may be the preferred aminoglycoside (agent-specific).")
->>>>>>> 293279a (initial commit)
         else:
             out.append("Aminoglycoside resistance present → avoid AGs unless a specific agent tests susceptible and is appropriate for site.")
 
@@ -1996,16 +1539,6 @@ def mech_steno(R):
         "due to multiple mechanisms including **efflux pumps**, β-lactamases, and reduced outer-membrane permeability."
     )
 
-<<<<<<< HEAD
-    # TMP-SMX
-    if tmpsmx == "Resistant":
-        mechs.append(
-            "TMP-SMX resistance: often via **sul1** (and related folate-pathway resistance determinants) carried on "
-            "**class 1 integrons**; resistance has increased globally."
-        )
-    elif tmpsmx == "Susceptible":
-        greens.append("TMP-SMX is **susceptible** — historically the mainstay with strong in-vitro activity against *S. maltophilia*.")
-=======
     # Trimethoprim/Sulfamethoxazole
     if tmpsmx == "Resistant":
         mechs.append(
@@ -2014,7 +1547,6 @@ def mech_steno(R):
         )
     elif tmpsmx == "Susceptible":
         greens.append("Trimethoprim/Sulfamethoxazole is **susceptible** — historically the mainstay with strong in-vitro activity against *S. maltophilia*.")
->>>>>>> 293279a (initial commit)
 
     # Fluoroquinolones
     if (lev == "Resistant") or (moxi == "Resistant"):
@@ -2022,11 +1554,7 @@ def mech_steno(R):
             "Fluoroquinolone resistance: commonly due to **efflux pump overexpression** (e.g., **SmeDEF** and other RND pumps; **MfsA**), "
             "sometimes via regulatory mutations (e.g., derepression of SmeDEF)."
         )
-<<<<<<< HEAD
-    # Susceptible FQ but still caution for emergence
-=======
     # Susceptible fluoroquinolone but still caution for emergence
->>>>>>> 293279a (initial commit)
     if (lev == "Susceptible") or (moxi == "Susceptible"):
         banners.append(
             "Even when a fluoroquinolone tests **susceptible**, **on-therapy resistance can emerge** during monotherapy; "
@@ -2064,11 +1592,7 @@ def tx_steno(R):
 
     # Core recommendations
     if tmpsmx == "Susceptible":
-<<<<<<< HEAD
-        out.append("**Preferred**: **TMP-SMX** when susceptible (often used as backbone).")
-=======
         out.append("**Preferred**: **Trimethoprim/Sulfamethoxazole** when susceptible (often used as backbone).")
->>>>>>> 293279a (initial commit)
     elif lev == "Susceptible":
         out.append("**Alternative**: **Levofloxacin** when susceptible (avoid assuming class effect).")
     elif moxi == "Susceptible":
@@ -2082,20 +1606,12 @@ def tx_steno(R):
 
     # When to think combination therapy (from your text)
     out.append(
-<<<<<<< HEAD
-        "Consider **combination therapy** (often TMP-SMX-based when susceptible) for higher-risk scenarios: "
-=======
         "Consider **combination therapy** (often Trimethoprim/Sulfamethoxazole-based when susceptible) for higher-risk scenarios: "
->>>>>>> 293279a (initial commit)
         "**endovascular infection**, **CNS infection**, **bone/joint infection**, **severe neutropenia/immune defect**, "
         "or **multifocal lung disease** (align with local/ID team guidance)."
     )
 
-<<<<<<< HEAD
-    # Warn about FQ monotherapy resistance emergence
-=======
     # Warn about fluoroquinolone monotherapy resistance emergence
->>>>>>> 293279a (initial commit)
     if (lev == "Susceptible") or (moxi == "Susceptible"):
         out.append(
             "If using a **fluoroquinolone**, note that **resistance can develop during monotherapy**; consider combination approaches in severe/systemic infections."
@@ -2165,11 +1681,7 @@ def tx_efaecalis(R):
 
     # If penicillin is resistant but ampicillin is susceptible, steer to ampicillin
     if pen == "Resistant" and amp == "Susceptible":
-<<<<<<< HEAD
-        out.append("**Penicillin R / Ampicillin S** → treat with **ampicillin** (preferred) rather than penicillin.")
-=======
         out.append("**Penicillin Resistant / Ampicillin Susceptible** → treat with **ampicillin** (preferred) rather than penicillin.")
->>>>>>> 293279a (initial commit)
 
     # VRE
     if vanc == "Resistant":
@@ -2215,11 +1727,7 @@ def mech_spneumo(R):
     # β-lactams: Pneumococcus = PBP alterations (not β-lactamase)
     # ----------------------------
     # For S. pneumoniae, penicillin/cephalosporin non-susceptibility is classically via mosaic PBPs (pbp1a/pbp2x/pbp2b),
-<<<<<<< HEAD
-    # sometimes with increased MICs for both penicillin and 3rd-gen cephs.
-=======
     # sometimes with increased MICs for both penicillin and third-generation cephs.
->>>>>>> 293279a (initial commit)
     if pen in {"Intermediate", "Resistant"}:
         mechs.append(
             "β-lactam non-susceptibility via **altered PBPs** (mosaic **pbp2x/pbp2b/pbp1a**; not β-lactamase). "
@@ -2251,11 +1759,7 @@ def mech_spneumo(R):
     elif ery == "Resistant" and cli == "Susceptible":
         mechs.append("Macrolide resistance consistent with **mef(A/E)** efflux (clindamycin often remains susceptible).")
         banners.append(
-<<<<<<< HEAD
-            "Erythromycin R with clindamycin S → supports **mef(A/E)** efflux or inducible mechanisms; "
-=======
             "Erythromycin Resistant with clindamycin Susceptible → supports **mef(A/E)** efflux or inducible mechanisms; "
->>>>>>> 293279a (initial commit)
             "macrolides should be avoided; clindamycin may still be active if tested susceptible."
         )
 
@@ -2307,11 +1811,7 @@ def tx_spneumo(R):
     if ctx in {"Intermediate", "Resistant"}:
         out.append(
             "**Ceftriaxone non-susceptible** → avoid ceftriaxone monotherapy for invasive disease. "
-<<<<<<< HEAD
-            "For **suspected/confirmed meningitis**, use **vancomycin + a high-dose 3rd-gen cephalosporin** initially; "
-=======
             "For **suspected/confirmed meningitis**, use **vancomycin + a high-dose third-generation cephalosporin** initially; "
->>>>>>> 293279a (initial commit)
             "if cephalosporin resistance is present, continue **vancomycin** and consider adding **rifampin** per institutional guidance."
         )
 
@@ -2322,31 +1822,18 @@ def tx_spneumo(R):
             "For severe/invasive disease (especially CNS), prioritize **vancomycin-based** therapy guided by MICs and ID input."
         )
 
-<<<<<<< HEAD
-    # Vancomycin role (mostly relevant in meningitis or severe disease; susceptibility usually reported S)
-    if vanc == "Susceptible":
-        # Don't always spam; only add if CTX non-susceptible (above) or user wants meningitis framing.
-=======
     # Vancomycin role (mostly relevant in meningitis or severe disease; susceptibility usually reported as Susceptible)
     if vanc == "Susceptible":
         # Don't always spam; only add if Ceftriaxone non-susceptible (above) or user wants meningitis framing.
->>>>>>> 293279a (initial commit)
         pass
     elif vanc in {"Intermediate", "Resistant"}:
         out.append("Vancomycin non-susceptible is very uncommon → confirm MIC and involve **ID** urgently.")
 
     # ----------------------------
-<<<<<<< HEAD
-    # Macrolides & FQs
-    # ----------------------------
-    if ery == "Resistant":
-        out.append("Avoid macrolides when **Erythromycin R** unless a specific macrolide is tested susceptible.")
-=======
     # Macrolides & fluoroquinolones
     # ----------------------------
     if ery == "Resistant":
         out.append("Avoid macrolides when **Erythromycin Resistant** unless a specific macrolide is tested susceptible.")
->>>>>>> 293279a (initial commit)
     if lvo == "Resistant":
         out.append("Avoid fluoroquinolones unless the **specific agent** is susceptible.")
 
@@ -2379,17 +1866,10 @@ def mech_bhs(R):
         mechs.append("Macrolide/Lincosamide resistance: likely **erm**-mediated **MLS_B** (constitutive).")
     elif ery == "Resistant" and cli == "Susceptible":
         mechs.append("Macrolide resistance consistent with **mef(A/E)** efflux or **inducible erm**.")
-<<<<<<< HEAD
-        banners.append("**Erythromycin R / Clindamycin S** → perform **D-test** to assess inducible MLS_B; avoid clindamycin if D-test positive.")
-    elif ery == "Susceptible" and cli == "Resistant":
-        banners.append(
-            "Clindamycin R with erythromycin S is uncommon; consider repeat testing / lab confirmation "
-=======
         banners.append("**Erythromycin Resistant / Clindamycin Susceptible** → perform **D-test** to assess inducible MLS_B; avoid clindamycin if D-test positive.")
     elif ery == "Susceptible" and cli == "Resistant":
         banners.append(
             "Clindamycin Resistant with erythromycin Susceptible is uncommon; consider repeat testing / lab confirmation "
->>>>>>> 293279a (initial commit)
             "(can reflect other resistance determinants)."
         )
 
@@ -2419,15 +1899,9 @@ def tx_bhs(R):
     elif cli == "Resistant":
         out.append("If clindamycin is needed for GAS toxin suppression but is **not susceptible**, use alternatives per local guidance (often alongside β-lactam backbone).")
 
-<<<<<<< HEAD
-    # Avoid macrolides when R
-    if ery == "Resistant":
-        out.append("Avoid macrolides when **Erythromycin R** unless a specific macrolide is tested susceptible.")
-=======
     # Avoid macrolides when Resistant
     if ery == "Resistant":
         out.append("Avoid macrolides when **Erythromycin Resistant** unless a specific macrolide is tested susceptible.")
->>>>>>> 293279a (initial commit)
 
     return _dedup_list(out)
 
@@ -2470,11 +1944,7 @@ def mech_vgs(R):
         mechs.append("Macrolide/Lincosamide resistance: likely **erm**-mediated **MLS_B** (constitutive).")
     elif ery == "Resistant" and cli == "Susceptible":
         mechs.append("Macrolide resistance consistent with **mef(A/E)** efflux or inducible **erm**.")
-<<<<<<< HEAD
-        banners.append("**Erythromycin R / Clindamycin S** → consider **D-test** where applicable; avoid clindamycin if inducible MLS_B is present.")
-=======
         banners.append("**Erythromycin Resistant / Clindamycin Susceptible** → consider **D-test** where applicable; avoid clindamycin if inducible MLS_B is present.")
->>>>>>> 293279a (initial commit)
 
     # Fluoroquinolones
     if lvo in {"Intermediate", "Resistant"}:
@@ -2514,17 +1984,6 @@ def tx_vgs(R):
 
     # Macrolides/clinda are not typical for invasive VGS, but keep safety notes
     if ery == "Resistant":
-<<<<<<< HEAD
-        out.append("Avoid macrolides when **Erythromycin R** unless a specific macrolide is tested susceptible.")
-    if ery == "Resistant" and cli == "Susceptible":
-        out.append("If considering clindamycin, consider **D-test** where applicable; avoid clindamycin if inducible MLS_B is present.")
-
-    # FQ caution
-    if lvo == "Susceptible":
-        out.append("If a fluoroquinolone is considered, use only if **the specific agent is susceptible**; avoid class assumptions.")
-    elif lvo in {"Intermediate", "Resistant"}:
-        out.append("Fluoroquinolone non-susceptible → avoid FQs; select a susceptible β-lactam or vancomycin per site/severity.")
-=======
         out.append("Avoid macrolides when **Erythromycin Resistant** unless a specific macrolide is tested susceptible.")
     if ery == "Resistant" and cli == "Susceptible":
         out.append("If considering clindamycin, consider **D-test** where applicable; avoid clindamycin if inducible MLS_B is present.")
@@ -2534,7 +1993,6 @@ def tx_vgs(R):
         out.append("If a fluoroquinolone is considered, use only if **the specific agent is susceptible**; avoid class assumptions.")
     elif lvo in {"Intermediate", "Resistant"}:
         out.append("Fluoroquinolone non-susceptible → avoid fluoroquinolones; select a susceptible β-lactam or vancomycin per site/severity.")
->>>>>>> 293279a (initial commit)
 
     return _dedup_list(out)
 
@@ -2592,22 +2050,14 @@ def mech_staph(org: str, R: dict):
             )
             # If oxacillin is explicitly susceptible, call out the classic pattern
             if ox == "Susceptible":
-<<<<<<< HEAD
-                banners.append("Pattern **Penicillin R + Oxacillin S** → strongly supports **penicillinase (blaZ)** production.")
-=======
                 banners.append("Pattern **Penicillin Resistant + Oxacillin Susceptible** → strongly supports **penicillinase (blaZ)** production.")
->>>>>>> 293279a (initial commit)
 
     # ---- Macrolide / lincosamide (D-test pattern) ----
     if ery == "Resistant" and clin == "Resistant":
         mechs.append("Macrolide/Lincosamide resistance: likely **erm-mediated MLS_B** (constitutive).")
     elif ery == "Resistant" and clin == "Susceptible":
         banners.append(
-<<<<<<< HEAD
-            "**Erythromycin R / Clindamycin S** → perform **D-test** for inducible MLS_B (erm). "
-=======
             "**Erythromycin Resistant / Clindamycin Susceptible** → perform **D-test** for inducible MLS_B (erm). "
->>>>>>> 293279a (initial commit)
             "Avoid clindamycin if D-test positive; **mef(A/E)** efflux also possible."
         )
 
@@ -2643,15 +2093,9 @@ def mech_staph(org: str, R: dict):
     if tet == "Resistant":
         mechs.append("**Tetracycline resistance**: **tetK** (efflux) and/or **tetM** (ribosomal protection).")
 
-<<<<<<< HEAD
-    # ---- TMP-SMX ----
-    if tmp == "Resistant":
-        mechs.append("**TMP-SMX resistance**: mutations or acquired **dfr** (DHFR) and/or **sul** (DHPS) genes.")
-=======
     # ---- Trimethoprim/Sulfamethoxazole ----
     if tmp == "Resistant":
         mechs.append("**Trimethoprim/Sulfamethoxazole resistance**: mutations or acquired **dfr** (DHFR) and/or **sul** (DHPS) genes.")
->>>>>>> 293279a (initial commit)
 
     return _dedup_list(mechs), _dedup_list(banners), _dedup_list(greens)
 
@@ -2697,17 +2141,6 @@ def tx_staph(org: str, R: dict):
             out.append("**Vancomycin resistant** → use non-glycopeptide options guided by susceptibility (e.g., **linezolid** or **daptomycin** where appropriate) and involve **ID**.")
 
         if lino == "Susceptible":
-<<<<<<< HEAD
-            out.append("When **Linezolid S**, it is a good option for **MRSA pneumonia** or when an oral agent is needed with high bioavailability.")
-
-    # D-test / clindamycin
-    if ery == "Resistant" and clin == "Susceptible":
-        out.append("**Erythromycin R / Clindamycin S** → perform a **D-test**. Only use clindamycin if D-test negative (no inducible MLS_B).")
-
-    # TMP-SMX as oral option (selected scenarios)
-    if tmp == "Susceptible":
-        out.append("**TMP-SMX susceptible** → reasonable **oral step-down** for selected infections (often SSTI; sometimes bone/joint with close follow-up) when susceptible and source is controlled. Avoid as monotherapy for severe bacteremia/endocarditis.")
-=======
             out.append("When **Linezolid Susceptible**, it is a good option for **MRSA pneumonia** or when an oral agent is needed with high bioavailability.")
 
     # D-test / clindamycin
@@ -2717,7 +2150,6 @@ def tx_staph(org: str, R: dict):
     # Trimethoprim/Sulfamethoxazole as oral option (selected scenarios)
     if tmp == "Susceptible":
         out.append("**Trimethoprim/Sulfamethoxazole susceptible** → reasonable **oral step-down** for selected infections (often SSTI; sometimes bone/joint with close follow-up) when susceptible and source is controlled. Avoid as monotherapy for severe bacteremia/endocarditis.")
->>>>>>> 293279a (initial commit)
 
     # Tetracycline/Doxycycline as oral option
     if tet == "Susceptible":
@@ -2725,11 +2157,7 @@ def tx_staph(org: str, R: dict):
 
     # Fluoroquinolones – caution
     if moxi == "Susceptible":
-<<<<<<< HEAD
-        out.append("If **Moxifloxacin S**, use with caution; fluoroquinolones are generally **not preferred** for staphylococcal infections due to rapid emergence of resistance and toxicity concerns.")
-=======
         out.append("If **Moxifloxacin Susceptible**, use with caution; fluoroquinolones are generally **not preferred** for staphylococcal infections due to rapid emergence of resistance and toxicity concerns.")
->>>>>>> 293279a (initial commit)
 
     return _dedup_list(out)
 
@@ -2855,19 +2283,7 @@ def run_mechanisms_and_therapy_for(org, final_results):
 # ======================
 # UI: Title + group selector
 # ======================
-<<<<<<< HEAD
-st.markdown("""
-<h2 style='text-align:center;
-    font-weight:800;
-    background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;'>
-Select Pathogen Group
-</h2>
-""", unsafe_allow_html=True)
-=======
 section_header("Select Pathogen Group")
->>>>>>> 293279a (initial commit)
 st.caption("Enter results only for antibiotics **actually tested** for the chosen organism. Non-tested agents are hidden.")
 
 group_options = ["Gram-negatives", "Staphylococci", "Enterococcus", "Streptococcus", "Anaerobes"]
@@ -2877,19 +2293,7 @@ group = st.selectbox("Pathogen group", group_options, index=0, key="pathogen_gro
 # Gram-negatives UI (uses registry)
 # ======================
 if group == "Gram-negatives":
-<<<<<<< HEAD
-    st.markdown("""
-    <h2 style='text-align:center;
-    font-weight:800;
-    background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;'>
-    Gram Negatives
-    </h2>
-    """, unsafe_allow_html=True)
-=======
     section_header("Gram Negatives")
->>>>>>> 293279a (initial commit)
 
     organisms = sorted(GNR_CANON)
     organism = st.selectbox("Organism", organisms, key="gnr_org")
@@ -2897,19 +2301,7 @@ if group == "Gram-negatives":
     panel = PANEL.get(organism, [])
     rules = RULES.get(organism, {"intrinsic_resistance": [], "cascade": []})
 
-<<<<<<< HEAD
-    st.markdown("""
-    <h2 style='text-align:center;
-    font-weight:800;
-    background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;'>
-    Susceptibility Inputs
-    </h2>
-    """, unsafe_allow_html=True)
-=======
     section_header("Susceptibility Inputs")
->>>>>>> 293279a (initial commit)
     st.caption("Leave blank for untested/unknown.")
 
     user = {}
@@ -2958,19 +2350,7 @@ if group == "Gram-negatives":
 
     # ===== Mechanisms + Therapy via registry =====
     fancy_divider()
-<<<<<<< HEAD
-    st.markdown("""
-    <h2 style='text-align:center;
-    font-weight:800;
-    background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;'>
-    Mechanism of Resistance
-    </h2>
-    """, unsafe_allow_html=True)
-=======
     section_header("Mechanism of Resistance")
->>>>>>> 293279a (initial commit)
     mechs, banners, greens, gnotes = run_mechanisms_and_therapy_for(organism, final)
 
     if mechs:
@@ -3002,19 +2382,7 @@ if group == "Gram-negatives":
 
 
     fancy_divider()
-<<<<<<< HEAD
-    st.markdown("""
-    <h2 style='text-align:center;
-    font-weight:800;
-    background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;'>
-    Therapy Guidance
-    </h2>
-    """, unsafe_allow_html=True)
-=======
     section_header("Therapy Guidance")
->>>>>>> 293279a (initial commit)
     if gnotes:
         for note in gnotes:
             st.markdown(f"""
@@ -3026,39 +2394,17 @@ if group == "Gram-negatives":
     else:
         st.caption("No specific guidance triggered yet — enter more susceptibilities.")
 
-<<<<<<< HEAD
-    # --- References (bottom of organism output) ---
-    refs = _collect_mech_ref_keys(organism, mechs, banners)
-    if refs:
-     fancy_divider()
-     st.subheader("📚 References")
-     for r in refs:
-        st.markdown(f"- {r}")
-=======
     render_cre_carbapenemase_module(organism, final)
 
     # --- References (bottom of organism output) ---
     refs = _collect_mech_ref_keys(organism, mechs, banners)
     render_references(refs)
->>>>>>> 293279a (initial commit)
 
 # ======================
 # Enterococcus module (uses registry)
 # ======================
 if group == "Enterococcus":
-<<<<<<< HEAD
-    st.markdown("""
-    <h2 style='text-align:center;
-    font-weight:800;
-    background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;'>
-    Enterococcus
-    </h2>
-    """, unsafe_allow_html=True)
-=======
     section_header("Enterococcus")
->>>>>>> 293279a (initial commit)
     ENTERO_ORGS = ["Enterococcus faecalis", "Enterococcus faecium"]
     organism_e = st.selectbox("Organism (Enterococcus)", ENTERO_ORGS, key="enterococcus_org")
 
@@ -3080,19 +2426,7 @@ if group == "Enterococcus":
         intrinsic_e["Ampicillin"] = True
         intrinsic_e["Penicillin"] = True
 
-<<<<<<< HEAD
-    st.markdown("""
-    <h2 style='text-align:center;
-    font-weight:800;
-    background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;'>
-    Susceptibility Inputs
-    </h2>
-    """, unsafe_allow_html=True)
-=======
     section_header("Susceptibility Inputs")
->>>>>>> 293279a (initial commit)
     st.caption("Leave blank for untested/unknown.")
     user_e, final_e = _collect_panel_inputs(PANEL_E, intrinsic_e, keyprefix="E_ab")
 
@@ -3110,19 +2444,7 @@ if group == "Enterococcus":
 
     # ===== Mechanisms + Therapy via registry =====
     fancy_divider()
-<<<<<<< HEAD
-    st.markdown("""
-    <h2 style='text-align:center;
-    font-weight:800;
-    background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;'>
-    Mechanism of Resistance
-    </h2>
-    """, unsafe_allow_html=True)
-=======
     section_header("Mechanism of Resistance")
->>>>>>> 293279a (initial commit)
     mechs_e, banners_e, greens_e, gnotes_e = run_mechanisms_and_therapy_for(organism_e, final_e)
 
     if mechs_e:
@@ -3150,19 +2472,7 @@ if group == "Enterococcus":
         """, unsafe_allow_html=True)
 
     fancy_divider()
-<<<<<<< HEAD
-    st.markdown("""
-    <h2 style='text-align:center;
-    font-weight:800;
-    background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;'>
-    Therapy Guidance
-    </h2>
-    """, unsafe_allow_html=True)
-=======
     section_header("Therapy Guidance")
->>>>>>> 293279a (initial commit)
     if gnotes_e:
         for note in gnotes_e:
             st.markdown(f"""
@@ -3175,15 +2485,7 @@ if group == "Enterococcus":
 
     # --- References (bottom of organism output) ---
     refs_e = _collect_mech_ref_keys(organism_e, mechs_e, banners_e)
-<<<<<<< HEAD
-    if refs_e:
-        fancy_divider()
-        st.subheader("📚 References")
-        for r in refs_e:
-            st.markdown(f"- {r}")
-=======
     render_references(refs_e)
->>>>>>> 293279a (initial commit)
 
     st.stop()
 
@@ -3191,19 +2493,7 @@ if group == "Enterococcus":
 # Staphylococci module
 # ======================
 if group == "Staphylococci":
-<<<<<<< HEAD
-    st.markdown("""
-    <h2 style='text-align:center;
-    font-weight:800;
-    background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;'>
-    Staphylococci
-    </h2>
-    """, unsafe_allow_html=True)
-=======
     section_header("Staphylococci")
->>>>>>> 293279a (initial commit)
 
     STAPH_ORGS = [
         "Staphylococcus aureus",
@@ -3227,19 +2517,7 @@ if group == "Staphylococci":
     intrinsic_st = {ab: False for ab in PANEL_ST}  # no forced intrinsic R here
 
     # Inputs
-<<<<<<< HEAD
-    st.markdown("""
-    <h2 style='text-align:center;
-    font-weight:800;
-    background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;'>
-    Susceptibility Inputs
-    </h2>
-    """, unsafe_allow_html=True)
-=======
     section_header("Susceptibility Inputs")
->>>>>>> 293279a (initial commit)
     st.caption("Leave blank for untested/unknown.")
     user_st, final_st = _collect_panel_inputs(PANEL_ST, intrinsic_st, keyprefix="STAPH_ab")
 
@@ -3255,19 +2533,7 @@ if group == "Staphylococci":
 
     # Mechanisms / banners / greens via registry
     fancy_divider()
-<<<<<<< HEAD
-    st.markdown("""
-    <h2 style='text-align:center;
-    font-weight:800;
-    background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;'>
-    Mechanism of Resistance
-    </h2>
-    """, unsafe_allow_html=True)
-=======
     section_header("Mechanism of Resistance")
->>>>>>> 293279a (initial commit)
     # ---- Mechanisms & guidance via registry ----
     mechs_st, banners_st, greens_st = [], [], []
 
@@ -3287,19 +2553,7 @@ if group == "Staphylococci":
 
     # Therapy guidance
     fancy_divider()
-<<<<<<< HEAD
-    st.markdown("""
-    <h2 style='text-align:center;
-    font-weight:800;
-    background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;'>
-    Therapy Guidance
-    </h2>
-    """, unsafe_allow_html=True)
-=======
     section_header("Therapy Guidance")
->>>>>>> 293279a (initial commit)
 
     tx_fn = TX_REGISTRY.get(organism_st)
     if tx_fn is not None:
@@ -3320,15 +2574,7 @@ if group == "Staphylococci":
 
     # References at the bottom
     refs_st = _collect_mech_ref_keys(organism_st, mechs_st, banners_st)
-<<<<<<< HEAD
-    if refs_st:
-        fancy_divider()
-        st.subheader("📚 References")
-        for r in refs_st:
-            st.markdown(f"- {r}")
-=======
     render_references(refs_st)
->>>>>>> 293279a (initial commit)
 
     st.stop()
 
@@ -3336,19 +2582,7 @@ if group == "Staphylococci":
 # Streptococcus module (uses registry)
 # ======================
 if group == "Streptococcus":
-<<<<<<< HEAD
-    st.markdown("""
-    <h2 style='text-align:center;
-    font-weight:800;
-    background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;'>
-    Streptococcus
-    </h2>
-    """, unsafe_allow_html=True)
-=======
     section_header("Streptococcus")
->>>>>>> 293279a (initial commit)
     STREP_GROUP = st.selectbox(
         "Strep group",
         ["Streptococcus pneumoniae", "β-hemolytic Streptococcus (GAS/GBS)", "Viridans group streptococci (VGS)"],
@@ -3364,19 +2598,7 @@ if group == "Streptococcus":
         ]
         intrinsic_spn = {ab: False for ab in PANEL_SPN}
 
-<<<<<<< HEAD
-        st.markdown("""
-        <h2 style='text-align:center;
-        font-weight:800;
-        background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;'>
-        Susceptibility Inputs
-        </h2>
-        """, unsafe_allow_html=True)
-=======
         section_header("Susceptibility Inputs")
->>>>>>> 293279a (initial commit)
         st.caption("Leave blank for untested/unknown.")
         user_s, final_s = _collect_panel_inputs(PANEL_SPN, intrinsic_spn, keyprefix="SPN_ab")
 
@@ -3391,19 +2613,7 @@ if group == "Streptococcus":
 
         # ===== Mechanisms + Therapy via registry =====
         fancy_divider()
-<<<<<<< HEAD
-        st.markdown("""
-        <h2 style='text-align:center;
-        font-weight:800;
-        background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;'>
-        Mechanism of Resistance
-        </h2>
-        """, unsafe_allow_html=True)
-=======
         section_header("Mechanism of Resistance")
->>>>>>> 293279a (initial commit)
         mechs_s, banners_s, greens_s, gnotes_s = run_mechanisms_and_therapy_for("Streptococcus pneumoniae", final_s)
 
         if mechs_s:
@@ -3417,19 +2627,7 @@ if group == "Streptococcus":
             st.success(g)
 
         fancy_divider()
-<<<<<<< HEAD
-        st.markdown("""
-        <h2 style='text-align:center;
-        font-weight:800;
-        background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;'>
-        Therapy Guidance
-        </h2>
-        """, unsafe_allow_html=True)
-=======
         section_header("Therapy Guidance")
->>>>>>> 293279a (initial commit)
         if gnotes_s:
             for note in gnotes_s:
                 st.markdown(f"""
@@ -3444,15 +2642,7 @@ if group == "Streptococcus":
         
         # --- References (bottom of organism output) ---
         refs_s = _collect_mech_ref_keys("Streptococcus pneumoniae", mechs_s, banners_s)
-<<<<<<< HEAD
-        if refs_s:
-         fancy_divider()
-         st.subheader("📚 References")
-         for r in refs_s:
-           st.markdown(f"- {r}")
-=======
         render_references(refs_s)
->>>>>>> 293279a (initial commit)
 
         st.stop()
 
@@ -3465,19 +2655,7 @@ if group == "Streptococcus":
         ]
         intrinsic_bhs = {ab: False for ab in PANEL_BHS}
 
-<<<<<<< HEAD
-        st.markdown("""
-        <h2 style='text-align:center;
-        font-weight:800;
-        background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;'>
-        Susceptibility Inputs
-        </h2>
-        """, unsafe_allow_html=True)
-=======
         section_header("Susceptibility Inputs")
->>>>>>> 293279a (initial commit)
         st.caption("Leave blank for untested/unknown.")
         user_b, final_b = _collect_panel_inputs(PANEL_BHS, intrinsic_bhs, keyprefix="BHS_ab")
 
@@ -3492,19 +2670,7 @@ if group == "Streptococcus":
 
         # ===== Mechanisms + Therapy via registry =====
         fancy_divider()
-<<<<<<< HEAD
-        st.markdown("""
-        <h2 style='text-align:center;
-        font-weight:800;
-        background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;'>
-        Mechanism of Resistance
-        </h2>
-        """, unsafe_allow_html=True)
-=======
         section_header("Mechanism of Resistance")
->>>>>>> 293279a (initial commit)
         mechs_b, banners_b, greens_b, gnotes_b = run_mechanisms_and_therapy_for("β-hemolytic Streptococcus (GAS/GBS)", final_b)
 
         if mechs_b:
@@ -3518,19 +2684,7 @@ if group == "Streptococcus":
             st.success(g)
 
         fancy_divider()
-<<<<<<< HEAD
-        st.markdown("""
-        <h2 style='text-align:center;
-        font-weight:800;
-        background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;'>
-        Therapy Guidance
-        </h2>
-        """, unsafe_allow_html=True)
-=======
         section_header("Therapy Guidance")
->>>>>>> 293279a (initial commit)
         if gnotes_b:
             for note in gnotes_b:
                 st.markdown(f"""
@@ -3542,12 +2696,9 @@ if group == "Streptococcus":
         else:
             st.caption("No specific guidance triggered yet — enter more susceptibilities.")
 
-<<<<<<< HEAD
-=======
         refs_b = _collect_mech_ref_keys("β-hemolytic Streptococcus (GAS/GBS)", mechs_b, banners_b)
         render_references(refs_b)
 
->>>>>>> 293279a (initial commit)
         st.stop()
 
     elif STREP_GROUP == "Viridans group streptococci (VGS)":
@@ -3559,19 +2710,7 @@ if group == "Streptococcus":
         ]
         intrinsic_vgs = {ab: False for ab in PANEL_VGS}
 
-<<<<<<< HEAD
-        st.markdown("""
-        <h2 style='text-align:center;
-        font-weight:800;
-        background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;'>
-        Susceptibility Inputs
-        </h2>
-        """, unsafe_allow_html=True)
-=======
         section_header("Susceptibility Inputs")
->>>>>>> 293279a (initial commit)
         st.caption("Leave blank for untested/unknown.")
         user_v, final_v = _collect_panel_inputs(PANEL_VGS, intrinsic_vgs, keyprefix="VGS_ab")
 
@@ -3586,19 +2725,7 @@ if group == "Streptococcus":
 
         # ===== Mechanisms + Therapy via registry =====
         fancy_divider()
-<<<<<<< HEAD
-        st.markdown("""
-        <h2 style='text-align:center;
-        font-weight:800;
-        background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;'>
-        Mechanism of Resistance
-        </h2>
-        """, unsafe_allow_html=True)
-=======
         section_header("Mechanism of Resistance")
->>>>>>> 293279a (initial commit)
         mechs_v, banners_v, greens_v, gnotes_v = run_mechanisms_and_therapy_for("Viridans group streptococci (VGS)", final_v)
 
         if mechs_v:
@@ -3612,19 +2739,7 @@ if group == "Streptococcus":
             st.success(g)
 
         fancy_divider()
-<<<<<<< HEAD
-        st.markdown("""
-        <h2 style='text-align:center;
-        font-weight:800;
-        background: -webkit-linear-gradient(45deg, #1f6f4a, #2f8059, #74b88f);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;'>
-        Therapy Guidance
-        </h2>
-        """, unsafe_allow_html=True)
-=======
         section_header("Therapy Guidance")
->>>>>>> 293279a (initial commit)
         if gnotes_v:
             for note in gnotes_v:
                 st.markdown(f"""
@@ -3636,12 +2751,9 @@ if group == "Streptococcus":
         else:
             st.caption("No specific guidance triggered yet — enter more susceptibilities.")
 
-<<<<<<< HEAD
-=======
         refs_v = _collect_mech_ref_keys("Viridans group streptococci (VGS)", mechs_v, banners_v)
         render_references(refs_v)
 
->>>>>>> 293279a (initial commit)
         st.stop()
 
 fancy_divider()
