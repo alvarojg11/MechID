@@ -127,6 +127,7 @@ def render_references(refs):
 # ======================
 REF_CITATIONS = {
     "clsi_m100_2026": "Clinical and Laboratory Standards Institute. Performance Standards for Antimicrobial Susceptibility Testing. 36th ed. CLSI supplement M100. Wayne (PA): CLSI; 2026.",
+    "clsi_m11_2018": "Clinical and Laboratory Standards Institute. Methods for Antimicrobial Susceptibility Testing of Anaerobic Bacteria. 9th ed. CLSI standard M11. Wayne (PA): CLSI; 2018 (reaffirmed 2025).",
     "idsa_amr_2024": "Tamma PD, Heil EL, Justo JA, Mathers AJ, Satlin MJ, Bonomo RA. Infectious Diseases Society of America 2024 Guidance on the Treatment of Antimicrobial-Resistant Gram-Negative Infections. Clin Infect Dis. 2024;ciae403. doi:10.1093/cid/ciae403.",
     "paterson_esbl_2005": "Paterson DL, Bonomo RA. Extended-spectrum beta-lactamases: a clinical update. Clin Microbiol Rev. 2005;18(4):657-686. doi:10.1128/CMR.18.4.657-686.2005.",
     "jacoby_ampc_2009": "Jacoby GA. AmpC beta-lactamases. Clin Microbiol Rev. 2009;22(1):161-182. doi:10.1128/CMR.00036-08.",
@@ -149,6 +150,19 @@ REF_CITATIONS = {
     "brooke_steno_2012": "Brooke JS. Stenotrophomonas maltophilia: an emerging global opportunistic pathogen. Clin Microbiol Rev. 2012;25(1):2-41. doi:10.1128/CMR.00019-11.",
     "isler_achromobacter_2020": "Isler B, Kidd TJ, Stewart aminoglycoside, Harris P, Paterson DL. Achromobacter infections and treatment options. Antimicrob Agents Chemother. 2020;64(11):e01025-20. doi:10.1128/AAC.01025-20.",
     "hakenbeck_spn_2012": "Hakenbeck R, Bruckner R, Denapaite D, Maurer P. Molecular mechanisms of beta-lactam resistance in Streptococcus pneumoniae. Future Microbiol. 2012;7(3):395-410. doi:10.2217/fmb.12.2.",
+    "wexler_bacteroides_2007": "Wexler HM. Bacteroides: the good, the bad, and the nitty-gritty. Clin Microbiol Rev. 2007;20(4):593-621. doi:10.1128/CMR.00008-07.",
+    "jha_bfrag_2023": "Jha L, Lal YB, Ragupathi NKD, Veeraraghavan B, Prakash JAJ. Phenotypic and Genotypic Correlation of Antimicrobial Susceptibility of Bacteroides fragilis: Lessons Learnt. Cureus. 2023;15(3):e36268. doi:10.7759/cureus.36268.",
+    "kato_cfia_2003": "Kato N, Yamazoe K, Han CG, Ohtsubo E. New insertion sequence elements in the upstream region of cfiA in imipenem-resistant Bacteroides fragilis strains. Antimicrob Agents Chemother. 2003;47(3):979-985. doi:10.1128/AAC.47.3.979-985.2003.",
+    "cooley_anaerobes_2019": "Cooley L, Teng J. Anaerobic resistance: should we be worried? Curr Opin Infect Dis. 2019;32(6):523-530. doi:10.1097/QCO.0000000000000595.",
+    "steininger_actinomyces_2016": "Steininger C, Willinger B. Resistance patterns in clinical isolates of pathogenic Actinomyces species. J Antimicrob Chemother. 2016;71(2):422-427. doi:10.1093/jac/dkv347.",
+    "zhang_cutibacterium_2019": "Zhang N, Yuan R, Xin KZ, Lu Z, Ma Y. Antimicrobial Susceptibility, Biotypes and Phylotypes of Clinical Cutibacterium (Formerly Propionibacterium) acnes Strains Isolated from Acne Patients: An Observational Study. Dermatol Ther (Heidelb). 2019;9(4):735-746. doi:10.1007/s13555-019-00320-7.",
+    "moubareck_bifidobacteria_2005": "Moubareck C, Gavini F, Vaugien L, Butel MJ, Doucet-Populaire F. Antimicrobial susceptibility of bifidobacteria. J Antimicrob Chemother. 2005;55(1):38-44. doi:10.1093/jac/dkh495.",
+    "chow_metronidazole_1975": "Chow AW, Patten V, Guze LB. Susceptibility of Anaerobic Bacteria to Metronidazole: Relative Resistance of Non-Spore-Forming Gram-Positive Bacilli. J Infect Dis. 1975;131(2):182-185. doi:10.1093/infdis/131.2.182.",
+    "stevens_ssti_2014": "Stevens DL, Bisno AL, Chambers HF, Dellinger EP, Goldstein EJC, Gorbach SL, Hirschmann JV, Kaplan SL, Montoya JG, Wade JC. Practice Guidelines for the Diagnosis and Management of Skin and Soft Tissue Infections: 2014 Update by the Infectious Diseases Society of America. Clin Infect Dis. 2014;59(2):e10-e52. doi:10.1093/cid/ciu296.",
+    "nahid_tb_2016": "Nahid P, Dorman SE, Alipanah N, et al. Official American Thoracic Society/Centers for Disease Control and Prevention/Infectious Diseases Society of America Clinical Practice Guidelines: Treatment of Drug-Susceptible Tuberculosis. Clin Infect Dis. 2016;63(7):e147-e195. doi:10.1093/cid/ciw376.",
+    "miotto_tb_mut_2017": "Miotto P, Tessema B, Tagliani E, et al. A standardised method for interpreting the association between mutations and phenotypic drug resistance in Mycobacterium tuberculosis. Eur Respir J. 2017;50(6):1701354. doi:10.1183/13993003.01354-2017.",
+    "daley_ntm_2020": "Daley CL, Iaccarino JM, Lange C, et al. Treatment of Nontuberculous Mycobacterial Pulmonary Disease: An Official ATS/ERS/ESCMID/IDSA Clinical Practice Guideline. Clin Infect Dis. 2020;71(4):e1-e36. doi:10.1093/cid/ciaa1125.",
+    "nash_erm41_2009": "Nash KA, Brown-Elliott BA, Wallace RJ Jr. A novel gene, erm(41), confers inducible macrolide resistance to clinical isolates of Mycobacterium abscessus but is absent from Mycobacterium chelonae. Antimicrob Agents Chemother. 2009;53(4):1367-1376. doi:10.1128/AAC.01275-08.",
 }
 
 MECH_REF_MAP = {
@@ -171,6 +185,14 @@ MECH_REF_MAP = {
     "stenotrophomonas": ["brooke_steno_2012"],
     "achromobacter": ["isler_achromobacter_2020"],
     "streptococcus_pbp": ["hakenbeck_spn_2012", "leclercq_mls_2002"],
+    "anaerobe_core": ["clsi_m11_2018", "cooley_anaerobes_2019"],
+    "anaerobe_bacteroides": ["wexler_bacteroides_2007", "jha_bfrag_2023"],
+    "anaerobe_cfia": ["kato_cfia_2003", "jha_bfrag_2023"],
+    "anaerobe_metronidazole": ["jha_bfrag_2023", "steininger_actinomyces_2016", "zhang_cutibacterium_2019", "moubareck_bifidobacteria_2005", "chow_metronidazole_1975"],
+    "anaerobe_clostridium_therapy": ["stevens_ssti_2014"],
+    "myco_tb_guidance": ["nahid_tb_2016", "miotto_tb_mut_2017"],
+    "myco_ntm_guidance": ["daley_ntm_2020"],
+    "myco_abscessus_macrolide": ["nash_erm41_2009", "daley_ntm_2020"],
 }
 
 def _collect_mech_ref_keys(org: str, mechs: list, banners: list) -> list:
@@ -231,6 +253,24 @@ def _collect_mech_ref_keys(org: str, mechs: list, banners: list) -> list:
         add_key("achromobacter")
     if "streptococcus" in org_l or "streptococci" in org_l or "pbp" in texts or "mosaic pbp" in texts:
         add_key("streptococcus_pbp")
+    if any(x in org_l for x in ["anaerob", "bacteroides", "clostridium", "actinomyces", "cutibacterium", "lactobacillus", "bifidobacterium"]):
+        add_key("anaerobe_core")
+    if "bacteroides" in org_l or "cfxa" in texts or "cepa" in texts or "b. fragilis" in texts:
+        add_key("anaerobe_bacteroides")
+    if "cfia" in texts or "insertion sequence" in texts:
+        add_key("anaerobe_cfia")
+    if "metronidazole" in texts or "nitroimidazole" in texts or "nim" in texts:
+        add_key("anaerobe_metronidazole")
+    if "clostridium" in org_l or "myonecrosis" in texts or "gas gangrene" in texts:
+        add_key("anaerobe_clostridium_therapy")
+    if "mycobacterium tuberculosis complex" in org_l:
+        add_key("myco_tb_guidance")
+    if any(x in org_l for x in ["mycobacterium avium complex", "mycobacterium kansasii", "mycobacterium abscessus", "rapid-growing ntm"]):
+        add_key("myco_ntm_guidance")
+    if any(x in texts for x in ["rpob", "katg", "inha", "pnca", "embb", "rrs", "rrl", "gyra", "gyrb"]):
+        add_key("myco_tb_guidance")
+    if "erm(41)" in texts or "inducible macrolide" in texts or "mycobacterium abscessus" in org_l:
+        add_key("myco_abscessus_macrolide")
 
     refs, seen = [], set()
     for k in keys:
@@ -2162,6 +2202,476 @@ def tx_staph(org: str, R: dict):
     return _dedup_list(out)
 
 # ======================
+# Anaerobes: mechanisms & therapy
+# ======================
+ANAEROBE_ORGS = [
+    "Bacteroides fragilis",
+    "Bacteroides non-fragilis group",
+    "Gram-negative anaerobic rods (Fusobacterium / Prevotella / Porphyromonas)",
+    "Clostridium perfringens",
+    "Clostridium sordellii",
+    "Clostridium septicum",
+    "Other Clostridium spp. (non-perfringens)",
+    "Gram-positive anaerobic non-sporeforming rods (including Actinomyces)",
+    "Gram-positive anaerobic cocci",
+    "Bifidobacterium spp.",
+    "Lactobacillus spp.",
+    "Cutibacterium spp.",
+]
+
+ANAEROBE_PANEL = [
+    "Penicillin",
+    "Ampicillin/Sulbactam",
+    "Meropenem",
+    "Clindamycin",
+    "Metronidazole",
+]
+
+ANAEROBE_BFRAG_GROUP = {"Bacteroides fragilis", "Bacteroides non-fragilis group"}
+ANAEROBE_NON_PERFRINGENS_CLOSTRIDIA = {
+    "Clostridium sordellii",
+    "Clostridium septicum",
+    "Other Clostridium spp. (non-perfringens)",
+}
+ANAEROBE_METRO_INTRINSIC_OR_POOR = {
+    "Gram-positive anaerobic non-sporeforming rods (including Actinomyces)",
+    "Lactobacillus spp.",
+    "Cutibacterium spp.",
+}
+ANAEROBE_METRO_VARIABLE = {"Bifidobacterium spp."}
+
+def anaerobe_intrinsic_map(org: str):
+    intrinsic = {ab: False for ab in ANAEROBE_PANEL}
+    if org in ANAEROBE_BFRAG_GROUP:
+        intrinsic["Penicillin"] = True
+    if org in {"Lactobacillus spp.", "Cutibacterium spp."}:
+        intrinsic["Metronidazole"] = True
+    return intrinsic
+
+
+def mech_anaerobe(org: str, R: dict):
+    mechs, banners, greens = [], [], []
+
+    pen = _get(R, "Penicillin")
+    amp_sul = _get(R, "Ampicillin/Sulbactam")
+    mero = _get(R, "Meropenem")
+    cli = _get(R, "Clindamycin")
+    metro = _get(R, "Metronidazole")
+
+    if org in ANAEROBE_BFRAG_GROUP:
+        banners.append(
+            "Baseline for Bacteroides fragilis group: penicillin is usually unreliable because of beta-lactamase production."
+        )
+    if org in ANAEROBE_METRO_INTRINSIC_OR_POOR:
+        banners.append(
+            "Metronidazole activity is often poor/unreliable for this group (especially Actinomyces, Cutibacterium, and Lactobacillus)."
+        )
+    elif org in ANAEROBE_METRO_VARIABLE:
+        banners.append(
+            "Metronidazole activity can be variable for this group; avoid assuming class-wide susceptibility."
+        )
+
+    # Penicillin
+    if pen == "Resistant":
+        if org in ANAEROBE_BFRAG_GROUP or org == "Gram-negative anaerobic rods (Fusobacterium / Prevotella / Porphyromonas)":
+            mechs.append(
+                "Penicillin resistance: beta-lactamase production (commonly cepA/cfxA-family enzymes in anaerobic gram-negative rods)."
+            )
+        else:
+            mechs.append(
+                "Penicillin resistance: usually beta-lactamase production and/or reduced PBP affinity."
+            )
+    elif pen == "Susceptible":
+        if org in {"Clostridium perfringens", "Gram-positive anaerobic cocci"}:
+            greens.append("Penicillin remains a useful backbone when susceptible.")
+
+    # Ampicillin/Sulbactam
+    if amp_sul == "Resistant":
+        mechs.append(
+            "Ampicillin/Sulbactam resistance: high-level beta-lactamase expression, inhibitor-insensitive beta-lactamases, and/or altered PBPs/permeability."
+        )
+    elif amp_sul == "Susceptible":
+        greens.append("Ampicillin/Sulbactam is active and often useful for mixed anaerobic infection coverage.")
+
+    # Meropenem
+    if mero == "Resistant":
+        if org in ANAEROBE_BFRAG_GROUP:
+            mechs.append(
+                "Meropenem resistance in B. fragilis group: cfiA metallo-beta-lactamase, often enhanced by upstream insertion sequences."
+            )
+        else:
+            mechs.append(
+                "Meropenem resistance: uncommon in many anaerobes, but may involve carbapenemase activity and permeability/efflux contributions."
+            )
+    elif mero == "Susceptible":
+        greens.append("Meropenem remains a strong option for severe polymicrobial anaerobic infections when susceptible.")
+
+    # Clindamycin
+    if cli == "Resistant":
+        mechs.append(
+            "Clindamycin resistance: usually ribosomal target methylation (erm genes, especially ermF/ermB) with MLS_B phenotype."
+        )
+    elif cli == "Susceptible":
+        banners.append("Clindamycin is only reliable when isolate-specific susceptibility is confirmed.")
+
+    # Metronidazole
+    if metro == "Resistant":
+        if org in ANAEROBE_METRO_INTRINSIC_OR_POOR:
+            mechs.append(
+                "Metronidazole resistance is expected/intrinsic for this group due to poor nitroimidazole activation."
+            )
+        elif org in ANAEROBE_METRO_VARIABLE:
+            mechs.append(
+                "Metronidazole resistance can occur in this group and should be interpreted as species-dependent rather than uniform."
+            )
+        else:
+            mechs.append(
+                "Metronidazole resistance: nim-encoded nitroimidazole reductase and/or reduced intracellular drug activation (redox pathway changes)."
+            )
+    elif metro == "Susceptible":
+        if org in ANAEROBE_METRO_INTRINSIC_OR_POOR:
+            banners.append(
+                "Metronidazole susceptible result in this group is unusual; confirm identification and AST method before relying on it."
+            )
+        elif org in ANAEROBE_METRO_VARIABLE:
+            banners.append(
+                "Metronidazole is susceptible in this isolate, but group-level variability is common; avoid broad extrapolation."
+            )
+        else:
+            greens.append("Metronidazole remains active when susceptible, especially for gram-negative anaerobic rods.")
+
+    return _dedup_list(mechs), _dedup_list(banners), _dedup_list(greens)
+
+
+def tx_anaerobe(org: str, R: dict):
+    out = []
+
+    pen = _get(R, "Penicillin")
+    amp_sul = _get(R, "Ampicillin/Sulbactam")
+    mero = _get(R, "Meropenem")
+    cli = _get(R, "Clindamycin")
+    metro = _get(R, "Metronidazole")
+
+    if mero == "Susceptible":
+        out.append("Meropenem susceptible: preferred for severe/invasive anaerobic infection or high-risk polymicrobial disease.")
+    elif mero == "Resistant":
+        out.append("Meropenem resistant: avoid empiric carbapenem reliance; request full anaerobe panel and involve ID.")
+
+    if amp_sul == "Susceptible":
+        out.append("Ampicillin/Sulbactam susceptible: good targeted option for many anaerobic and mixed intra-abdominal/soft-tissue infections.")
+    elif amp_sul == "Resistant":
+        out.append("Ampicillin/Sulbactam resistant: do not rely on beta-lactamase inhibition alone; choose another tested-active agent.")
+
+    if pen == "Susceptible":
+        if org == "Clostridium perfringens":
+            out.append(
+                "Clostridium perfringens: penicillin is active when susceptible; for toxin-mediated disease, combine with urgent surgery and consider clindamycin if susceptible."
+            )
+        elif org in ANAEROBE_NON_PERFRINGENS_CLOSTRIDIA:
+            out.append(
+                "Non-perfringens Clostridium: use a susceptible beta-lactam/carbapenem and prioritize source control; in toxin-mediated disease, clindamycin may be added if susceptible."
+            )
+        elif org in {"Gram-positive anaerobic cocci", "Gram-positive anaerobic non-sporeforming rods (including Actinomyces)"}:
+            out.append("Penicillin susceptible: use as a focused option when site/source control is adequate.")
+    elif pen == "Resistant":
+        out.append("Penicillin resistant: avoid penicillin monotherapy.")
+
+    if cli == "Susceptible":
+        out.append("Clindamycin susceptible: can be used as an oral/step-down option in selected sites; avoid empiric use without susceptibility data.")
+    elif cli == "Resistant":
+        out.append("Clindamycin resistant: avoid for definitive therapy.")
+
+    if metro == "Susceptible":
+        if org in ANAEROBE_METRO_INTRINSIC_OR_POOR:
+            out.append("Metronidazole susceptible result is unusual for this group; confirm before relying on it, and prefer beta-lactam options when susceptible.")
+        elif org in ANAEROBE_METRO_VARIABLE:
+            out.append("Metronidazole susceptible in this isolate, but group-level variability is common; do not extrapolate to all species/isolates.")
+        else:
+            out.append("Metronidazole susceptible: suitable anaerobe-active option when source control is achieved.")
+    elif metro == "Resistant":
+        out.append("Metronidazole resistant: avoid metronidazole and treat with another confirmed-active agent.")
+
+    if not _any_S(R, ANAEROBE_PANEL):
+        out.append("No tested susceptible option identified in the selected panel; request expanded AST and urgent ID input.")
+
+    return _dedup_list(out)
+
+# ======================
+# Mycobacteria: mechanisms & therapy
+# ======================
+MYCO_MTBC_ORG = "Mycobacterium tuberculosis complex"
+
+MYCO_MTBC_PANEL = [
+    "Rifampin",
+    "Isoniazid",
+    "Fluoroquinolone (Levofloxacin/Moxifloxacin)",
+    "Bedaquiline",
+    "Linezolid",
+    "Pyrazinamide",
+    "Ethambutol",
+]
+
+MYCO_NTM_ORGS = [
+    "Mycobacterium avium complex (MAC)",
+    "Mycobacterium kansasii",
+    "Mycobacterium abscessus complex",
+    "Rapid-growing NTM (e.g., M. fortuitum group)",
+]
+
+MYCO_NTM_PANEL = {
+    "Mycobacterium avium complex (MAC)": [
+        "Clarithromycin/Azithromycin",
+        "Amikacin",
+        "Rifampin",
+        "Ethambutol",
+        "Moxifloxacin",
+        "Linezolid",
+    ],
+    "Mycobacterium kansasii": [
+        "Rifampin",
+        "Ethambutol",
+        "Isoniazid",
+        "Clarithromycin/Azithromycin",
+        "Moxifloxacin",
+        "Amikacin",
+    ],
+    "Mycobacterium abscessus complex": [
+        "Clarithromycin/Azithromycin",
+        "Amikacin",
+        "Cefoxitin",
+        "Imipenem",
+        "Linezolid",
+        "Clofazimine",
+    ],
+    "Rapid-growing NTM (e.g., M. fortuitum group)": [
+        "Clarithromycin/Azithromycin",
+        "Amikacin",
+        "Moxifloxacin",
+        "Linezolid",
+        "Trimethoprim/Sulfamethoxazole",
+        "Doxycycline",
+    ],
+}
+
+def myco_intrinsic_map(panel):
+    return {ab: False for ab in panel}
+
+
+def mech_mtbc(R):
+    mechs, banners, greens = [], [], []
+
+    rif = _get(R, "Rifampin")
+    inh = _get(R, "Isoniazid")
+    fq = _get(R, "Fluoroquinolone (Levofloxacin/Moxifloxacin)")
+    bdq = _get(R, "Bedaquiline")
+    lzd = _get(R, "Linezolid")
+    pza = _get(R, "Pyrazinamide")
+    emb = _get(R, "Ethambutol")
+    rpob = _get(R, "rpoB mutation")
+    katg = _get(R, "katG mutation")
+    inha = _get(R, "inhA promoter mutation")
+    gyr = _get(R, "gyrA/gyrB mutation")
+
+    if rpob == "Detected":
+        mechs.append("rpoB mutation detected: strong molecular signal of rifampin resistance (RR-TB risk).")
+    elif rpob == "Not detected" and rif == "Resistant":
+        banners.append("Rifampin phenotypic resistance with no rpoB mutation detected: verify isolate identity, repeat DST, and broaden molecular review.")
+    if rpob == "Detected" and rif == "Susceptible":
+        banners.append("rpoB mutation detected but rifampin is phenotypically susceptible: possible heteroresistance or assay discordance; treat cautiously.")
+
+    if katg == "Detected" and inha == "Detected":
+        mechs.append("Isoniazid resistance genotype includes both katG and inhA promoter mutations.")
+    elif katg == "Detected":
+        mechs.append("katG mutation detected: typically high-level isoniazid resistance signal.")
+    elif inha == "Detected":
+        mechs.append("inhA promoter mutation detected: low-level isoniazid resistance signal and possible ethionamide cross-resistance.")
+    if inh == "Resistant" and katg == "Not detected" and inha == "Not detected":
+        banners.append("Isoniazid resistance without katG/inhA mutations entered: consider expanded molecular review.")
+
+    if gyr == "Detected":
+        mechs.append("gyrA/gyrB mutation detected: molecular fluoroquinolone resistance signal.")
+    elif gyr == "Not detected" and fq == "Resistant":
+        banners.append("Fluoroquinolone phenotypic resistance without gyrA/gyrB mutation entered: verify and consider alternative mechanisms/testing factors.")
+    if gyr == "Detected" and fq == "Susceptible":
+        banners.append("gyrA/gyrB mutation detected with fluoroquinolone susceptibility: possible emerging resistance/heteroresistance.")
+
+    if rif == "Resistant":
+        mechs.append("Rifampin resistance: usually rpoB mutations (RRDR), and this should trigger rapid molecular confirmation.")
+    if inh == "Resistant":
+        mechs.append("Isoniazid resistance: commonly katG loss-of-activation and/or inhA promoter mutations.")
+    if rif == "Resistant" and inh == "Resistant":
+        banners.append("Rifampin + Isoniazid resistance phenotype is consistent with MDR-TB risk.")
+    elif rif == "Resistant":
+        banners.append("Rifampin resistance should be managed as RR/MDR-risk until full molecular and phenotypic DST is available.")
+
+    if fq == "Resistant":
+        mechs.append("Fluoroquinolone resistance: typically gyrA/gyrB target mutations.")
+        if rif == "Resistant":
+            banners.append("RR/MDR phenotype with fluoroquinolone resistance suggests pre-XDR risk and requires expert regimen design.")
+
+    if bdq == "Resistant":
+        mechs.append("Bedaquiline resistance: often atpE target changes and/or efflux-regulatory variants (e.g., Rv0678).")
+        banners.append("Bedaquiline resistance narrows all-oral MDR options substantially.")
+
+    if lzd == "Resistant":
+        mechs.append("Linezolid resistance: most often rrl and/or rplC mutations.")
+
+    if pza == "Resistant":
+        mechs.append("Pyrazinamide resistance: most commonly pncA pathway mutations.")
+    if emb == "Resistant":
+        mechs.append("Ethambutol resistance: frequently associated with embB alterations.")
+
+    if rif == "Susceptible" and inh == "Susceptible":
+        greens.append("Rifampin and Isoniazid susceptible pattern supports a drug-susceptible TB backbone.")
+
+    return _dedup_list(mechs), _dedup_list(banners), _dedup_list(greens)
+
+
+def tx_mtbc(R):
+    out = []
+
+    rif = _get(R, "Rifampin")
+    inh = _get(R, "Isoniazid")
+    fq = _get(R, "Fluoroquinolone (Levofloxacin/Moxifloxacin)")
+    bdq = _get(R, "Bedaquiline")
+    lzd = _get(R, "Linezolid")
+    rpob = _get(R, "rpoB mutation")
+    katg = _get(R, "katG mutation")
+    inha = _get(R, "inhA promoter mutation")
+    gyr = _get(R, "gyrA/gyrB mutation")
+
+    if rif == "Susceptible" and inh == "Susceptible":
+        out.append("Drug-susceptible pattern: use standard first-line TB regimen per TB program guidance (RIPE-style induction then continuation).")
+    if inh == "Resistant" and rif == "Susceptible":
+        out.append("Isoniazid-resistant / Rifampin-susceptible TB: use an Hr-TB regimen (typically rifampin-ethambutol-pyrazinamide plus fluoroquinolone) per local/national protocol.")
+    if rif is None and rpob == "Detected":
+        out.append("rpoB mutation detected without phenotypic rifampin result: manage as probable RR-TB risk while confirmatory testing is finalized.")
+    if inh is None and (katg == "Detected" or inha == "Detected"):
+        out.append("katG/inhA mutation detected without phenotypic INH result: manage as likely INH-resistant until full DST confirms.")
+    if inha == "Detected" and katg != "Detected":
+        out.append("inhA-only signal can represent lower-level INH resistance; regimen selection should be expert-guided and genotype-aware.")
+    if rif == "Resistant":
+        out.append("Rifampin-resistant pattern: treat as RR/MDR-risk TB, obtain full rapid molecular DST, and involve TB/ID/public-health experts early.")
+        if fq == "Susceptible":
+            out.append("If fluoroquinolone remains susceptible, this may support all-oral MDR regimen construction with other active agents.")
+        elif fq == "Resistant":
+            out.append("RR/MDR with fluoroquinolone resistance: highly resistant pattern; urgent individualized regimen design is needed.")
+    if fq is None and gyr == "Detected":
+        out.append("gyrA/gyrB mutation detected without phenotypic fluoroquinolone result: avoid relying on fluoroquinolones until resolved.")
+
+    if bdq == "Resistant" or lzd == "Resistant":
+        out.append("Bedaquiline/Linezolid resistance present: prioritize expert consultation because core MDR backbone options are reduced.")
+
+    if not _any_S(R, MYCO_MTBC_PANEL):
+        out.append("No susceptible result entered in the panel; verify DST method and coordinate urgent expert review.")
+
+    out.append("Therapy should always be aligned with regional TB control program guidance and drug-interaction/toxicity monitoring.")
+    return _dedup_list(out)
+
+
+def mech_ntm(org: str, R: dict):
+    mechs, banners, greens = [], [], []
+
+    mac = _get(R, "Clarithromycin/Azithromycin")
+    amk = _get(R, "Amikacin")
+    rif = _get(R, "Rifampin")
+    moxi = _get(R, "Moxifloxacin")
+    abs_subsp = _get(R, "M. abscessus subspecies")
+    abs_erm41 = _get(R, "erm(41) status")
+    abs_mac_ext = _get(R, "Extended-incubation macrolide")
+
+    if mac == "Resistant":
+        if org == "Mycobacterium abscessus complex":
+            mechs.append("Macrolide resistance in M. abscessus complex: inducible erm(41) expression and/or acquired 23S rRNA (rrl) mutations.")
+            banners.append("For M. abscessus, check both early and extended-incubation macrolide results to detect inducible resistance.")
+        else:
+            mechs.append("Macrolide resistance: often due to 23S rRNA (rrl) target mutations and predicts poor oral backbone options.")
+    elif mac == "Susceptible":
+        if org == "Mycobacterium avium complex (MAC)":
+            greens.append("Macrolide susceptibility is a key favorable predictor for MAC regimen success.")
+        elif org == "Mycobacterium abscessus complex":
+            banners.append("Macrolide susceptible result in M. abscessus should still be interpreted with inducible-resistance testing context.")
+            if abs_mac_ext == "Resistant":
+                mechs.append("Inducible macrolide resistance pattern: early susceptible but extended-incubation resistant, consistent with functional erm(41).")
+
+    if org == "Mycobacterium abscessus complex":
+        if abs_subsp == "subsp. massiliense":
+            greens.append("Subspecies is M. abscessus subsp. massiliense, which often has non-functional erm(41) and better macrolide activity.")
+        elif abs_subsp in {"subsp. abscessus", "subsp. bolletii"}:
+            banners.append("Subspecies is abscessus/bolletii, where functional erm(41) and inducible macrolide resistance are more likely.")
+        if abs_erm41 == "Functional/inducible":
+            mechs.append("erm(41) functional genotype predicts inducible macrolide resistance in M. abscessus complex.")
+        elif abs_erm41 == "Non-functional":
+            greens.append("erm(41) non-functional status supports more durable macrolide activity when phenotypically susceptible.")
+        if abs_mac_ext == "Resistant":
+            banners.append("Extended-incubation macrolide resistance indicates inducible resistance; do not treat macrolide as a reliably active drug.")
+        elif abs_mac_ext == "Susceptible" and abs_erm41 == "Non-functional":
+            greens.append("Extended-incubation macrolide susceptibility plus non-functional erm(41) supports macrolide inclusion.")
+
+    if amk == "Resistant":
+        mechs.append("Amikacin resistance: usually associated with 16S rRNA (rrs) target mutations.")
+    elif amk == "Susceptible":
+        greens.append("Amikacin remains an active companion option when needed for severe/refractory disease.")
+
+    if org == "Mycobacterium kansasii":
+        if rif == "Resistant":
+            mechs.append("Rifampin resistance in M. kansasii usually reflects rpoB changes and predicts more complex therapy.")
+        elif rif == "Susceptible":
+            greens.append("Rifampin susceptibility supports standard rifampin-based M. kansasii therapy.")
+
+    if moxi == "Resistant":
+        mechs.append("Fluoroquinolone resistance: usually gyrA/gyrB target changes.")
+
+    return _dedup_list(mechs), _dedup_list(banners), _dedup_list(greens)
+
+
+def tx_ntm(org: str, R: dict):
+    out = []
+
+    mac = _get(R, "Clarithromycin/Azithromycin")
+    amk = _get(R, "Amikacin")
+    rif = _get(R, "Rifampin")
+    abs_subsp = _get(R, "M. abscessus subspecies")
+    abs_erm41 = _get(R, "erm(41) status")
+    abs_mac_ext = _get(R, "Extended-incubation macrolide")
+
+    if org == "Mycobacterium avium complex (MAC)":
+        if mac == "Susceptible":
+            out.append("MAC: use a macrolide-based multidrug regimen (typically macrolide + ethambutol + rifamycin) when clinically indicated.")
+        elif mac == "Resistant":
+            out.append("MAC with macrolide resistance: outcomes are poorer; use expert-guided multidrug strategy and avoid macrolide-only reliance.")
+    elif org == "Mycobacterium kansasii":
+        if rif == "Susceptible":
+            out.append("M. kansasii: rifampin-based regimen is the anchor when susceptible (with companion agents per guideline).")
+        elif rif == "Resistant":
+            out.append("M. kansasii rifampin resistance: requires alternative multidrug regimen and specialist input.")
+    elif org == "Mycobacterium abscessus complex":
+        inducible_signal = (
+            abs_erm41 == "Functional/inducible"
+            or abs_mac_ext == "Resistant"
+            or abs_subsp in {"subsp. abscessus", "subsp. bolletii"}
+        )
+        favorable_signal = (
+            abs_subsp == "subsp. massiliense"
+            or abs_erm41 == "Non-functional"
+            or abs_mac_ext == "Susceptible"
+        )
+
+        if mac == "Susceptible" and favorable_signal and not inducible_signal:
+            out.append("M. abscessus complex: macrolide can be part of the active backbone when subspecies/erm(41)/extended-incubation profile supports true susceptibility.")
+        elif mac == "Susceptible":
+            out.append("M. abscessus complex: macrolide may be present in regimen for immunomodulatory benefit, but do not assume it is reliably active without favorable subspecies/erm(41)/extended-incubation profile.")
+        elif mac == "Resistant":
+            out.append("M. abscessus complex with macrolide resistance: use non-macrolide multidrug backbone; prolonged therapy and specialist oversight are essential.")
+        if amk == "Susceptible":
+            out.append("Amikacin susceptible result can support intensive-phase therapy in severe M. abscessus disease.")
+    else:
+        out.append("Rapid-growing NTM: treat only if clinically significant disease is established; use at least two active agents based on species-level AST.")
+
+    out.append("NTM treatment should be species-specific, site-specific, and coordinated with mycobacterial reference lab interpretation.")
+    return _dedup_list(out)
+
+# ======================
 # Per-organism registry
 # ======================
 ORGANISM_REGISTRY = {
@@ -2234,6 +2744,77 @@ ORGANISM_REGISTRY = {
         "mechanisms": mech_vgs, "therapy": tx_vgs
     },
 
+    # Anaerobes
+    "Bacteroides fragilis": {
+        "mechanisms": lambda R: mech_anaerobe("Bacteroides fragilis", R),
+        "therapy": lambda R: tx_anaerobe("Bacteroides fragilis", R)
+    },
+    "Bacteroides non-fragilis group": {
+        "mechanisms": lambda R: mech_anaerobe("Bacteroides non-fragilis group", R),
+        "therapy": lambda R: tx_anaerobe("Bacteroides non-fragilis group", R)
+    },
+    "Gram-negative anaerobic rods (Fusobacterium / Prevotella / Porphyromonas)": {
+        "mechanisms": lambda R: mech_anaerobe("Gram-negative anaerobic rods (Fusobacterium / Prevotella / Porphyromonas)", R),
+        "therapy": lambda R: tx_anaerobe("Gram-negative anaerobic rods (Fusobacterium / Prevotella / Porphyromonas)", R)
+    },
+    "Clostridium perfringens": {
+        "mechanisms": lambda R: mech_anaerobe("Clostridium perfringens", R),
+        "therapy": lambda R: tx_anaerobe("Clostridium perfringens", R)
+    },
+    "Clostridium sordellii": {
+        "mechanisms": lambda R: mech_anaerobe("Clostridium sordellii", R),
+        "therapy": lambda R: tx_anaerobe("Clostridium sordellii", R)
+    },
+    "Clostridium septicum": {
+        "mechanisms": lambda R: mech_anaerobe("Clostridium septicum", R),
+        "therapy": lambda R: tx_anaerobe("Clostridium septicum", R)
+    },
+    "Other Clostridium spp. (non-perfringens)": {
+        "mechanisms": lambda R: mech_anaerobe("Other Clostridium spp. (non-perfringens)", R),
+        "therapy": lambda R: tx_anaerobe("Other Clostridium spp. (non-perfringens)", R)
+    },
+    "Gram-positive anaerobic non-sporeforming rods (including Actinomyces)": {
+        "mechanisms": lambda R: mech_anaerobe("Gram-positive anaerobic non-sporeforming rods (including Actinomyces)", R),
+        "therapy": lambda R: tx_anaerobe("Gram-positive anaerobic non-sporeforming rods (including Actinomyces)", R)
+    },
+    "Gram-positive anaerobic cocci": {
+        "mechanisms": lambda R: mech_anaerobe("Gram-positive anaerobic cocci", R),
+        "therapy": lambda R: tx_anaerobe("Gram-positive anaerobic cocci", R)
+    },
+    "Bifidobacterium spp.": {
+        "mechanisms": lambda R: mech_anaerobe("Bifidobacterium spp.", R),
+        "therapy": lambda R: tx_anaerobe("Bifidobacterium spp.", R)
+    },
+    "Lactobacillus spp.": {
+        "mechanisms": lambda R: mech_anaerobe("Lactobacillus spp.", R),
+        "therapy": lambda R: tx_anaerobe("Lactobacillus spp.", R)
+    },
+    "Cutibacterium spp.": {
+        "mechanisms": lambda R: mech_anaerobe("Cutibacterium spp.", R),
+        "therapy": lambda R: tx_anaerobe("Cutibacterium spp.", R)
+    },
+
+    # Mycobacteria
+    "Mycobacterium tuberculosis complex": {
+        "mechanisms": mech_mtbc, "therapy": tx_mtbc
+    },
+    "Mycobacterium avium complex (MAC)": {
+        "mechanisms": lambda R: mech_ntm("Mycobacterium avium complex (MAC)", R),
+        "therapy": lambda R: tx_ntm("Mycobacterium avium complex (MAC)", R)
+    },
+    "Mycobacterium kansasii": {
+        "mechanisms": lambda R: mech_ntm("Mycobacterium kansasii", R),
+        "therapy": lambda R: tx_ntm("Mycobacterium kansasii", R)
+    },
+    "Mycobacterium abscessus complex": {
+        "mechanisms": lambda R: mech_ntm("Mycobacterium abscessus complex", R),
+        "therapy": lambda R: tx_ntm("Mycobacterium abscessus complex", R)
+    },
+    "Rapid-growing NTM (e.g., M. fortuitum group)": {
+        "mechanisms": lambda R: mech_ntm("Rapid-growing NTM (e.g., M. fortuitum group)", R),
+        "therapy": lambda R: tx_ntm("Rapid-growing NTM (e.g., M. fortuitum group)", R)
+    },
+
     #Staphylococcus
     "Staphylococcus aureus": {
         "mechanisms": lambda R: mech_staph("Staphylococcus aureus", R),
@@ -2286,7 +2867,7 @@ def run_mechanisms_and_therapy_for(org, final_results):
 section_header("Select Pathogen Group")
 st.caption("Enter results only for antibiotics **actually tested** for the chosen organism. Non-tested agents are hidden.")
 
-group_options = ["Gram-negatives", "Staphylococci", "Enterococcus", "Streptococcus", "Anaerobes"]
+group_options = ["Gram-negatives", "Staphylococci", "Enterococcus", "Streptococcus", "Anaerobes", "Mycobacteria"]
 group = st.selectbox("Pathogen group", group_options, index=0, key="pathogen_group")
 
 # ======================
@@ -2755,6 +3336,202 @@ if group == "Streptococcus":
         render_references(refs_v)
 
         st.stop()
+
+if group == "Mycobacteria":
+    section_header("Mycobacteria")
+    st.caption("Use reference-lab AST/molecular data when available. Mycobacterial interpretation differs from routine pyogenic bacteriology.")
+
+    myco_group = st.selectbox(
+        "Mycobacteria group",
+        ["Mycobacterium tuberculosis complex (MTBC)", "Non-tuberculous mycobacteria (NTM)"],
+        key="myco_group"
+    )
+
+    if myco_group == "Mycobacterium tuberculosis complex (MTBC)":
+        organism_m = MYCO_MTBC_ORG
+        panel_m = MYCO_MTBC_PANEL
+        st.info("MTBC module: phenotype should be integrated with rapid molecular resistance markers (rpoB, katG/inhA, gyrA/gyrB, etc.).")
+        keyprefix_m = "MYCO_MTBC_ab"
+    else:
+        organism_m = st.selectbox("NTM organism", MYCO_NTM_ORGS, key="myco_ntm_org")
+        panel_m = MYCO_NTM_PANEL[organism_m]
+        st.info("NTM module: management is species-specific and often requires prolonged multidrug therapy.")
+        keyprefix_m = f"MYCO_NTM_ab_{MYCO_NTM_ORGS.index(organism_m)}"
+
+    intrinsic_m = myco_intrinsic_map(panel_m)
+
+    section_header("Susceptibility Inputs")
+    st.caption("Leave blank for untested/unknown.")
+    user_m, final_m = _collect_panel_inputs(panel_m, intrinsic_m, keyprefix=keyprefix_m)
+    extra_rows_m = []
+
+    if myco_group == "Mycobacterium tuberculosis complex (MTBC)":
+        st.markdown("**Optional molecular markers**")
+        mtbc_gene_choices = ["", "Detected", "Not detected", "Indeterminate/Pending"]
+        rpob_val = st.selectbox("rpoB mutation", mtbc_gene_choices, index=0, key="MYCO_MTBC_gene_rpob")
+        katg_val = st.selectbox("katG mutation", mtbc_gene_choices, index=0, key="MYCO_MTBC_gene_katg")
+        inha_val = st.selectbox("inhA promoter mutation", mtbc_gene_choices, index=0, key="MYCO_MTBC_gene_inha")
+        gyr_val = st.selectbox("gyrA/gyrB mutation", mtbc_gene_choices, index=0, key="MYCO_MTBC_gene_gyr")
+
+        for marker, value in [
+            ("rpoB mutation", rpob_val),
+            ("katG mutation", katg_val),
+            ("inhA promoter mutation", inha_val),
+            ("gyrA/gyrB mutation", gyr_val),
+        ]:
+            if value:
+                final_m[marker] = value
+                extra_rows_m.append({"Antibiotic": marker, "Result": value, "Source": "Molecular"})
+
+    if myco_group == "Non-tuberculous mycobacteria (NTM)" and organism_m == "Mycobacterium abscessus complex":
+        st.markdown("**M. abscessus subspecies / inducible-macrolide context (optional)**")
+        abs_subsp = st.selectbox(
+            "M. abscessus subspecies",
+            ["", "subsp. abscessus", "subsp. massiliense", "subsp. bolletii", "Unknown"],
+            index=0,
+            key="MYCO_ABS_subspecies",
+        )
+        abs_erm41 = st.selectbox(
+            "erm(41) status",
+            ["", "Functional/inducible", "Non-functional", "Unknown"],
+            index=0,
+            key="MYCO_ABS_erm41",
+        )
+        abs_mac_ext = st.selectbox(
+            "Extended-incubation macrolide",
+            ["", "Susceptible", "Resistant", "Unknown"],
+            index=0,
+            key="MYCO_ABS_macrolide_extended",
+        )
+
+        for marker, value in [
+            ("M. abscessus subspecies", abs_subsp),
+            ("erm(41) status", abs_erm41),
+            ("Extended-incubation macrolide", abs_mac_ext),
+        ]:
+            if value:
+                final_m[marker] = value
+                extra_rows_m.append({"Antibiotic": marker, "Result": value, "Source": "Molecular"})
+
+    st.subheader("Consolidated results")
+    rows_m = []
+    for ab in panel_m:
+        if final_m[ab] is None:
+            continue
+        rows_m.append({"Antibiotic": ab, "Result": final_m[ab], "Source": "User-entered"})
+    rows_m.extend(extra_rows_m)
+    if rows_m:
+        st.dataframe(pd.DataFrame(rows_m), use_container_width=True)
+
+    fancy_divider()
+    section_header("Mechanism of Resistance")
+    mechs_m, banners_m, greens_m, gnotes_m = run_mechanisms_and_therapy_for(organism_m, final_m)
+
+    if mechs_m:
+        for m in mechs_m:
+            st.markdown(f"""
+            <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+            {badge("Mechanism", bg="var(--primary)")} {m}
+            </div>
+            """, unsafe_allow_html=True)
+    else:
+        st.success("No major resistance mechanism identified based on current inputs.")
+
+    for b in banners_m:
+        st.markdown(f"""
+        <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+        {badge("Caution", bg="var(--muted)", fg="#ffffff")} {b}
+        </div>
+        """, unsafe_allow_html=True)
+
+    for g in greens_m:
+        st.markdown(f"""
+        <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+        {badge("Favorable", bg="var(--primary)")} {g}
+        </div>
+        """, unsafe_allow_html=True)
+
+    fancy_divider()
+    section_header("Therapy Guidance")
+    if gnotes_m:
+        for note in gnotes_m:
+            st.markdown(f"""
+            <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+            {badge("Therapy", bg="var(--primary)")} {note}
+            </div>
+            """, unsafe_allow_html=True)
+    else:
+        st.caption("No specific guidance triggered yet — enter more susceptibilities.")
+
+    refs_m = _collect_mech_ref_keys(organism_m, mechs_m, banners_m)
+    render_references(refs_m)
+
+    st.stop()
+
+if group == "Anaerobes":
+    section_header("Anaerobes")
+    organism_a = st.selectbox("Organism (Anaerobes)", ANAEROBE_ORGS, key="anaerobe_org")
+
+    intrinsic_a = anaerobe_intrinsic_map(organism_a)
+
+    section_header("Susceptibility Inputs")
+    st.caption("Panel requested: Penicillin, Ampicillin/Sulbactam, Meropenem, Clindamycin, Metronidazole.")
+    user_a, final_a = _collect_panel_inputs(ANAEROBE_PANEL, intrinsic_a, keyprefix="ANA_ab")
+
+    st.subheader("Consolidated results")
+    rows_a = []
+    for ab in ANAEROBE_PANEL:
+        if final_a[ab] is None:
+            continue
+        src = "Intrinsic rule" if intrinsic_a.get(ab) else "User-entered"
+        rows_a.append({"Antibiotic": ab, "Result": final_a[ab], "Source": src})
+    if rows_a:
+        st.dataframe(pd.DataFrame(rows_a), use_container_width=True)
+
+    fancy_divider()
+    section_header("Mechanism of Resistance")
+    mechs_a, banners_a, greens_a, gnotes_a = run_mechanisms_and_therapy_for(organism_a, final_a)
+
+    if mechs_a:
+        for m in mechs_a:
+            st.markdown(f"""
+            <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+            {badge("Mechanism", bg="var(--primary)")} {m}
+            </div>
+            """, unsafe_allow_html=True)
+    else:
+        st.success("No major resistance mechanism identified based on current inputs.")
+
+    for b in banners_a:
+        st.markdown(f"""
+        <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+        {badge("Caution", bg="var(--muted)", fg="#ffffff")} {b}
+        </div>
+        """, unsafe_allow_html=True)
+
+    for g in greens_a:
+        st.markdown(f"""
+        <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+        {badge("Favorable", bg="var(--primary)")} {g}
+        </div>
+        """, unsafe_allow_html=True)
+
+    fancy_divider()
+    section_header("Therapy Guidance")
+    if gnotes_a:
+        for note in gnotes_a:
+            st.markdown(f"""
+            <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+            {badge("Therapy", bg="var(--primary)")} {note}
+            </div>
+            """, unsafe_allow_html=True)
+    else:
+        st.caption("No specific guidance triggered yet — enter more susceptibilities.")
+
+    refs_a = _collect_mech_ref_keys(organism_a, mechs_a, banners_a)
+    render_references(refs_a)
+
+    st.stop()
 
 fancy_divider()
 st.markdown("""
