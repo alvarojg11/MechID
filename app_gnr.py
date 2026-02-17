@@ -3770,12 +3770,10 @@ if group == "Mycobacteria":
     if myco_group == "Mycobacterium tuberculosis complex (MTBC)":
         organism_m = MYCO_MTBC_ORG
         panel_m = MYCO_MTBC_PANEL
-        st.info("MTBC module: phenotype should be integrated with rapid molecular resistance markers (rpoB, katG/inhA, gyrA/gyrB, etc.).")
         keyprefix_m = "MYCO_MTBC_ab"
     else:
         organism_m = st.selectbox("NTM organism", MYCO_NTM_ORGS, key="myco_ntm_org")
         panel_m = MYCO_NTM_PANEL[organism_m]
-        st.info("NTM module: management is species-specific and often requires prolonged multidrug therapy; rapid growers include parenteral AST options such as cefoxitin and imipenem.")
         keyprefix_m = f"MYCO_NTM_ab_{MYCO_NTM_ORGS.index(organism_m)}"
 
     intrinsic_m = myco_intrinsic_map(panel_m)
@@ -3803,46 +3801,50 @@ if group == "Mycobacteria":
                 final_m[marker] = value
                 extra_rows_m.append({"Antibiotic": marker, "Result": value, "Source": "Molecular"})
 
-        st.markdown("**Optional WHO regimen context**")
-        age_val = st.selectbox("Age band", ["", ">=14 years", "<14 years", "Unknown"], index=0, key="MYCO_MTBC_ctx_age")
-        preg_val = st.selectbox("Pregnant or breastfeeding", ["", "No", "Yes", "Unknown"], index=0, key="MYCO_MTBC_ctx_preg")
-        severe_val = st.selectbox(
-            "CNS/osteoarticular/disseminated disease",
-            ["", "No", "Yes", "Unknown"],
-            index=0,
-            key="MYCO_MTBC_ctx_severe",
-        )
-        prior_val = st.selectbox(
-            "Prior >1 month exposure to Bdq/Pa/Lzd/Dlm",
-            ["", "No", "Yes", "Unknown"],
-            index=0,
-            key="MYCO_MTBC_ctx_prior",
-        )
-        companion_9m_val = st.selectbox(
-            "Companion 9-month drugs likely active",
-            ["", "Yes", "No", "Unknown"],
-            index=0,
-            key="MYCO_MTBC_ctx_companion9m",
-            help="Companion drugs include clofazimine and other regimen drugs selected by your TB program.",
-        )
-        prior_short_val = st.selectbox(
-            "Prior >1 month exposure to FQ/Cfz/second-line companion drugs",
-            ["", "No", "Yes", "Unknown"],
-            index=0,
-            key="MYCO_MTBC_ctx_priorshort",
-        )
+        flags_ui = _mtbc_flags(final_m)
+        show_who_context = flags_ui["rr"] or flags_ui["mdr"] or flags_ui["pre_xdr"] or flags_ui["xdr"]
 
-        for marker, value in [
-            ("Age band", age_val),
-            ("Pregnant or breastfeeding", preg_val),
-            ("CNS/osteoarticular/disseminated disease", severe_val),
-            ("Prior >1 month exposure to Bdq/Pa/Lzd/Dlm", prior_val),
-            ("Companion 9-month drugs likely active", companion_9m_val),
-            ("Prior >1 month exposure to FQ/Cfz/second-line companion drugs", prior_short_val),
-        ]:
-            if value:
-                final_m[marker] = value
-                extra_rows_m.append({"Antibiotic": marker, "Result": value, "Source": "Clinical context"})
+        if show_who_context:
+            st.markdown("**Optional WHO regimen context**")
+            age_val = st.selectbox("Age band", ["", ">=14 years", "<14 years", "Unknown"], index=0, key="MYCO_MTBC_ctx_age")
+            preg_val = st.selectbox("Pregnant or breastfeeding", ["", "No", "Yes", "Unknown"], index=0, key="MYCO_MTBC_ctx_preg")
+            severe_val = st.selectbox(
+                "CNS/osteoarticular/disseminated disease",
+                ["", "No", "Yes", "Unknown"],
+                index=0,
+                key="MYCO_MTBC_ctx_severe",
+            )
+            prior_val = st.selectbox(
+                "Prior >1 month exposure to Bdq/Pa/Lzd/Dlm",
+                ["", "No", "Yes", "Unknown"],
+                index=0,
+                key="MYCO_MTBC_ctx_prior",
+            )
+            companion_9m_val = st.selectbox(
+                "Companion 9-month drugs likely active",
+                ["", "Yes", "No", "Unknown"],
+                index=0,
+                key="MYCO_MTBC_ctx_companion9m",
+                help="Companion drugs include clofazimine and other regimen drugs selected by your TB program.",
+            )
+            prior_short_val = st.selectbox(
+                "Prior >1 month exposure to FQ/Cfz/second-line companion drugs",
+                ["", "No", "Yes", "Unknown"],
+                index=0,
+                key="MYCO_MTBC_ctx_priorshort",
+            )
+
+            for marker, value in [
+                ("Age band", age_val),
+                ("Pregnant or breastfeeding", preg_val),
+                ("CNS/osteoarticular/disseminated disease", severe_val),
+                ("Prior >1 month exposure to Bdq/Pa/Lzd/Dlm", prior_val),
+                ("Companion 9-month drugs likely active", companion_9m_val),
+                ("Prior >1 month exposure to FQ/Cfz/second-line companion drugs", prior_short_val),
+            ]:
+                if value:
+                    final_m[marker] = value
+                    extra_rows_m.append({"Antibiotic": marker, "Result": value, "Source": "Clinical context"})
 
     if myco_group == "Non-tuberculous mycobacteria (NTM)" and organism_m == "Mycobacterium abscessus complex":
         st.markdown("**M. abscessus subspecies / inducible-macrolide context (optional)**")
@@ -3947,11 +3949,7 @@ if group == "Mycobacteria":
     section_header("Therapy Guidance")
     if gnotes_m:
         for note in gnotes_m:
-            st.markdown(f"""
-            <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
-            {badge("Therapy", bg="var(--primary)")} {note}
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown(f"**Therapy:** {note}")
     else:
         st.caption("No specific guidance triggered yet — enter more susceptibilities.")
 
