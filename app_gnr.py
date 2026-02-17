@@ -3949,7 +3949,11 @@ if group == "Mycobacteria":
     section_header("Therapy Guidance")
     if gnotes_m:
         for note in gnotes_m:
-            st.info(note)
+            st.markdown(f"""
+            <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
+            {badge("Therapy", bg="var(--primary)")} {note}
+            </div>
+            """, unsafe_allow_html=True)
     else:
         st.caption("No specific guidance triggered yet — enter more susceptibilities.")
 
