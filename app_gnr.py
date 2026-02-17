@@ -3949,7 +3949,7 @@ if group == "Mycobacteria":
     section_header("Therapy Guidance")
     if gnotes_m:
         for note in gnotes_m:
-            st.markdown(f"**Therapy:** {note}")
+            st.info(note)
     else:
         st.caption("No specific guidance triggered yet — enter more susceptibilities.")
 
