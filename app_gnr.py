@@ -147,6 +147,10 @@ REF_CITATIONS = {
     "satlin_dap_bp_2020": "Satlin MJ, Nicolau DP, Humphries RM, et al. Development of Daptomycin Susceptibility Breakpoints for Enterococcus faecium and Revision of the Breakpoints for Other Enterococcal Species by the Clinical and Laboratory Standards Institute. Clin Infect Dis. 2020;70(6):1240-1246. doi:10.1093/cid/ciz845.",
     "nguyen_dap_2024": "Nguyen AH, Tran TT, Panesso D, et al. Molecular basis of cell membrane adaptation in daptomycin-resistant Enterococcus faecalis. JCI Insight. 2024;9(22):e173836. doi:10.1172/jci.insight.173836.",
     "hwang_vre_2025": "Hwang LE, Yang JL, Lin CY, et al. High-dose daptomycin versus linezolid for the treatment of vancomycin-resistant Enterococcus faecium bloodstream infections: Role of pharmacodynamic target attainment. J Microbiol Immunol Infect. 2025:S1684-1182(25)00153-7. doi:10.1016/j.jmii.2025.08.005.",
+    "pincus_dlvre_2022": "Pincus NB, Joshi T, Gatesy SWM, et al. Breakthrough daptomycin-, linezolid-, vancomycin-resistant Enterococcus faecium bacteremia during protracted daptomycin therapy: A case report. IDCases. 2022;29:e01593. doi:10.1016/j.idcr.2022.e01593.",
+    "sakoulas_ceftaroline_2014": "Sakoulas G, Rose W, Nonejuie P, et al. Ceftaroline restores daptomycin activity against daptomycin-nonsusceptible vancomycin-resistant Enterococcus faecium. Antimicrob Agents Chemother. 2014;58(3):1494-1500. doi:10.1128/AAC.02274-13.",
+    "smith_dap_bl_2015": "Smith JR, Barber KE, Raut A, et al. Beta-Lactam combinations with daptomycin provide synergy against vancomycin-resistant Enterococcus faecalis and Enterococcus faecium. J Antimicrob Chemother. 2015;70(6):1738-1743. doi:10.1093/jac/dkv007.",
+    "chuang_dap_bl_2018": "Chuang YC, Chen PY, Lin CY, et al. A retrospective clinical comparison of daptomycin versus daptomycin and a beta-lactam antibiotic for treating vancomycin-resistant Enterococcus faecium bloodstream infections. Sci Rep. 2018;8(1):1632. doi:10.1038/s41598-018-19986-8.",
     "wang_optra_2015": "Wang Y, Lv Y, Cai J, et al. A novel gene, optrA, that confers transferable resistance to oxazolidinones and phenicols and its presence in Enterococcus faecalis and Enterococcus faecium of human and animal origin. J Antimicrob Chemother. 2015;70(8):2182-2190. doi:10.1093/jac/dkv116.",
     "antonelli_poxta_2018": "Antonelli A, D'Andrea MM, Brenciani A, et al. Characterization of poxtA, a novel phenicol-oxazolidinone-tetracycline resistance gene from an MRSA of clinical origin. J Antimicrob Chemother. 2018;73(7):1763-1769. doi:10.1093/jac/dky088.",
     "peleg_acinetobacter_2008": "Peleg AY, Seifert H, Paterson DL. Acinetobacter baumannii: emergence of a successful pathogen. Clin Microbiol Rev. 2008;21(3):538-582. doi:10.1128/CMR.00058-07.",
@@ -190,7 +194,7 @@ MECH_REF_MAP = {
     "staph_dtest": ["leclercq_mls_2002"],
     "staph_visa": ["howden_visa_2010"],
     "enterococcus_vre": ["arias_enterococcus_2012"],
-    "enterococcus_advanced": ["munita_liafsr_2012", "satlin_dap_bp_2020", "nguyen_dap_2024", "hwang_vre_2025", "wang_optra_2015", "antonelli_poxta_2018"],
+    "enterococcus_advanced": ["munita_liafsr_2012", "satlin_dap_bp_2020", "nguyen_dap_2024", "hwang_vre_2025", "pincus_dlvre_2022", "sakoulas_ceftaroline_2014", "smith_dap_bl_2015", "chuang_dap_bl_2018", "wang_optra_2015", "antonelli_poxta_2018"],
     "acinetobacter": ["peleg_acinetobacter_2008"],
     "stenotrophomonas": ["brooke_steno_2012"],
     "achromobacter": ["isler_achromobacter_2020"],
@@ -1768,6 +1772,8 @@ def tx_efaecalis(R):
             out.append("**VRE with Linezolid resistance**: use **high-dose Daptomycin** when active per MIC/breakpoint context; involve ID for combination/salvage planning.")
         elif dap == "Resistant" and lzd == "Resistant":
             out.append("**VRE with Daptomycin and Linezolid resistance**: urgent expert-guided salvage regimen is required.")
+            out.append("Suggested DLVRE approach: prioritize **immediate source control** (remove infected line/drain focus), repeat MIC testing by a reference method, and request **rapid synergy testing** for salvage combinations.")
+            out.append("If salvage options are needed, consider **combination therapy only when supported by in-vitro data**; daptomycin + beta-lactam is sometimes attempted when there is residual daptomycin activity/synergy, but evidence remains limited.")
         else:
             out.append("**VRE**: **Linezolid** or **Daptomycin** (dose by site/severity).")
 
@@ -1822,6 +1828,8 @@ def tx_efaecium(R):
             out.append("**VRE (faecium) with Linezolid resistance**: consider **high-dose Daptomycin** when active by MIC/breakpoint context; specialist input is required.")
         elif dap == "Resistant" and lzd == "Resistant":
             out.append("**VRE (faecium) with Daptomycin and Linezolid resistance**: no standard regimen; urgent expert-guided salvage therapy is required.")
+            out.append("Suggested DLVRE framework: pursue **source control first**, repeat susceptibility/MIC confirmation, and obtain **expedited synergy testing** to guide individualized combination therapy.")
+            out.append("Potential salvage strategy in selected isolates: combination regimens (including daptomycin + beta-lactam only if residual daptomycin activity or in-vitro synergy is documented).")
         else:
             out.append("**VRE (faecium)**: **Linezolid** or **Daptomycin** (dose by site/severity).")
     else:
@@ -1834,6 +1842,7 @@ def tx_efaecium(R):
 
     if lzd == "Resistant" and dap == "Resistant":
         out.append("Concurrent linezolid and daptomycin resistance indicates limited options; coordinate immediate ID/microbiology consultation.")
+        out.append("For bloodstream infection, avoid relying on low-serum-exposure agents as monotherapy; treatment should be individualized with PK/PD-informed dosing and close microbiologic follow-up.")
     return _dedup_list(out)
 
 def mech_spneumo(R):
