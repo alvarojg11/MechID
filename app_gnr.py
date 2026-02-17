@@ -144,6 +144,9 @@ REF_CITATIONS = {
     "howden_visa_2010": "Howden BP, Davies JK, Johnson PDR, Stinear TP, Grayson ML. Reduced vancomycin susceptibility in Staphylococcus aureus, including VISA and hVISA: resistance mechanisms, laboratory detection, and clinical implications. Clin Microbiol Rev. 2010;23(1):99-139. doi:10.1128/CMR.00042-09.",
     "arias_enterococcus_2012": "Arias CA, Murray BE. The rise of the Enterococcus: beyond vancomycin resistance. Nat Rev Microbiol. 2012;10(4):266-278. doi:10.1038/nrmicro2761.",
     "munita_liafsr_2012": "Munita JM, Panesso D, Diaz L, et al. Correlation between mutations in liaFSR of Enterococcus faecium and MIC of daptomycin: revisiting daptomycin breakpoints. Antimicrob Agents Chemother. 2012;56(8):4354-4359. doi:10.1128/AAC.00509-12.",
+    "satlin_dap_bp_2020": "Satlin MJ, Nicolau DP, Humphries RM, et al. Development of Daptomycin Susceptibility Breakpoints for Enterococcus faecium and Revision of the Breakpoints for Other Enterococcal Species by the Clinical and Laboratory Standards Institute. Clin Infect Dis. 2020;70(6):1240-1246. doi:10.1093/cid/ciz845.",
+    "nguyen_dap_2024": "Nguyen AH, Tran TT, Panesso D, et al. Molecular basis of cell membrane adaptation in daptomycin-resistant Enterococcus faecalis. JCI Insight. 2024;9(22):e173836. doi:10.1172/jci.insight.173836.",
+    "hwang_vre_2025": "Hwang LE, Yang JL, Lin CY, et al. High-dose daptomycin versus linezolid for the treatment of vancomycin-resistant Enterococcus faecium bloodstream infections: Role of pharmacodynamic target attainment. J Microbiol Immunol Infect. 2025:S1684-1182(25)00153-7. doi:10.1016/j.jmii.2025.08.005.",
     "wang_optra_2015": "Wang Y, Lv Y, Cai J, et al. A novel gene, optrA, that confers transferable resistance to oxazolidinones and phenicols and its presence in Enterococcus faecalis and Enterococcus faecium of human and animal origin. J Antimicrob Chemother. 2015;70(8):2182-2190. doi:10.1093/jac/dkv116.",
     "antonelli_poxta_2018": "Antonelli A, D'Andrea MM, Brenciani A, et al. Characterization of poxtA, a novel phenicol-oxazolidinone-tetracycline resistance gene from an MRSA of clinical origin. J Antimicrob Chemother. 2018;73(7):1763-1769. doi:10.1093/jac/dky088.",
     "peleg_acinetobacter_2008": "Peleg AY, Seifert H, Paterson DL. Acinetobacter baumannii: emergence of a successful pathogen. Clin Microbiol Rev. 2008;21(3):538-582. doi:10.1128/CMR.00058-07.",
@@ -187,7 +190,7 @@ MECH_REF_MAP = {
     "staph_dtest": ["leclercq_mls_2002"],
     "staph_visa": ["howden_visa_2010"],
     "enterococcus_vre": ["arias_enterococcus_2012"],
-    "enterococcus_advanced": ["munita_liafsr_2012", "wang_optra_2015", "antonelli_poxta_2018"],
+    "enterococcus_advanced": ["munita_liafsr_2012", "satlin_dap_bp_2020", "nguyen_dap_2024", "hwang_vre_2025", "wang_optra_2015", "antonelli_poxta_2018"],
     "acinetobacter": ["peleg_acinetobacter_2008"],
     "stenotrophomonas": ["brooke_steno_2012"],
     "achromobacter": ["isler_achromobacter_2020"],
@@ -1685,6 +1688,8 @@ def mech_efaecalis(R):
 
     pen = _get(R, "Penicillin")
     amp = _get(R, "Ampicillin")
+    dap = _get(R, "Daptomycin")
+    lzd = _get(R, "Linezolid")
 
     # β-lactams (E. faecalis)
     if pen == "Resistant":
@@ -1701,10 +1706,20 @@ def mech_efaecalis(R):
     # Glycopeptides / oxazolidinones / lipopeptides
     if _get(R, "Vancomycin") == "Resistant":
         mechs.append("Vancomycin resistance (**VanA/VanB**; **D-Ala–D-Lac** target modification).")
-    if _get(R, "Linezolid") == "Resistant":
+    if lzd == "Resistant":
         mechs.append("Linezolid resistance: **23S rRNA** mutations and/or **optrA/poxtA**.")
-    if _get(R, "Daptomycin") == "Resistant":
-        mechs.append("Daptomycin resistance: membrane adaptation/regulatory mutations (**liaFSR/yvqGH**).")
+    if dap == "Resistant":
+        mechs.append(
+            "Daptomycin resistance: cell-envelope adaptation with phospholipid remodeling and regulatory-pathway changes "
+            "(commonly **liaFSR** with additional membrane/homeostasis loci such as **cls/gdpD/yvqGH**)."
+        )
+    elif dap == "Intermediate":
+        banners.append(
+            "Daptomycin intermediate/non-susceptible signal: confirm MIC and use species-specific breakpoint context; "
+            "clinical success may require optimized exposure and expert input."
+        )
+    if dap == "Resistant" and lzd == "Resistant":
+        banners.append("Both daptomycin and linezolid are non-susceptible: this is a high-risk limited-options phenotype.")
 
     # HLAR (synergy loss)
     if _get(R, "High-level Gentamicin") == "Resistant" or _get(R, "High-level Streptomycin") == "Resistant":
@@ -1725,6 +1740,8 @@ def tx_efaecalis(R):
     pen = _get(R, "Penicillin")
     amp = _get(R, "Ampicillin")
     vanc = _get(R, "Vancomycin")
+    dap = _get(R, "Daptomycin")
+    lzd = _get(R, "Linezolid")
 
     # First-line β-lactam therapy
     if amp == "Susceptible":
@@ -1745,7 +1762,19 @@ def tx_efaecalis(R):
 
     # VRE
     if vanc == "Resistant":
-        out.append("**VRE**: **Linezolid** or **Daptomycin** (dose by site/severity).")
+        if dap == "Resistant" and lzd == "Susceptible":
+            out.append("**VRE with Daptomycin resistance**: avoid daptomycin; use **Linezolid** when susceptible (site/severity dependent).")
+        elif lzd == "Resistant" and dap in {"Susceptible", "Intermediate"}:
+            out.append("**VRE with Linezolid resistance**: use **high-dose Daptomycin** when active per MIC/breakpoint context; involve ID for combination/salvage planning.")
+        elif dap == "Resistant" and lzd == "Resistant":
+            out.append("**VRE with Daptomycin and Linezolid resistance**: urgent expert-guided salvage regimen is required.")
+        else:
+            out.append("**VRE**: **Linezolid** or **Daptomycin** (dose by site/severity).")
+
+    if dap == "Resistant":
+        out.append("Do **not** use daptomycin when resistant; select another confirmed-active agent.")
+    elif dap == "Intermediate":
+        out.append("Daptomycin intermediate/non-susceptible result: verify MIC and consider optimized dosing only with expert input and site-specific PK/PD assessment.")
 
     # HLAR synergy note
     if _get(R, "High-level Gentamicin") == "Resistant" or _get(R, "High-level Streptomycin") == "Resistant":
@@ -1760,18 +1789,51 @@ def tx_efaecalis(R):
 
 def mech_efaecium(R):
     mechs, banners, greens = [], [], []
+    dap = _get(R, "Daptomycin")
+    lzd = _get(R, "Linezolid")
+
     if _get(R,"Vancomycin") == "Resistant":
         mechs.append("Vancomycin resistance (VanA/VanB).")
+    if lzd == "Resistant":
+        mechs.append("Linezolid resistance in *E. faecium*: usually **23S rRNA** mutations and/or transferable **optrA/poxtA/cfr-like** mechanisms.")
+    if dap == "Resistant":
+        mechs.append(
+            "Daptomycin resistance in *E. faecium*: adaptive cell-envelope remodeling with regulatory and membrane-lipid pathway changes "
+            "(classically **liaFSR**-associated phenotypes with additional loci such as **cls**)."
+        )
+    elif dap == "Intermediate":
+        banners.append("Daptomycin intermediate/non-susceptible result in *E. faecium*: confirm MIC/breakpoint interpretation and seek expert dosing guidance.")
+    if dap == "Resistant" and lzd == "Resistant":
+        banners.append("Both daptomycin and linezolid are non-susceptible in *E. faecium*: options are limited and require urgent specialist review.")
     if _get(R,"Nitrofurantoin") == "Susceptible":
         greens.append("Cystitis: **Nitrofurantoin** is appropriate when susceptible.")
     return _dedup_list(mechs), _dedup_list(banners), _dedup_list(greens)
 
 def tx_efaecium(R):
     out = []
-    if _get(R,"Vancomycin") == "Resistant":
-        out.append("**VRE (faecium)**: **Linezolid** or **Daptomycin** (dose by site/severity).")
+    vanc = _get(R, "Vancomycin")
+    dap = _get(R, "Daptomycin")
+    lzd = _get(R, "Linezolid")
+
+    if vanc == "Resistant":
+        if dap == "Resistant" and lzd == "Susceptible":
+            out.append("**VRE (faecium) with Daptomycin resistance**: avoid daptomycin; use **Linezolid** when susceptible.")
+        elif lzd == "Resistant" and dap in {"Susceptible", "Intermediate"}:
+            out.append("**VRE (faecium) with Linezolid resistance**: consider **high-dose Daptomycin** when active by MIC/breakpoint context; specialist input is required.")
+        elif dap == "Resistant" and lzd == "Resistant":
+            out.append("**VRE (faecium) with Daptomycin and Linezolid resistance**: no standard regimen; urgent expert-guided salvage therapy is required.")
+        else:
+            out.append("**VRE (faecium)**: **Linezolid** or **Daptomycin** (dose by site/severity).")
     else:
-        out.append("Many *E. faecium* are ampicillin-resistant; glycopeptide or oxazolidinone/lipopeptide often required per site/severity.")
+        out.append("Many *E. faecium* are ampicillin-resistant; glycopeptide or oxazolidinone/lipopeptide therapy is often required per site/severity.")
+
+    if dap == "Resistant":
+        out.append("Daptomycin resistant: do not rely on daptomycin for definitive therapy.")
+    elif dap == "Intermediate":
+        out.append("Daptomycin intermediate/non-susceptible: verify MIC and consider exposure-optimized use only with expert support.")
+
+    if lzd == "Resistant" and dap == "Resistant":
+        out.append("Concurrent linezolid and daptomycin resistance indicates limited options; coordinate immediate ID/microbiology consultation.")
     return _dedup_list(out)
 
 def mech_spneumo(R):
@@ -2671,7 +2733,7 @@ def tx_mtbc(R):
     katg = _get(R, "katG mutation")
     inha = _get(R, "inhA promoter mutation")
     gyr = _get(R, "gyrA/gyrB mutation")
-    age_band = _get(R, "Age band")
+    age_band = _get(R, "Age group") or _get(R, "Age band")
     pregnant = _get(R, "Pregnant or breastfeeding")
     severe = _get(R, "CNS/osteoarticular/disseminated disease")
     prior_core = _get(R, "Prior >1 month exposure to Bdq/Pa/Lzd/Dlm")
@@ -3806,7 +3868,7 @@ if group == "Mycobacteria":
 
         if show_who_context:
             st.markdown("**Optional WHO regimen context**")
-            age_val = st.selectbox("Age band", ["", ">=14 years", "<14 years", "Unknown"], index=0, key="MYCO_MTBC_ctx_age")
+            age_val = st.selectbox("Age group", ["", ">=14 years", "<14 years", "Unknown"], index=0, key="MYCO_MTBC_ctx_age")
             preg_val = st.selectbox("Pregnant or breastfeeding", ["", "No", "Yes", "Unknown"], index=0, key="MYCO_MTBC_ctx_preg")
             severe_val = st.selectbox(
                 "CNS/osteoarticular/disseminated disease",
@@ -3835,7 +3897,7 @@ if group == "Mycobacteria":
             )
 
             for marker, value in [
-                ("Age band", age_val),
+                ("Age group", age_val),
                 ("Pregnant or breastfeeding", preg_val),
                 ("CNS/osteoarticular/disseminated disease", severe_val),
                 ("Prior >1 month exposure to Bdq/Pa/Lzd/Dlm", prior_val),
