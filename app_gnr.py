@@ -3949,9 +3949,16 @@ if group == "Mycobacteria":
     section_header("Therapy Guidance")
     if gnotes_m:
         for note in gnotes_m:
+            note_html = (
+                note.replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace("**", "")
+                .replace("\n", "<br>")
+            )
             st.markdown(f"""
             <div style="border-left:4px solid var(--primary); border:1px solid var(--border); padding:0.4rem 0.6rem; margin-bottom:0.4rem; background:var(--card2);">
-            {badge("Therapy", bg="var(--primary)")} {note}
+            <strong>Therapy:</strong> {note_html}
             </div>
             """, unsafe_allow_html=True)
     else:
