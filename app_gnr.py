@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import inspect
 from collections import defaultdict
 
 # ======================
@@ -677,6 +678,37 @@ def _dedup_list(items):
             out.append(x); seen.add(x)
     return out
 
+def _gnr_tx_flags(tx_ctx):
+    ctx = tx_ctx or {}
+    syndrome = ctx.get("syndrome", "Not specified")
+    severity = ctx.get("severity", "Not specified")
+
+    urinary_syndromes = {"Uncomplicated cystitis", "Complicated UTI / pyelonephritis"}
+    invasive_syndromes = {
+        "Bloodstream infection",
+        "Pneumonia (HAP/VAP or severe CAP)",
+        "Intra-abdominal infection",
+        "CNS infection",
+        "Bone/joint infection",
+        "Other deep-seated / high-inoculum focus",
+    }
+
+    urinary = syndrome in urinary_syndromes
+    invasive = syndrome in invasive_syndromes
+    severe = severity == "Severe / septic shock"
+    high_risk = invasive or severe
+    lower_risk_urinary = urinary and not severe
+
+    return {
+        "syndrome": syndrome,
+        "severity": severity,
+        "urinary": urinary,
+        "invasive": invasive,
+        "severe": severe,
+        "high_risk": high_risk,
+        "lower_risk_urinary": lower_risk_urinary,
+    }
+
 # ----------------------
 # Reusable organism subsets
 # ----------------------
@@ -779,8 +811,13 @@ def mech_ecoli(R):
     carp_R = _any_R(R, CARBAPENEMS)
     third_R = _any_R(R, THIRD_GENS)
     cefepime_R = _get(R, "Cefepime") == "Resistant"
+    piptazo = _get(R, "Piperacillin/Tazobactam")
+    piptazo_R = piptazo == "Resistant"
+    piptazo_S = piptazo == "Susceptible"
     ctx_S = _get(R, "Ceftriaxone") == "Susceptible"
+    ctx_R = _get(R, "Ceftriaxone") == "Resistant"
     cefazolin_R = _get(R, "Cefazolin") == "Resistant"
+    cefoxitin_S = _get(R, "Cefoxitin") == "Susceptible"
     caz = _get(R, "Ceftazidime")
     amp_R = (_get(R, "Ampicillin") == "Resistant")
 
@@ -792,6 +829,33 @@ def mech_ecoli(R):
     # Cefazolin Resistant + Ceftriaxone Susceptible with Ampicillin Resistant → TEM/SHV pattern (not ESBL)
     if not carp_R and cefazolin_R and ctx_S and amp_R and (caz not in {"Resistant", "Intermediate"}):
         banners.append("β-lactam pattern **Ampicillin Resistant + Cefazolin Resistant + Ceftriaxone Susceptible** → **broad-spectrum β-lactamase (TEM-1/SHV)**, not ESBL.")
+
+    # Piperacillin/Tazobactam and Ceftriaxone discordance
+    if not carp_R and piptazo_R and ctx_S:
+        mechs.append(
+            "β-lactam discordance (**Piperacillin/Tazobactam Resistant / Ceftriaxone Susceptible**) suggests "
+            "**inhibitor-resistant narrow-spectrum β-lactamase background** (commonly **OXA-1** and/or hyperproduced **TEM-1/SHV-1**) "
+            "rather than classic **CTX-M ESBL**."
+        )
+        banners.append(
+            "Do not label this pattern as ESBL by default; correlate with local ESBL/carbapenemase testing if available."
+        )
+
+    if not carp_R and piptazo_S and ctx_R:
+        mechs.append(
+            "β-lactam discordance (**Piperacillin/Tazobactam Susceptible / Ceftriaxone Resistant**) is most consistent with a "
+            "**CTX-M-type ESBL phenotype** where in-vitro Piperacillin/Tazobactam activity can appear preserved."
+        )
+        banners.append(
+            "For invasive/high-inoculum infection, this pattern should be managed as **ESBL-risk** despite Piperacillin/Tazobactam susceptibility."
+        )
+
+    # Cefoxitin susceptible + Ceftriaxone resistant nuance
+    if not carp_R and cefoxitin_S and ctx_R:
+        mechs.append(
+            "**Cefoxitin Susceptible + Ceftriaxone Resistant** favors **ESBL (often CTX-M)** over classic plasmid **AmpC** "
+            "(which is usually cefoxitin non-susceptible), though uncommon cefoxitin-susceptible AmpC variants can occur."
+        )
 
     # Uncommon: Cefepime Resistant with Ceftriaxone Susceptible
     if not carp_R and cefepime_R and ctx_S:
@@ -835,8 +899,12 @@ def mech_ecoli(R):
     return _dedup_list(mechs), _dedup_list(banners), _dedup_list(greens)
 
 
-def tx_ecoli(R):
+def tx_ecoli(R, tx_ctx=None):
     out = []
+    piptazo = _get(R, "Piperacillin/Tazobactam")
+    ctx = _get(R, "Ceftriaxone")
+    cefox = _get(R, "Cefoxitin")
+    flags = _gnr_tx_flags(tx_ctx)
 
     # Fluoroquinolone Resistant but beta-lactam Susceptible → use beta-lactam
     if _any_S(R, ["Piperacillin/Tazobactam", "Ceftriaxone", "Cefepime", "Aztreonam",
@@ -847,6 +915,49 @@ def tx_ecoli(R):
     # ESBL
     if _any_R(R, THIRD_GENS) and not _any_R(R, CARBAPENEMS):
         out.append("**ESBL pattern** → use a **carbapenem** for serious infections.")
+
+    # Piperacillin/Tazobactam and Ceftriaxone discordance
+    if piptazo == "Resistant" and ctx == "Susceptible":
+        if flags["high_risk"]:
+            out.append(
+                "**Piperacillin/Tazobactam Resistant / Ceftriaxone Susceptible** in a high-risk syndrome "
+                "(e.g., bacteremia/pneumonia/severe sepsis) → avoid Piperacillin/Tazobactam; use a reliably active IV β-lactam "
+                "(often **ceftriaxone** or **cefepime**, site/MIC dependent)."
+            )
+        else:
+            out.append(
+                "**Piperacillin/Tazobactam Resistant / Ceftriaxone Susceptible** → avoid Piperacillin/Tazobactam; "
+                "**ceftriaxone** is usually preferred when clinically appropriate and susceptible."
+            )
+    if piptazo == "Susceptible" and ctx == "Resistant":
+        if flags["high_risk"]:
+            out.append(
+                "**Piperacillin/Tazobactam Susceptible / Ceftriaxone Resistant** (CTX-M-like ESBL phenotype) in a high-risk syndrome "
+                "→ prefer a **carbapenem** rather than Piperacillin/Tazobactam."
+            )
+        elif flags["lower_risk_urinary"]:
+            out.append(
+                "**Piperacillin/Tazobactam Susceptible / Ceftriaxone Resistant** in lower-risk urinary infection "
+                "→ this still behaves like **ESBL-risk**; carbapenem is usually most reliable if IV therapy is needed, with non-carbapenem options only if clearly supported by local guidance."
+            )
+        else:
+            out.append(
+                "**Piperacillin/Tazobactam Susceptible / Ceftriaxone Resistant** (CTX-M-like ESBL phenotype) → treat as **ESBL-risk**, "
+                "and avoid relying on Piperacillin/Tazobactam for deep-seated infections."
+            )
+
+    # Cefoxitin susceptible + Ceftriaxone resistant pattern
+    if cefox == "Susceptible" and ctx == "Resistant":
+        if flags["high_risk"]:
+            out.append(
+                "**Cefoxitin Susceptible / Ceftriaxone Resistant** (ESBL-predominant profile) in a high-risk syndrome "
+                "→ use **ESBL-directed therapy** (typically a carbapenem for serious invasive disease)."
+            )
+        else:
+            out.append(
+                "**Cefoxitin Susceptible / Ceftriaxone Resistant** supports an **ESBL-predominant** phenotype; "
+                "base therapy on ESBL-risk principles and confirmed susceptibilities."
+            )
 
     # Ertapenem Resistant / others Susceptible
     if _get(R, "Ertapenem") == "Resistant" and (_get(R, "Imipenem") == "Susceptible" or _get(R, "Meropenem") == "Susceptible"):
@@ -893,6 +1004,7 @@ def mech_serratia(R):
     mechs, banners, greens = [], [], []
 
     # Core drugs
+    piptazo = _get(R, "Piperacillin/Tazobactam")
     imi  = _get(R, "Imipenem")
     mero = _get(R, "Meropenem")
     ept  = _get(R, "Ertapenem")
@@ -904,8 +1016,12 @@ def mech_serratia(R):
     carp_R  = _any_R(R, ["Imipenem","Meropenem","Ertapenem"])
     third_R = _any_R(R, THIRD_GENS)  # ceftriaxone/cefotaxime/ceftazidime/cefpodoxime
     ctx_S   = (ctx == "Susceptible")
+    ctx_R   = (ctx == "Resistant")
     fep_S   = (fep == "Susceptible")
     caz_S   = (caz == "Susceptible")
+    piptazo_R = (piptazo == "Resistant")
+    piptazo_S = (piptazo == "Susceptible")
+    cefox_S = (cefox == "Susceptible")
 
     # ---- Serratia baseline teaching point ----
     mechs.append(
@@ -922,6 +1038,32 @@ def mech_serratia(R):
     # ---- ESBL pattern (not the main baseline issue for Serratia, but can happen) ----
     if third_R and not carp_R:
         mechs.append("third-generation cephalosporin resistance pattern — consider **ESBL** and/or **AmpC derepression**; confirm per lab policy.")
+
+    # Piperacillin/Tazobactam and Ceftriaxone discordance
+    if not carp_R and piptazo_R and ctx_S:
+        mechs.append(
+            "β-lactam discordance (**Piperacillin/Tazobactam Resistant / Ceftriaxone Susceptible**) in *Serratia* is more consistent with "
+            "**AmpC derepression/high-level expression** and/or **inhibitor-resistant β-lactamase background** "
+            "(e.g., **OXA-1** or hyperproduced **TEM-1/SHV-1**) than with isolated **CTX-M ESBL**."
+        )
+        banners.append(
+            "This pattern should not be labeled CTX-M ESBL by default; correlate with local ESBL/carbapenemase testing if available."
+        )
+
+    if not carp_R and piptazo_S and ctx_R:
+        mechs.append(
+            "β-lactam discordance (**Piperacillin/Tazobactam Susceptible / Ceftriaxone Resistant**) suggests an **ESBL overlay** "
+            "(often **CTX-M-like**) that can coexist with *Serratia* AmpC biology."
+        )
+        banners.append(
+            "For invasive/high-inoculum infection, manage this as **ESBL-risk** despite Piperacillin/Tazobactam susceptibility."
+        )
+
+    if not carp_R and cefox_S and ctx_R:
+        mechs.append(
+            "**Cefoxitin Susceptible + Ceftriaxone Resistant** in *Serratia* favors an **acquired ESBL overlay** (often **CTX-M-like**) "
+            "over isolated AmpC derepression."
+        )
 
     # ---- Carbapenem resistance: include SME/chromosomal possibility + preserved cephalosporins ----
     if carp_R:
@@ -986,16 +1128,19 @@ def mech_serratia(R):
     return _dedup_list(mechs), _dedup_list(banners), _dedup_list(greens)
 
 
-def tx_serratia(R):
+def tx_serratia(R, tx_ctx=None):
     out = []
+    flags = _gnr_tx_flags(tx_ctx)
 
     # Pull key results
+    piptazo = _get(R, "Piperacillin/Tazobactam")
     imi  = _get(R, "Imipenem")
     mero = _get(R, "Meropenem")
     ept  = _get(R, "Ertapenem")
     ctx  = _get(R, "Ceftriaxone")
     fep  = _get(R, "Cefepime")
     caz  = _get(R, "Ceftazidime")
+    cefox = _get(R, "Cefoxitin")
 
     cip = _get(R, "Ciprofloxacin")
     lev = _get(R, "Levofloxacin")
@@ -1012,6 +1157,41 @@ def tx_serratia(R):
     # ESBL / third-generation resistance without carbapenem resistance
     if _any_R(R, THIRD_GENS) and not carp_R:
         out.append("third-generation cephalosporin resistance → for serious infections, choose a **reliably active agent** (often **cefepime** if susceptible/MIC appropriate or a **carbapenem** depending on local guidance).")
+
+    # Piperacillin/Tazobactam and Ceftriaxone discordance
+    if piptazo == "Resistant" and ctx == "Susceptible":
+        if flags["high_risk"]:
+            out.append(
+                "**Piperacillin/Tazobactam Resistant / Ceftriaxone Susceptible** in *Serratia* with high-risk syndrome "
+                "→ avoid Piperacillin/Tazobactam; for invasive disease prefer **cefepime** (if susceptible/MIC appropriate) or another reliably active IV option."
+            )
+        else:
+            out.append(
+                "**Piperacillin/Tazobactam Resistant / Ceftriaxone Susceptible** in *Serratia* → avoid Piperacillin/Tazobactam; "
+                "use the susceptible cephalosporin strategy based on site/severity."
+            )
+    if piptazo == "Susceptible" and ctx == "Resistant":
+        if flags["high_risk"]:
+            out.append(
+                "**Piperacillin/Tazobactam Susceptible / Ceftriaxone Resistant** (ESBL-overlay pattern) in high-risk syndrome "
+                "→ prefer **cefepime** (if susceptible/MIC appropriate) or a **carbapenem** rather than Piperacillin/Tazobactam."
+            )
+        else:
+            out.append(
+                "**Piperacillin/Tazobactam Susceptible / Ceftriaxone Resistant** (ESBL-overlay pattern) → avoid relying on Piperacillin/Tazobactam alone; "
+                "select a more reliable active β-lactam by site/severity."
+            )
+    if cefox == "Susceptible" and ctx == "Resistant":
+        if flags["high_risk"]:
+            out.append(
+                "**Cefoxitin Susceptible / Ceftriaxone Resistant** in *Serratia* (ESBL-overlay profile) with high-risk syndrome "
+                "→ use a reliably active parenteral agent (often **cefepime** if active or **carbapenem**)."
+            )
+        else:
+            out.append(
+                "**Cefoxitin Susceptible / Ceftriaxone Resistant** supports an **ESBL-overlay** phenotype in *Serratia*; "
+                "base therapy on high-risk β-lactam principles and confirmed susceptibilities."
+            )
 
     # Carbapenem resistance but cephalosporins still susceptible (SME-like phenotype)
     if carp_R and any_ceph_S:
@@ -1062,12 +1242,18 @@ def mech_k_aerogenes(R):
     fep      = _get(R, "Cefepime")
     ctx      = _get(R, "Ceftriaxone")
     caz      = _get(R, "Ceftazidime")
+    piptazo  = _get(R, "Piperacillin/Tazobactam")
     cefox    = _get(R, "Cefoxitin")
     cefotet  = _get(R, "Cefotetan")
 
     ept      = _get(R, "Ertapenem")
     imi      = _get(R, "Imipenem")
     mero     = _get(R, "Meropenem")
+    ctx_S    = (ctx == "Susceptible")
+    ctx_R    = (ctx == "Resistant")
+    piptazo_R = (piptazo == "Resistant")
+    piptazo_S = (piptazo == "Susceptible")
+    cefox_S  = (cefox == "Susceptible")
 
     cip      = _get(R, "Ciprofloxacin")
     lev      = _get(R, "Levofloxacin")
@@ -1111,6 +1297,31 @@ def mech_k_aerogenes(R):
             "confirm per lab policy (ESBL testing may be less informative in AmpC organisms)."
         )
 
+    # Piperacillin/Tazobactam and Ceftriaxone discordance in AmpC organisms
+    if not carp_R and piptazo_R and ctx_S:
+        mechs.append(
+            "β-lactam discordance (**Piperacillin/Tazobactam Resistant / Ceftriaxone Susceptible**) in an AmpC organism is usually "
+            "**AmpC expression/derepression** (± permeability/efflux) and/or inhibitor-resistant background, not a classic CTX-M ESBL pattern."
+        )
+        banners.append(
+            "Even when ceftriaxone is susceptible, serious infections in AmpC organisms are generally better treated with **cefepime** (if active) rather than third-generation cephalosporins."
+        )
+
+    if not carp_R and piptazo_S and ctx_R:
+        mechs.append(
+            "β-lactam discordance (**Piperacillin/Tazobactam Susceptible / Ceftriaxone Resistant**) suggests **acquired ESBL overlay** "
+            "(often **CTX-M-like**) on top of baseline AmpC biology."
+        )
+        banners.append(
+            "Treat this as **ESBL/AmpC high-risk** for invasive infections despite Piperacillin/Tazobactam susceptibility."
+        )
+
+    if not carp_R and cefox_S and ctx_R:
+        mechs.append(
+            "**Cefoxitin Susceptible + Ceftriaxone Resistant** in an AmpC organism can indicate **ESBL overlay** (often **CTX-M-like**) "
+            "or mixed mechanisms; cefoxitin susceptibility alone does not exclude clinically relevant AmpC behavior."
+        )
+
     # Helpful “cefepime status” interpretation
     if fep == "Susceptible":
         greens.append("Cefepime susceptible — often remains active despite AmpC; still consider site/severity and MIC if available.")
@@ -1148,12 +1359,16 @@ def mech_k_aerogenes(R):
 
     return _dedup_list(mechs), _dedup_list(banners), _dedup_list(greens)
 
-def tx_k_aerogenes(R):
+def tx_k_aerogenes(R, tx_ctx=None):
     out = []
     fep    = _get(R,"Cefepime")
+    piptazo = _get(R,"Piperacillin/Tazobactam")
+    ctx    = _get(R,"Ceftriaxone")
+    cefox  = _get(R,"Cefoxitin")
     cip    = _get(R,"Ciprofloxacin")
     lev    = _get(R,"Levofloxacin")
     tmpsmx = _get(R,"Trimethoprim/Sulfamethoxazole")
+    flags = _gnr_tx_flags(tx_ctx)
 
     # ---- CRE signal ----
     if _get(R,"Meropenem") == "Resistant" and _get(R,"Ertapenem") == "Resistant":
@@ -1164,6 +1379,41 @@ def tx_k_aerogenes(R):
         out.append("**AmpC inducer** → **Cefepime (MIC ≤4) preferred**; avoid third-generation cephalosporins/Piperacillin/Tazobactam for serious infections.")
     elif fep in {"Intermediate","Resistant"}:
         out.append("AmpC with cefepime not Susceptible → **Carbapenem** preferred for serious infections.")
+
+    # ---- Piperacillin/Tazobactam and Ceftriaxone discordance ----
+    if piptazo == "Resistant" and ctx == "Susceptible":
+        if flags["high_risk"]:
+            out.append(
+                "**Piperacillin/Tazobactam Resistant / Ceftriaxone Susceptible** in an AmpC organism with high-risk syndrome "
+                "→ avoid Piperacillin/Tazobactam and do **not** rely on ceftriaxone despite susceptibility; prefer **cefepime** (if active) or **carbapenem**."
+            )
+        else:
+            out.append(
+                "**Piperacillin/Tazobactam Resistant / Ceftriaxone Susceptible** in an AmpC organism → avoid Piperacillin/Tazobactam; "
+                "use **cefepime** (if active) as preferred β-lactam strategy."
+            )
+    if piptazo == "Susceptible" and ctx == "Resistant":
+        if flags["high_risk"]:
+            out.append(
+                "**Piperacillin/Tazobactam Susceptible / Ceftriaxone Resistant** (ESBL-overlay pattern) in high-risk syndrome "
+                "→ prefer **cefepime** (if susceptible/MIC appropriate) or a **carbapenem** rather than Piperacillin/Tazobactam."
+            )
+        else:
+            out.append(
+                "**Piperacillin/Tazobactam Susceptible / Ceftriaxone Resistant** (ESBL-overlay pattern) in an AmpC organism "
+                "→ avoid treating this as low-risk; choose a reliably active agent (typically **cefepime** if active, otherwise **carbapenem**)."
+            )
+    if cefox == "Susceptible" and ctx == "Resistant":
+        if flags["high_risk"]:
+            out.append(
+                "**Cefoxitin Susceptible / Ceftriaxone Resistant** in an AmpC organism (mixed ESBL/AmpC-risk) with high-risk syndrome "
+                "→ choose a reliably active parenteral option (typically **cefepime** if active or **carbapenem**)."
+            )
+        else:
+            out.append(
+                "**Cefoxitin Susceptible / Ceftriaxone Resistant** in an AmpC organism should be treated as a **mixed ESBL/AmpC-risk** profile; "
+                "choose a reliably active agent (typically **cefepime** if active or **carbapenem**)."
+            )
 
     # ---- Fluoroquinolones ----
 
@@ -3340,7 +3590,18 @@ TX_REGISTRY = {
 # ======================
 # Adapter layer for UI
 # ======================
-def run_mechanisms_and_therapy_for(org, final_results):
+def _call_therapy_fn(fn, final_results, tx_context=None):
+    if tx_context is None:
+        return fn(final_results)
+    try:
+        n_params = len(inspect.signature(fn).parameters)
+    except (TypeError, ValueError):
+        n_params = 1
+    if n_params >= 2:
+        return fn(final_results, tx_context)
+    return fn(final_results)
+
+def run_mechanisms_and_therapy_for(org, final_results, tx_context=None):
     """
     Returns:
       mechs, banners, greens, therapy_notes
@@ -3349,7 +3610,7 @@ def run_mechanisms_and_therapy_for(org, final_results):
     if not entry:
         return [], [], [], []
     mechs, banners, greens = entry["mechanisms"](final_results)
-    therapy = entry["therapy"](final_results)
+    therapy = _call_therapy_fn(entry["therapy"], final_results, tx_context)
     return _dedup_list(mechs), _dedup_list(banners), _dedup_list(greens), _dedup_list(therapy)
 
 # ======================
@@ -3420,10 +3681,34 @@ if group == "Gram-negatives":
     else:
         st.write("No results yet. Enter at least one result above.")
 
+    section_header("Clinical Context")
+    st.caption("Therapy notes below are adjusted by syndrome/severity context.")
+    gnr_syndrome = st.selectbox(
+        "Syndrome",
+        [
+            "Not specified",
+            "Uncomplicated cystitis",
+            "Complicated UTI / pyelonephritis",
+            "Bloodstream infection",
+            "Pneumonia (HAP/VAP or severe CAP)",
+            "Intra-abdominal infection",
+            "CNS infection",
+            "Bone/joint infection",
+            "Other deep-seated / high-inoculum focus",
+        ],
+        key="gnr_tx_syndrome",
+    )
+    gnr_severity = st.selectbox(
+        "Severity",
+        ["Not specified", "Non-severe", "Severe / septic shock"],
+        key="gnr_tx_severity",
+    )
+    gnr_tx_context = {"syndrome": gnr_syndrome, "severity": gnr_severity}
+
     # ===== Mechanisms + Therapy via registry =====
     fancy_divider()
     section_header("Mechanism of Resistance")
-    mechs, banners, greens, gnotes = run_mechanisms_and_therapy_for(organism, final)
+    mechs, banners, greens, gnotes = run_mechanisms_and_therapy_for(organism, final, tx_context=gnr_tx_context)
 
     if mechs:
         for m in mechs:
