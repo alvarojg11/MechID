@@ -769,6 +769,20 @@ def _append_oral_stepdown_notes(out, R, flags):
                 f"**{fq_agent} susceptible** → reasonable oral step-down option in selected patients once clinically improved and source controlled."
             )
 
+def _append_ast_consistency_cautions(out, R):
+    carb_names = ["Ertapenem", "Imipenem", "Meropenem", "Doripenem"]
+    ceph_names = ["Ceftriaxone", "Cefotaxime", "Ceftazidime", "Cefepime"]
+
+    tested_carbs = [_get(R, ab) for ab in carb_names if _get(R, ab) in {"Susceptible", "Intermediate", "Resistant"}]
+    all_tested_carbs_r = len(tested_carbs) >= 2 and all(x == "Resistant" for x in tested_carbs)
+    any_3rd4th_ceph_s = any(_get(R, ab) == "Susceptible" for ab in ceph_names)
+
+    if all_tested_carbs_r and any_3rd4th_ceph_s:
+        out.append(
+            "**Paradoxical β-lactam profile**: third-/fourth-generation cephalosporins are susceptible while all tested carbapenems are resistant. "
+            "Consider susceptibility-testing error, mixed population, or unusual resistance mechanisms; confirm results with repeat AST and targeted carbapenemase workup before definitive de-escalation."
+        )
+
 # ----------------------
 # Reusable organism subsets
 # ----------------------
@@ -1028,6 +1042,8 @@ def tx_ecoli(R, tx_ctx=None):
     if _get(R, "Meropenem") == "Resistant" and _get(R, "Ertapenem") == "Resistant":
         out.append("**CRE phenotype** → isolate should be tested for **carbapenemase**.\n")
 
+    _append_ast_consistency_cautions(out, R)
+
     # TEM/SHV broad beta-lactam pattern
     if (_get(R, "Cefazolin") == "Resistant") and (_get(R, "Ceftriaxone") == "Susceptible") and \
        (_get(R, "Ampicillin") in {"Resistant", "Intermediate"}) and (_get(R, "Ceftazidime") not in {"Resistant", "Intermediate"}):
@@ -1258,6 +1274,8 @@ def tx_serratia(R, tx_ctx=None):
     if ept == "Resistant" and (imi == "Susceptible" or mero == "Susceptible"):
         out.append("**Ertapenem Resistant / Imipenem or Meropenem Susceptible** → select based on **tested MICs**; consider **optimized meropenem dosing** when appropriate.")
 
+    _append_ast_consistency_cautions(out, R)
+
     _append_oral_stepdown_notes(out, R, flags)
 
     return _dedup_list(out)
@@ -1406,6 +1424,8 @@ def tx_k_aerogenes(R, tx_ctx=None):
     # ---- CRE signal ----
     if _get(R,"Meropenem") == "Resistant" and _get(R,"Ertapenem") == "Resistant":
         out.append("**CRE phenotype** → request **carbapenemase workup**; involve **ID**.")
+
+    _append_ast_consistency_cautions(out, R)
 
     # ---- Baseline AmpC guidance (always present) ----
     if fep == "Susceptible":
