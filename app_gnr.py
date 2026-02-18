@@ -131,7 +131,14 @@ REF_CITATIONS = {
     "clsi_m11_2018": "Clinical and Laboratory Standards Institute. Methods for Antimicrobial Susceptibility Testing of Anaerobic Bacteria. 9th ed. CLSI standard M11. Wayne (PA): CLSI; 2018 (reaffirmed 2025).",
     "idsa_amr_2024": "Tamma PD, Heil EL, Justo JA, Mathers AJ, Satlin MJ, Bonomo RA. Infectious Diseases Society of America 2024 Guidance on the Treatment of Antimicrobial-Resistant Gram-Negative Infections. Clin Infect Dis. 2024;ciae403. doi:10.1093/cid/ciae403.",
     "paterson_esbl_2005": "Paterson DL, Bonomo RA. Extended-spectrum beta-lactamases: a clinical update. Clin Microbiol Rev. 2005;18(4):657-686. doi:10.1128/CMR.18.4.657-686.2005.",
+    "castanheira_us_esbl_2023": "Castanheira M, Kimbrough JH, DeVries S, Mendes RE, Sader HS. Trends of beta-Lactamase Occurrence Among Escherichia coli and Klebsiella pneumoniae in United States Hospitals During a 5-Year Period and Activity of Antimicrobial Agents Against Isolates Stratified by beta-Lactamase Type. Open Forum Infect Dis. 2023;10(2):ofad038. doi:10.1093/ofid/ofad038.",
     "jacoby_ampc_2009": "Jacoby GA. AmpC beta-lactamases. Clin Microbiol Rev. 2009;22(1):161-182. doi:10.1128/CMR.00036-08.",
+    "abdelraouf_tzp_ceph_2020": "Abdelraouf K, Chavda KD, Satlin MJ, Jenkins SG, Kreiswirth BN, Nicolau DP. Piperacillin-Tazobactam-Resistant/Third-Generation Cephalosporin-Susceptible Escherichia coli and Klebsiella pneumoniae Isolates: Resistance Mechanisms and In vitro-In vivo Discordance. Int J Antimicrob Agents. 2020;55(3):105885. doi:10.1016/j.ijantimicag.2020.105885.",
+    "han_shv_tzp_2020": "Han MS, Park KS, Jeon JH, et al. SHV Hyperproduction as a Mechanism for Piperacillin-Tazobactam Resistance in Extended-Spectrum Cephalosporin-Susceptible Klebsiella pneumoniae. Microb Drug Resist. 2020;26(4):334-340. doi:10.1089/mdr.2019.0079.",
+    "livermore_atmavi_2023": "Livermore DM, Mushtaq S, Vickers A, Woodford N. Activity of aztreonam/avibactam against metallo-beta-lactamase-producing Enterobacterales from the UK: Impact of penicillin-binding protein-3 inserts and CMY-42 beta-lactamase in Escherichia coli. Int J Antimicrob Agents. 2023;61(5):106776. doi:10.1016/j.ijantimicag.2023.106776.",
+    "tellapragada_atmavi_2024": "Tellapragada C, Razavi M, Saludes Peris P, Jonsson P, Vondracek M, Giske CG. Resistance to aztreonam-avibactam among clinical isolates of Escherichia coli is primarily mediated by altered penicillin-binding protein 3 and impermeability. Int J Antimicrob Agents. 2024;64(3):107256. doi:10.1016/j.ijantimicag.2024.107256.",
+    "helsens_atmavi_2024": "Helsens N, Sadek M, Le Terrier C, Poirel L, Nordmann P. Reduced susceptibility to aztreonam-avibactam conferred by acquired AmpC-type beta-lactamases in PBP3-modified Escherichia coli. Eur J Clin Microbiol Infect Dis. 2024. doi:10.1007/s10096-024-04769-z.",
+    "haidar_ndm_atmavi_2024": "Haidar G, Kline EG, Kitsios GD, et al. Emergence of high-level aztreonam-avibactam and cefiderocol resistance following treatment of an NDM-producing Escherichia coli bloodstream isolate exhibiting reduced susceptibility to both agents at baseline. JAC Antimicrob Resist. 2024;6(5):dlae141. doi:10.1093/jacamr/dlae141.",
     "logan_cre_2017": "Logan LK, Weinstein RA. The epidemiology of carbapenem-resistant Enterobacteriaceae: the impact and evolution of a global menace. J Infect Dis. 2017;215(suppl_1):S28-S36. doi:10.1093/infdis/jiw282.",
     "queenan_sme_2000": "Queenan AM, Torres-Viera C, Gold HS, et al. SME-type carbapenem-hydrolyzing class A beta-lactamases from geographically diverse Serratia marcescens strains. Antimicrob Agents Chemother. 2000;44(11):3035-3039. doi:10.1128/AAC.44.11.3035-3039.2000.",
     "poole_pa_2011": "Poole K. Pseudomonas aeruginosa: resistance to the max. Front Microbiol. 2011;2:65. doi:10.3389/fmicb.2011.00065.",
@@ -155,6 +162,8 @@ REF_CITATIONS = {
     "wang_optra_2015": "Wang Y, Lv Y, Cai J, et al. A novel gene, optrA, that confers transferable resistance to oxazolidinones and phenicols and its presence in Enterococcus faecalis and Enterococcus faecium of human and animal origin. J Antimicrob Chemother. 2015;70(8):2182-2190. doi:10.1093/jac/dkv116.",
     "antonelli_poxta_2018": "Antonelli A, D'Andrea MM, Brenciani A, et al. Characterization of poxtA, a novel phenicol-oxazolidinone-tetracycline resistance gene from an MRSA of clinical origin. J Antimicrob Chemother. 2018;73(7):1763-1769. doi:10.1093/jac/dky088.",
     "peleg_acinetobacter_2008": "Peleg AY, Seifert H, Paterson DL. Acinetobacter baumannii: emergence of a successful pathogen. Clin Microbiol Rev. 2008;21(3):538-582. doi:10.1128/CMR.00058-07.",
+    "kaye_suldur_attack_2023": "Kaye KS, Bassetti M, Shorr AF, et al. Efficacy and safety of sulbactam-durlobactam versus colistin for the treatment of patients with serious infections caused by Acinetobacter baumannii-calcoaceticus complex: a multicentre, randomised, active-controlled, phase 3, non-inferiority clinical trial (ATTACK). Lancet Infect Dis. 2023;23(9):1072-1084. doi:10.1016/S1473-3099(23)00184-6.",
+    "ajhp_crab_cefiderocol_2025": "Evaluating cefiderocol in carbapenem-resistant Acinetobacter baumannii with and without combination therapy: conflicting real-world outcome signals. Am J Health Syst Pharm. 2025;82(Suppl 6):S2995. Available from: https://academic.oup.com/ajhp/article-abstract/82/Supplement_6/S2995/8209506.",
     "brooke_steno_2012": "Brooke JS. Stenotrophomonas maltophilia: an emerging global opportunistic pathogen. Clin Microbiol Rev. 2012;25(1):2-41. doi:10.1128/CMR.00019-11.",
     "isler_achromobacter_2020": "Isler B, Kidd TJ, Stewart aminoglycoside, Harris P, Paterson DL. Achromobacter infections and treatment options. Antimicrob Agents Chemother. 2020;64(11):e01025-20. doi:10.1128/AAC.01025-20.",
     "hakenbeck_spn_2012": "Hakenbeck R, Bruckner R, Denapaite D, Maurer P. Molecular mechanisms of beta-lactam resistance in Streptococcus pneumoniae. Future Microbiol. 2012;7(3):395-410. doi:10.2217/fmb.12.2.",
@@ -183,8 +192,10 @@ REF_CITATIONS = {
 MECH_REF_MAP = {
     "core_ast": ["clsi_m100_2026"],
     "gram_negative_guidance": ["idsa_amr_2024"],
-    "esbl": ["paterson_esbl_2005"],
+    "esbl": ["paterson_esbl_2005", "castanheira_us_esbl_2023"],
     "ampc": ["jacoby_ampc_2009"],
+    "tzp_ceph_discordance": ["abdelraouf_tzp_ceph_2020", "han_shv_tzp_2020"],
+    "aztreonam_resistance": ["livermore_atmavi_2023", "tellapragada_atmavi_2024", "helsens_atmavi_2024", "haidar_ndm_atmavi_2024"],
     "cre": ["logan_cre_2017"],
     "serr_sme": ["queenan_sme_2000"],
     "pseudomonas_resistance": ["poole_pa_2011", "lister_pa_2009"],
@@ -197,6 +208,8 @@ MECH_REF_MAP = {
     "enterococcus_vre": ["arias_enterococcus_2012"],
     "enterococcus_advanced": ["munita_liafsr_2012", "satlin_dap_bp_2020", "nguyen_dap_2024", "hwang_vre_2025", "pincus_dlvre_2022", "sakoulas_ceftaroline_2014", "smith_dap_bl_2015", "chuang_dap_bl_2018", "wang_optra_2015", "antonelli_poxta_2018"],
     "acinetobacter": ["peleg_acinetobacter_2008"],
+    "acinetobacter_suldur": ["kaye_suldur_attack_2023", "idsa_amr_2024"],
+    "acinetobacter_cefiderocol": ["idsa_amr_2024", "ajhp_crab_cefiderocol_2025"],
     "stenotrophomonas": ["brooke_steno_2012"],
     "achromobacter": ["isler_achromobacter_2020"],
     "streptococcus_pbp": ["hakenbeck_spn_2012", "leclercq_mls_2002"],
@@ -237,6 +250,27 @@ def _collect_mech_ref_keys(org: str, mechs: list, banners: list) -> list:
         add_key("esbl")
     if "ampc" in texts or (("cefoxitin" in texts or "cefotetan" in texts) and "mycobacterium" not in org_l):
         add_key("ampc")
+    if (
+        "piperacillin/tazobactam resistant / ceftriaxone susceptible" in texts
+        or "inhibitor-resistant narrow-spectrum" in texts
+        or "oxa-1" in texts
+        or "shv hyperproduction" in texts
+    ):
+        add_key("tzp_ceph_discordance")
+    if (
+        "aztreonam" in texts
+        or "atm-avi" in texts
+        or "pbp3" in texts
+        or "yrin" in texts
+        or "yrik" in texts
+        or "cmy-42" in texts
+        or "cmy-type" in texts
+    ) and org in {
+        "Escherichia coli", "Klebsiella pneumoniae", "Klebsiella oxytoca", "Klebsiella aerogenes",
+        "Enterobacter cloacae complex", "Citrobacter freundii complex", "Citrobacter koseri",
+        "Serratia marcescens", "Proteus mirabilis", "Proteus vulgaris group", "Morganella morganii", "Salmonella enterica"
+    }:
+        add_key("aztreonam_resistance")
     if "carbapenemase" in texts or "carbapenem-resistant" in texts or "carbapenem resistance" in texts or "cre" in texts:
         add_key("cre")
     if org == "Serratia marcescens" and ("sme" in texts or "carbapenem" in texts):
@@ -263,6 +297,10 @@ def _collect_mech_ref_keys(org: str, mechs: list, banners: list) -> list:
         add_key("enterococcus_advanced")
     if org == "Acinetobacter baumannii complex" or "acinetobacter" in texts or "adeabc" in texts or "oxa-type" in texts:
         add_key("acinetobacter")
+    if "sulbactam/durlobactam" in texts or "durlobactam" in texts:
+        add_key("acinetobacter_suldur")
+    if "cefiderocol" in texts and ("acinetobacter" in org_l or "crab" in texts):
+        add_key("acinetobacter_cefiderocol")
     if org == "Stenotrophomonas maltophilia" or "s. maltophilia" in texts or "smedef" in texts:
         add_key("stenotrophomonas")
     if org == "Achromobacter xylosoxidans" or "achromobacter" in texts:
@@ -493,7 +531,7 @@ PANEL = {
         "Trimethoprim/Sulfamethoxazole",
     ],
     "Acinetobacter baumannii complex": [
-        "Ampicillin/Sulbactam","Piperacillin/Tazobactam",
+        "Ampicillin/Sulbactam","Sulbactam/Durlobactam","Piperacillin/Tazobactam",
         "Ceftriaxone","Cefepime","Aztreonam",
         "Imipenem","Meropenem",
         "Gentamicin","Tobramycin","Amikacin",
@@ -582,15 +620,8 @@ RULES = {
         "cascade": [],
     },
     "Acinetobacter baumannii complex": {
-        "intrinsic_resistance": ["Aztreonam","Cefazolin","Minocycline","Tetracycline"],
-        "cascade": [
-            {"target":"Doripenem","rule":"same_as","ref":"Meropenem"},
-            {"target":"Ceftriaxone","rule":"same_as","ref":"Cefotaxime"},
-            {"target":"Cefotaxime","rule":"same_as","ref":"Ceftriaxone"},
-            {"target":"Ertapenem","rule":"sus_if_any_sus","refs":["Ceftriaxone","Cefotaxime"]},
-            {"target":"Imipenem","rule":"sus_if_any_sus","refs":["Ceftriaxone","Cefotaxime"]},
-            {"target":"Meropenem","rule":"sus_if_any_sus","refs":["Imipenem","Ceftriaxone","Cefotaxime"]},
-        ],
+        "intrinsic_resistance": ["Aztreonam","Cefazolin","Tetracycline"],
+        "cascade": [],
     },
     "Achromobacter xylosoxidans": {
         "intrinsic_resistance": [],
@@ -836,6 +867,8 @@ def render_cre_carbapenemase_module(organism, final_results):
         ["KPC", "OXA-48-like", "NDM", "VIM", "IMP", "Other / Unknown"],
         key=f"cre_cp_class_{org_key}",
     )
+    aztre_status = final_results.get("Aztreonam")
+    cefiderocol_status = final_results.get("Cefiderocol")
 
     if carb_class == "KPC":
         st.markdown(
@@ -858,13 +891,48 @@ def render_cre_carbapenemase_module(organism, final_results):
             "VIM": "VIM",
             "IMP": "IMP",
         }[carb_class]
-        st.markdown(
-            f"- Mechanism: **{mbl_label} is an Ambler class B metallo-beta-lactamase (MBL)**.\n"
-            "- Inhibitor profile: **not inhibited** by **Avibactam**, **Vaborbactam**, or **Relebactam**.\n"
-            "- Preferred option: **Ceftazidime/Avibactam plus Aztreonam**.\n"
-            "- Alternative option: **Cefiderocol** (if susceptible and clinically appropriate).\n"
-            "- Avoid relying on **Ceftazidime/Avibactam alone** for metallo-beta-lactamase producers."
-        )
+        lines = [
+            f"- Mechanism: **{mbl_label} is an Ambler class B metallo-beta-lactamase (MBL)**.",
+            "- Inhibitor profile: **not inhibited** by **Avibactam**, **Vaborbactam**, or **Relebactam**.",
+            "- Preferred option: **Ceftazidime/Avibactam plus Aztreonam**.",
+            "- Alternative option: **Cefiderocol** (if susceptible and clinically appropriate).",
+            "- Avoid relying on **Ceftazidime/Avibactam alone** for metallo-beta-lactamase producers.",
+        ]
+        if aztre_status is None:
+            lines.append(
+                "- **Aztreonam not reported**: request aztreonam susceptibility because it helps identify added resistance mechanisms and refine MBL-directed therapy."
+            )
+        elif aztre_status == "Resistant":
+            lines.append(
+                "- **Aztreonam resistant** despite MBL signal suggests co-produced mechanisms (e.g., ESBL/AmpC, permeability/efflux changes; in *E. coli* consider **PBP3 insertion + CMY-type AmpC**). Confirm with repeat/reference AST."
+            )
+            if carb_class == "NDM":
+                lines.append(
+                    "- For **NDM-producing *E. coli*** with aztreonam resistance, consider reduced activity of aztreonam-based combinations and request expert microbiology/ID review."
+                )
+        elif aztre_status == "Susceptible":
+            lines.append(
+                "- **Aztreonam susceptible** with MBL phenotype can support aztreonam-based strategies (often with an avibactam partner), but confirm full panel/site PK-PD context."
+            )
+        if carb_class == "NDM":
+            lines.append(
+                "- **NDM caution**: cefiderocol non-susceptibility can be frequent in NDM-producing Enterobacterales and may be especially high in some settings/species (including **NDM-5**). Do **not** assume cefiderocol activity without isolate-specific testing."
+            )
+            lines.append(
+                "- Mechanistic note: compared with **VIM/IMP**, NDM enzymes may hydrolyze cefiderocol more efficiently; co-mechanisms (e.g., **PBP3 insertions**, **CMY/AmpC**, permeability defects, or dual carbapenemases) can further reduce activity."
+            )
+            lines.append(
+                "- If cefiderocol is used for NDM producers, monitor closely for **on-therapy resistance emergence** (repeat AST in prolonged courses or clinical non-response)."
+            )
+            if cefiderocol_status is None:
+                lines.append(
+                    "- **Cefiderocol not reported**: request cefiderocol susceptibility before considering it as a treatment option in NDM CRE."
+                )
+            elif cefiderocol_status in {"Intermediate", "Resistant"}:
+                lines.append(
+                    "- **Cefiderocol non-susceptible**: avoid cefiderocol and prioritize other confirmed-active options."
+                )
+        st.markdown("\n".join(lines))
     else:
         st.markdown(
             "- Carbapenemase detected but class uncertain: confirm genotype/class with the lab if possible.\n"
@@ -885,6 +953,9 @@ def mech_ecoli(R):
     carp_R = _any_R(R, CARBAPENEMS)
     third_R = _any_R(R, THIRD_GENS)
     cefepime_R = _get(R, "Cefepime") == "Resistant"
+    aztre = _get(R, "Aztreonam")
+    aztre_R = aztre == "Resistant"
+    aztre_S = aztre == "Susceptible"
     piptazo = _get(R, "Piperacillin/Tazobactam")
     piptazo_R = piptazo == "Resistant"
     piptazo_S = piptazo == "Susceptible"
@@ -931,6 +1002,31 @@ def mech_ecoli(R):
             "(which is usually cefoxitin non-susceptible), though uncommon cefoxitin-susceptible AmpC variants can occur."
         )
 
+    # Aztreonam-focused patterns
+    if aztre_R and not carp_R and third_R:
+        mechs.append(
+            "Aztreonam resistance with third-generation cephalosporin resistance is most consistent with **ESBL-mediated hydrolysis** "
+            "(commonly **CTX-M**, with resistant **TEM/SHV** variants also possible)."
+        )
+    elif aztre_R and not carp_R and not third_R:
+        mechs.append(
+            "Isolated/discordant **aztreonam resistance** without carbapenem resistance can reflect **specific ESBL/AmpC variants**, "
+            "plus permeability/efflux effects; confirm AST if phenotype appears inconsistent."
+        )
+
+    if aztre_R and carp_R:
+        mechs.append(
+            "Combined **carbapenem + aztreonam resistance** suggests layered mechanisms beyond MBL alone "
+            "(e.g., co-produced ESBL/AmpC with permeability/efflux changes). In **E. coli**, consider **PBP3 insertions (YRIN/YRIK) plus CMY-type AmpC**."
+        )
+        banners.append(
+            "If NDM/other MBL is present and aztreonam is resistant, request repeat/reference AST before relying on aztreonam-based combinations."
+        )
+    elif aztre_S and carp_R:
+        banners.append(
+            "Carbapenem resistance with retained aztreonam susceptibility can fit an **MBL-dominant** phenotype; still confirm for co-produced mechanisms before de-escalation."
+        )
+
     # Uncommon: Cefepime Resistant with Ceftriaxone Susceptible
     if not carp_R and cefepime_R and ctx_S:
         mechs.append("Uncommon: **Cefepime Resistant** with **Ceftriaxone Susceptible** — consider ESBL variant/porin–efflux/testing factors.")
@@ -975,6 +1071,8 @@ def mech_ecoli(R):
 
 def tx_ecoli(R, tx_ctx=None):
     out = []
+    aztre = _get(R, "Aztreonam")
+    carb_any_R = _any_R(R, CARBAPENEMS)
     piptazo = _get(R, "Piperacillin/Tazobactam")
     ctx = _get(R, "Ceftriaxone")
     cefox = _get(R, "Cefoxitin")
@@ -990,6 +1088,27 @@ def tx_ecoli(R, tx_ctx=None):
     # ESBL
     if _any_R(R, THIRD_GENS) and not _any_R(R, CARBAPENEMS):
         out.append("**ESBL pattern** → use a **carbapenem** for serious infections.")
+
+    # Aztreonam-focused therapy guidance
+    if aztre == "Resistant" and not carb_any_R:
+        out.append(
+            "**Aztreonam resistant** (without carbapenem resistance) → avoid aztreonam; this often tracks with ESBL/AmpC-related β-lactam resistance."
+        )
+    elif aztre == "Resistant" and carb_any_R:
+        if flags["high_risk"]:
+            out.append(
+                "**Aztreonam resistant + carbapenem resistant** in high-risk syndrome → consider complex multi-mechanism resistance "
+                "(including possible **PBP3 + CMY** in *E. coli*). Confirm with repeat/reference AST and avoid assuming aztreonam-based combinations will be active."
+            )
+        else:
+            out.append(
+                "**Aztreonam resistant + carbapenem resistant** → suggests layered mechanisms; request confirmatory AST/mechanism workup before selecting aztreonam-based therapy."
+            )
+    elif aztre == "Susceptible" and carb_any_R:
+        out.append(
+            "**Carbapenem resistant with aztreonam susceptible** → can support an MBL-oriented treatment strategy in selected cases "
+            "(often with an avibactam partner), guided by full susceptibility and site/severity."
+        )
 
     # Piperacillin/Tazobactam and Ceftriaxone discordance
     if piptazo == "Resistant" and ctx == "Susceptible":
@@ -1072,6 +1191,7 @@ def mech_serratia(R):
 
     # Core drugs
     piptazo = _get(R, "Piperacillin/Tazobactam")
+    aztre = _get(R, "Aztreonam")
     imi  = _get(R, "Imipenem")
     mero = _get(R, "Meropenem")
     ept  = _get(R, "Ertapenem")
@@ -1130,6 +1250,20 @@ def mech_serratia(R):
         mechs.append(
             "**Cefoxitin Susceptible + Ceftriaxone Resistant** in *Serratia* favors an **acquired ESBL overlay** (often **CTX-M-like**) "
             "over isolated AmpC derepression."
+        )
+
+    # Aztreonam-focused patterns
+    if aztre == "Resistant" and not carp_R:
+        mechs.append(
+            "Aztreonam resistance without carbapenem resistance in *Serratia* usually reflects **AmpC/ESBL activity** with possible permeability/efflux contribution."
+        )
+    elif aztre == "Resistant" and carp_R:
+        mechs.append(
+            "Combined aztreonam and carbapenem resistance in *Serratia* suggests **multi-mechanism resistance** (carbapenemase ± AmpC/ESBL plus permeability changes)."
+        )
+    elif aztre == "Susceptible" and carp_R:
+        banners.append(
+            "Carbapenem resistance with aztreonam susceptibility can occur in selected carbapenemase contexts; correlate with carbapenemase class and full AST."
         )
 
     # ---- Carbapenem resistance: include SME/chromosomal possibility + preserved cephalosporins ----
@@ -1201,6 +1335,7 @@ def tx_serratia(R, tx_ctx=None):
 
     # Pull key results
     piptazo = _get(R, "Piperacillin/Tazobactam")
+    aztre = _get(R, "Aztreonam")
     imi  = _get(R, "Imipenem")
     mero = _get(R, "Meropenem")
     ept  = _get(R, "Ertapenem")
@@ -1221,6 +1356,20 @@ def tx_serratia(R, tx_ctx=None):
     # ESBL / third-generation resistance without carbapenem resistance
     if _any_R(R, THIRD_GENS) and not carp_R:
         out.append("third-generation cephalosporin resistance → for serious infections, choose a **reliably active agent** (often **cefepime** if susceptible/MIC appropriate or a **carbapenem** depending on local guidance).")
+
+    # Aztreonam-focused therapy guidance
+    if aztre == "Resistant" and not carp_R:
+        out.append("**Aztreonam resistant** (without carbapenem resistance) → avoid aztreonam; select another confirmed active β-lactam strategy.")
+    elif aztre == "Resistant" and carp_R:
+        out.append(
+            "**Aztreonam resistant + carbapenem resistant** in *Serratia* suggests multi-mechanism resistance; "
+            "confirm AST/mechanism testing before relying on aztreonam-based regimens."
+        )
+    elif aztre == "Susceptible" and carp_R:
+        out.append(
+            "**Carbapenem resistant with aztreonam susceptible** in *Serratia* may occur in selected carbapenemase contexts; "
+            "use only with full susceptibility/mechanism correlation."
+        )
 
     # Piperacillin/Tazobactam and Ceftriaxone discordance
     if piptazo == "Resistant" and ctx == "Susceptible":
@@ -1297,6 +1446,7 @@ def mech_k_aerogenes(R):
     ctx      = _get(R, "Ceftriaxone")
     caz      = _get(R, "Ceftazidime")
     piptazo  = _get(R, "Piperacillin/Tazobactam")
+    aztre    = _get(R, "Aztreonam")
     cefox    = _get(R, "Cefoxitin")
     cefotet  = _get(R, "Cefotetan")
 
@@ -1376,6 +1526,20 @@ def mech_k_aerogenes(R):
             "or mixed mechanisms; cefoxitin susceptibility alone does not exclude clinically relevant AmpC behavior."
         )
 
+    # Aztreonam-focused patterns
+    if aztre == "Resistant" and not carp_R:
+        mechs.append(
+            "Aztreonam resistance in an AmpC organism (without carbapenem resistance) is compatible with **AmpC derepression ± ESBL overlay**, often with permeability/efflux contribution."
+        )
+    elif aztre == "Resistant" and carp_R:
+        mechs.append(
+            "Aztreonam plus carbapenem resistance in an AmpC organism suggests **layered resistance mechanisms** (carbapenemase or porin-pathway changes plus serine β-lactamase pressure)."
+        )
+    elif aztre == "Susceptible" and carp_R:
+        banners.append(
+            "Carbapenem resistance with aztreonam susceptibility may indicate a specific carbapenemase/mechanism profile; confirm with targeted testing before narrowing therapy."
+        )
+
     # Helpful “cefepime status” interpretation
     if fep == "Susceptible":
         greens.append("Cefepime susceptible — often remains active despite AmpC; still consider site/severity and MIC if available.")
@@ -1417,6 +1581,7 @@ def tx_k_aerogenes(R, tx_ctx=None):
     out = []
     fep    = _get(R,"Cefepime")
     piptazo = _get(R,"Piperacillin/Tazobactam")
+    aztre   = _get(R,"Aztreonam")
     ctx    = _get(R,"Ceftriaxone")
     cefox  = _get(R,"Cefoxitin")
     flags = _gnr_tx_flags(tx_ctx)
@@ -1426,6 +1591,23 @@ def tx_k_aerogenes(R, tx_ctx=None):
         out.append("**CRE phenotype** → request **carbapenemase workup**; involve **ID**.")
 
     _append_ast_consistency_cautions(out, R)
+
+    # ---- Aztreonam patterns ----
+    if aztre == "Resistant" and not _any_R(R, CARBAPENEMS):
+        out.append(
+            "**Aztreonam resistant** in an AmpC organism (without carbapenem resistance) → often reflects AmpC/ESBL/permeability interplay; "
+            "avoid aztreonam and use a more reliable active β-lactam."
+        )
+    elif aztre == "Resistant" and _any_R(R, CARBAPENEMS):
+        out.append(
+            "**Aztreonam resistant + carbapenem resistant** in an AmpC organism suggests layered resistance mechanisms; "
+            "confirm phenotype/genotype before aztreonam-based treatment decisions."
+        )
+    elif aztre == "Susceptible" and _any_R(R, CARBAPENEMS):
+        out.append(
+            "**Carbapenem resistant with aztreonam susceptible** can indicate specific carbapenemase/mechanism profiles; "
+            "verify with carbapenemase testing and full panel interpretation."
+        )
 
     # ---- Baseline AmpC guidance (always present) ----
     if fep == "Susceptible":
@@ -1721,6 +1903,7 @@ def mech_acinetobacter(R):
     imi  = _get(R, "Imipenem")
     mero = _get(R, "Meropenem")
     sulb = _get(R, "Ampicillin/Sulbactam")
+    suldur = _get(R, "Sulbactam/Durlobactam")
     pipt = _get(R, "Piperacillin/Tazobactam")
     fep  = _get(R, "Cefepime")
     ctx  = _get(R, "Ceftriaxone")
@@ -1740,11 +1923,6 @@ def mech_acinetobacter(R):
     bl_any_R = _any_R(R, ["Ampicillin/Sulbactam","Piperacillin/Tazobactam","Cefepime","Ceftriaxone","Ceftazidime"])
     bl_any_S = _any_S(R, ["Ampicillin/Sulbactam","Piperacillin/Tazobactam","Cefepime","Ceftriaxone","Ceftazidime"])
 
-    # Clinical context reminder (from your excerpt)
-    banners.append(
-        "Acinetobacter frequently **colonizes** and forms **biofilm** on mucosa and devices; interpret cultures in clinical context (infection vs colonization)."
-    )
-
     # ---- Carbapenems / carbapenemases
     if carb_R:
         mechs.append(
@@ -1759,6 +1937,20 @@ def mech_acinetobacter(R):
         mechs.append(
             "β-lactam resistance is often driven by **β-lactamases** (including **AmpC** and sometimes **ESBLs**) "
             "plus **efflux** and **outer-membrane/porin (OMP) permeability** changes."
+        )
+
+    # Cefepime interpretation in the context of intrinsic ADC AmpC background
+    if fep == "Susceptible":
+        greens.append(
+            "**Cefepime susceptible** — despite baseline Acinetobacter AmpC background, cefepime can retain activity in selected isolates."
+        )
+        if carb_R:
+            banners.append(
+                "Cefepime susceptibility in **CRAB** should be interpreted cautiously; confirm MIC/method and prioritize more reliable CRAB-directed options for severe disease."
+            )
+    elif fep in {"Intermediate", "Resistant"}:
+        mechs.append(
+            "Cefepime non-susceptibility is compatible with **AmpC overexpression** plus permeability/efflux contributions."
         )
 
     # Efflux emphasis if multi-class phenotype (beta-lactam + fluoroquinolone and/or aminoglycoside resistance)
@@ -1784,6 +1976,21 @@ def mech_acinetobacter(R):
         )
     elif sulb == "Susceptible":
         greens.append("Sulbactam-containing therapy tests **susceptible** — may be a key option (site/severity dependent).")
+
+    # ---- Sulbactam/Durlobactam (CRAB-focused)
+    if suldur == "Susceptible":
+        greens.append(
+            "**Sulbactam/Durlobactam susceptible** — supports activity against CRAB with a sulbactam-based strategy."
+        )
+    elif suldur in {"Intermediate", "Resistant"}:
+        mechs.append(
+            "Sulbactam/Durlobactam non-susceptibility suggests advanced CRAB resistance architecture "
+            "(e.g., non-inhibited β-lactamases such as MBLs and/or target/permeability changes)."
+        )
+        if carb_R:
+            banners.append(
+                "CRAB with Sulbactam/Durlobactam non-susceptibility is a limited-options phenotype; confirm AST and involve ID/microbiology early."
+            )
 
     # ---- Aminoglycosides
     if ag_R:
@@ -1817,6 +2024,9 @@ def tx_acinetobacter(R):
     imi  = _get(R, "Imipenem")
     mero = _get(R, "Meropenem")
     sulb = _get(R, "Ampicillin/Sulbactam")
+    suldur = _get(R, "Sulbactam/Durlobactam")
+    cfd = _get(R, "Cefiderocol")
+    fep  = _get(R, "Cefepime")
 
     cip  = _get(R, "Ciprofloxacin")
     lev  = _get(R, "Levofloxacin")
@@ -1841,10 +2051,47 @@ def tx_acinetobacter(R):
             "**Carbapenem-resistant *A. baumannii*** → choose therapy based on **confirmed susceptibilities** and local guidance; "
             "consider consultation with **ID** and use institutionally available active agents/combination strategies when needed."
         )
+        if fep == "Susceptible":
+            out.append(
+                "**Cefepime susceptible despite CRAB** → possible but less reliable phenotype; avoid cefepime monotherapy for severe/high-inoculum infection unless no better confirmed options."
+            )
+        if suldur == "Susceptible":
+            out.append(
+                "**CRAB with Sulbactam/Durlobactam susceptible** → preferred option is a **sulbactam/durlobactam-based regimen** "
+                "(commonly paired with **imipenem/cilastatin** per current labeling/guidance)."
+            )
+        elif suldur in {"Intermediate", "Resistant"}:
+            out.append(
+                "**CRAB with Sulbactam/Durlobactam non-susceptible** → avoid relying on sulbactam/durlobactam; "
+                "consider other confirmed active options (often combination-based) with urgent ID support."
+            )
+        else:
+            out.append(
+                "For CRAB, if available, request/report **Sulbactam/Durlobactam** susceptibility because it can substantially change preferred therapy."
+            )
+
+        if cfd == "Susceptible":
+            out.append(
+                "**CRAB with Cefiderocol susceptible** → may be considered, but use cautiously because outcome data in CRAB are conflicting "
+                "(both monotherapy and combination strategies have mixed signals). If used, individualize regimen and monitor closely for failure/emergent resistance."
+            )
+        elif cfd in {"Intermediate", "Resistant"}:
+            out.append(
+                "**CRAB with Cefiderocol non-susceptible** → avoid cefiderocol and prioritize other confirmed-active options."
+            )
+        else:
+            out.append(
+                "If **cefiderocol** is being considered for CRAB, interpret carefully due to conflicting outcome data with and without combination therapy; "
+                "base use on isolate susceptibility, site/severity, and expert ID input."
+            )
     else:
         out.append(
             "**Carbapenem susceptible** → select among susceptible β-lactams per site/severity; avoid unnecessary broadening."
         )
+        if fep == "Susceptible":
+            out.append(
+                "**Carbapenem-susceptible + Cefepime susceptible** → cefepime is a reasonable targeted option (prefer optimized dosing/infusion for severe infections)."
+            )
 
     # Sulbactam note (intrinsic activity)
     if sulb == "Susceptible":
@@ -3788,7 +4035,7 @@ if group == "Gram-negatives":
     render_cre_carbapenemase_module(organism, final)
 
     # --- References (bottom of organism output) ---
-    refs = _collect_mech_ref_keys(organism, mechs, banners)
+    refs = _collect_mech_ref_keys(organism, (mechs or []) + (gnotes or []), banners)
     render_references(refs)
 
 # ======================
