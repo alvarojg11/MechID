@@ -709,6 +709,66 @@ def _gnr_tx_flags(tx_ctx):
         "lower_risk_urinary": lower_risk_urinary,
     }
 
+def _append_oral_stepdown_notes(out, R, flags):
+    cip = _get(R, "Ciprofloxacin")
+    lev = _get(R, "Levofloxacin")
+    tmpsmx = _get(R, "Trimethoprim/Sulfamethoxazole")
+
+    fq_any_s = any(x == "Susceptible" for x in [cip, lev] if x is not None)
+    fq_any_r = any(x == "Resistant" for x in [cip, lev] if x is not None)
+    fq_all_r = fq_any_r and not fq_any_s
+    fq_discordant = (cip == "Resistant" and lev == "Susceptible")
+
+    if tmpsmx == "Susceptible":
+        if flags["high_risk"]:
+            out.append(
+                "**Trimethoprim/Sulfamethoxazole susceptible** → oral step-down can be considered only after clear clinical response, source control, "
+                "and reliable GI absorption; avoid as initial definitive therapy for severe sepsis/shock or uncontrolled deep focus."
+            )
+        elif flags["lower_risk_urinary"]:
+            out.append(
+                "**Trimethoprim/Sulfamethoxazole susceptible** → good oral option for lower-risk urinary syndromes "
+                "(cystitis/pyelonephritis) when tolerated and clinically appropriate."
+            )
+        else:
+            out.append(
+                "**Trimethoprim/Sulfamethoxazole susceptible** → reasonable oral step-down option once improving, source controlled, and absorption is reliable."
+            )
+
+    if fq_all_r:
+        out.append("**All tested fluoroquinolones are resistant** → avoid fluoroquinolones; use another susceptible class.")
+    elif fq_discordant:
+        if flags["high_risk"]:
+            out.append(
+                "**Ciprofloxacin Resistant / Levofloxacin Susceptible** → avoid fluoroquinolone oral step-down for high-risk invasive syndromes "
+                "because resistance emergence/failure risk is higher; prefer a reliably active non-fluoroquinolone strategy."
+            )
+        elif flags["lower_risk_urinary"]:
+            out.append(
+                "**Ciprofloxacin Resistant / Levofloxacin Susceptible** → levofloxacin may be considered for selected lower-risk urinary scenarios, "
+                "but use cautiously with close follow-up due to higher failure/resistance-emergence risk."
+            )
+        else:
+            out.append(
+                "**Ciprofloxacin Resistant / Levofloxacin Susceptible** → levofloxacin may be considered only for selected low-risk oral step-down situations "
+                "with close follow-up; prefer non-fluoroquinolone options for invasive disease."
+            )
+    elif fq_any_s:
+        fq_agent = "Levofloxacin" if lev == "Susceptible" else "Ciprofloxacin"
+        if flags["high_risk"]:
+            out.append(
+                f"**{fq_agent} susceptible** → oral fluoroquinolone step-down may be considered only in carefully selected patients after stabilization/source control; "
+                "avoid if severe sepsis/shock persists or source control is inadequate."
+            )
+        elif flags["lower_risk_urinary"]:
+            out.append(
+                f"**{fq_agent} susceptible** → can be used as an oral option for lower-risk urinary syndromes when clinically appropriate."
+            )
+        else:
+            out.append(
+                f"**{fq_agent} susceptible** → reasonable oral step-down option in selected patients once clinically improved and source controlled."
+            )
+
 # ----------------------
 # Reusable organism subsets
 # ----------------------
@@ -906,10 +966,11 @@ def tx_ecoli(R, tx_ctx=None):
     cefox = _get(R, "Cefoxitin")
     flags = _gnr_tx_flags(tx_ctx)
 
-    # Fluoroquinolone Resistant but beta-lactam Susceptible → use beta-lactam
+    # Fluoroquinolone Resistant (all tested) but beta-lactam Susceptible → use beta-lactam
     if _any_S(R, ["Piperacillin/Tazobactam", "Ceftriaxone", "Cefepime", "Aztreonam",
                   "Imipenem", "Meropenem", "Ertapenem"]) and \
-       _any_R(R, ["Ciprofloxacin", "Levofloxacin", "Moxifloxacin"]):
+       _any_R(R, ["Ciprofloxacin", "Levofloxacin", "Moxifloxacin"]) and \
+       not _any_S(R, ["Ciprofloxacin", "Levofloxacin", "Moxifloxacin"]):
         out.append("**Fluoroquinolone Resistant but beta-lactam Susceptible** → prefer a **β-lactam** that is susceptible.")
 
     # ESBL
@@ -970,33 +1031,23 @@ def tx_ecoli(R, tx_ctx=None):
     # TEM/SHV broad beta-lactam pattern
     if (_get(R, "Cefazolin") == "Resistant") and (_get(R, "Ceftriaxone") == "Susceptible") and \
        (_get(R, "Ampicillin") in {"Resistant", "Intermediate"}) and (_get(R, "Ceftazidime") not in {"Resistant", "Intermediate"}):
-        out.append("**TEM-1/SHV pattern** → **Ceftriaxone is preferred** when susceptible; Piperacillin/Tazobactam often active; amoxicillin clavulanate may also be considered for non-severe *E. coli*.")
+        if piptazo == "Resistant":
+            out.append(
+                "**TEM-1/SHV pattern with Piperacillin/Tazobactam Resistant** → **Ceftriaxone is preferred** when susceptible; "
+                "avoid Piperacillin/Tazobactam. Amoxicillin/clavulanate may be considered only for selected non-severe *E. coli* infections if confirmed susceptible."
+            )
+        elif piptazo == "Susceptible":
+            out.append(
+                "**TEM-1/SHV pattern** → **Ceftriaxone is preferred** when susceptible; Piperacillin/Tazobactam can be used if susceptible. "
+                "Amoxicillin/clavulanate may also be considered for selected non-severe *E. coli* infections if confirmed susceptible."
+            )
+        else:
+            out.append(
+                "**TEM-1/SHV pattern** → **Ceftriaxone is preferred** when susceptible. Use Piperacillin/Tazobactam only if it is reported susceptible; "
+                "amoxicillin/clavulanate may be considered for selected non-severe *E. coli* infections if confirmed susceptible."
+            )
 
-    # Special fluoroquinolone discordance message (Ciprofloxacin Resistant / Levofloxacin Susceptible)
-    cip = _get(R, "Ciprofloxacin")
-    lev = _get(R, "Levofloxacin")
-    if cip == "Resistant" and lev == "Susceptible":
-        out.append(
-            "**Ciprofloxacin Resistant / Levofloxacin Susceptible** → if a fluoroquinolone is considered, **levofloxacin** may be used based on susceptibility, "
-            "but **failure risk is higher** with **PMQR/efflux** phenotypes. Prefer a confirmed-active **β-lactam** (or other class) "
-            "for **severe/invasive** infections; reserve levofloxacin for **low-risk sites** with close follow-up."
-        )
-
-    # Generic: avoid fluoroquinolones when all tested fluoroquinolones are Resistant
-    if _any_R(R, ["Ciprofloxacin", "Levofloxacin", "Moxifloxacin"]) and \
-       not _any_S(R, ["Ciprofloxacin", "Levofloxacin", "Moxifloxacin"]):
-        out.append(
-            "**All tested fluoroquinolones are resistant** → avoid fluoroquinolones; choose a non-fluoroquinolone agent that is susceptible."
-        )
-
-    # Trimethoprim/Sulfamethoxazole susceptible → oral step-down option
-    tmpsmx = _get(R, "Trimethoprim/Sulfamethoxazole")
-    if tmpsmx == "Susceptible":
-        out.append(
-            "**Trimethoprim/Sulfamethoxazole susceptible** → reasonable **oral step-down** option in selected scenarios "
-            "(e.g., **uncomplicated cystitis/pyelonephritis** once clinically improved, source control achieved, and GI absorption assured). "
-            "Avoid as sole therapy in **severe sepsis or uncontrolled bacteremia**."
-        )
+    _append_oral_stepdown_notes(out, R, flags)
 
     return _dedup_list(out)
 
@@ -1142,16 +1193,13 @@ def tx_serratia(R, tx_ctx=None):
     caz  = _get(R, "Ceftazidime")
     cefox = _get(R, "Cefoxitin")
 
-    cip = _get(R, "Ciprofloxacin")
-    lev = _get(R, "Levofloxacin")
-    tmpsmx = _get(R, "Trimethoprim/Sulfamethoxazole")
-
     carp_R  = any(x == "Resistant" for x in [imi, mero, ept] if x is not None)
     any_ceph_S = any(x == "Susceptible" for x in [ctx, fep, caz] if x is not None)
 
-    # Prefer β-lactam when fluoroquinolone resistant and beta-lactam susceptible
+    # Prefer β-lactam when all tested fluoroquinolones are resistant and beta-lactam susceptible
     if _any_S(R, ["Ceftriaxone","Cefepime","Ceftazidime","Piperacillin/Tazobactam","Aztreonam","Imipenem","Meropenem","Ertapenem"]) and \
-       _any_R(R, ["Ciprofloxacin","Levofloxacin","Moxifloxacin"]):
+       _any_R(R, ["Ciprofloxacin","Levofloxacin","Moxifloxacin"]) and \
+       not _any_S(R, ["Ciprofloxacin","Levofloxacin","Moxifloxacin"]):
         out.append("**Fluoroquinolone Resistant but beta-lactam Susceptible** → prefer a **β-lactam** that is susceptible.")
 
     # ESBL / third-generation resistance without carbapenem resistance
@@ -1210,19 +1258,7 @@ def tx_serratia(R, tx_ctx=None):
     if ept == "Resistant" and (imi == "Susceptible" or mero == "Susceptible"):
         out.append("**Ertapenem Resistant / Imipenem or Meropenem Susceptible** → select based on **tested MICs**; consider **optimized meropenem dosing** when appropriate.")
 
-    # fluoroquinolone discordance: Ciprofloxacin Resistant / Levofloxacin Susceptible
-    if cip == "Resistant" and lev == "Susceptible":
-        out.append(
-            "**Ciprofloxacin Resistant / Levofloxacin Susceptible** → levofloxacin *may* be used for selected **low-risk** scenarios if no better oral options, "
-            "but **failure risk is higher** (PMQR/efflux). Prefer a confirmed-active **β-lactam** for **severe/invasive** infections."
-        )
-
-    # Trimethoprim/Sulfamethoxazole oral step-down
-    if tmpsmx == "Susceptible":
-        out.append(
-            "**Trimethoprim/Sulfamethoxazole susceptible** → possible **oral step-down** in selected cases once improving and source controlled "
-            "(site/severity dependent; avoid as sole therapy for uncontrolled bacteremia/severe sepsis)."
-        )
+    _append_oral_stepdown_notes(out, R, flags)
 
     return _dedup_list(out)
 
@@ -1365,9 +1401,6 @@ def tx_k_aerogenes(R, tx_ctx=None):
     piptazo = _get(R,"Piperacillin/Tazobactam")
     ctx    = _get(R,"Ceftriaxone")
     cefox  = _get(R,"Cefoxitin")
-    cip    = _get(R,"Ciprofloxacin")
-    lev    = _get(R,"Levofloxacin")
-    tmpsmx = _get(R,"Trimethoprim/Sulfamethoxazole")
     flags = _gnr_tx_flags(tx_ctx)
 
     # ---- CRE signal ----
@@ -1417,31 +1450,12 @@ def tx_k_aerogenes(R, tx_ctx=None):
 
     # ---- Fluoroquinolones ----
 
-    # If β-lactams are Susceptible but fluoroquinolones are Resistant → don’t chase the fluoroquinolone
+    # If β-lactams are Susceptible but all tested fluoroquinolones are Resistant → don’t chase the fluoroquinolone
     if _any_S(R, ["Cefepime","Piperacillin/Tazobactam","Imipenem","Meropenem"]) and \
-       _any_R(R, ["Ciprofloxacin","Levofloxacin"]):
-        out.append("**Fluoroquinolone Resistant but beta-lactam Susceptible** → prefer a **β-lactam** that is susceptible (avoid fluoroquinolones).")
-
-    # Special discordance: Ciprofloxacin Resistant / Levofloxacin Susceptible
-    if cip == "Resistant" and lev == "Susceptible":
-        out.append(
-            "**Ciprofloxacin Resistant / Levofloxacin Susceptible** → if a fluoroquinolone is considered, **levofloxacin** may be used based on susceptibility, "
-            "but **failure risk is higher** with **PMQR/efflux** phenotypes. Prefer a confirmed-active **β-lactam** "
-            "for **severe/invasive** infections; reserve levofloxacin for **low-risk sites** with close follow-up."
-        )
-
-    # If all tested fluoroquinolones are Resistant → explicitly tell them to avoid fluoroquinolones
-    if _any_R(R, ["Ciprofloxacin","Levofloxacin"]) and \
+       _any_R(R, ["Ciprofloxacin","Levofloxacin"]) and \
        not _any_S(R, ["Ciprofloxacin","Levofloxacin"]):
-        out.append("**All tested fluoroquinolones are resistant** → avoid fluoroquinolones; use a non-fluoroquinolone agent that is susceptible.")
-
-    # ---- Trimethoprim/Sulfamethoxazole: oral step-down ----
-    if tmpsmx == "Susceptible":
-        out.append(
-            "**Trimethoprim/Sulfamethoxazole susceptible** → reasonable **oral step-down** option for selected cases "
-            "(e.g., **uncomplicated UTI** or low-risk bloodstream infections once clinically improved, source controlled, and GI absorption assured). "
-            "Avoid as sole therapy in **severe sepsis or uncontrolled bacteremia**."
-        )
+        out.append("**Fluoroquinolone Resistant but beta-lactam Susceptible** → prefer a **β-lactam** that is susceptible (avoid fluoroquinolones).")
+    _append_oral_stepdown_notes(out, R, flags)
 
     return _dedup_list(out)
 
